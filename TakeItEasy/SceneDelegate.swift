@@ -17,6 +17,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
+        let keepCredentials = UserDefaults.standard.bool(forKey: "keepCredentials")
+        if !keepCredentials {
+            var status: CredentialStatus = AuthManager.deleteCredentials()
+            if (status == .failure) {
+                return
+            }
+            UserDefaults.standard.set(true, forKey: "keepCredentials")
+        }
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let rootVC = storyboard.instantiateViewController(identifier: "InitialScene")
         let rootNC = UINavigationController(rootViewController: rootVC)
