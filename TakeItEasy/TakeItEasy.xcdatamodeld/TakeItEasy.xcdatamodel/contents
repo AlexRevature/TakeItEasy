@@ -1,4 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24C101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="StoredBook" representedClassName="StoredBook" syncable="YES" codeGenerationType="class">
+        <attribute name="author" optional="YES" attributeType="String"/>
+        <attribute name="fileData" optional="YES" attributeType="Binary"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="releaseDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="storedUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredUser" inverseName="bookSet" inverseEntity="StoredUser"/>
+    </entity>
+    <entity name="StoredNote" representedClassName="StoredNote" syncable="YES" codeGenerationType="class">
+        <attribute name="modifiedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <relationship name="storedUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredUser" inverseName="noteSet" inverseEntity="StoredUser"/>
+    </entity>
+    <entity name="StoredOption" representedClassName="StoredOption" syncable="YES" codeGenerationType="class">
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <relationship name="storedQuestion" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredQuestion" inverseName="optionSet" inverseEntity="StoredQuestion"/>
+    </entity>
+    <entity name="StoredQuestion" representedClassName="StoredQuestion" syncable="YES" codeGenerationType="class">
+        <attribute name="orderNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <relationship name="optionSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoredOption" inverseName="storedQuestion" inverseEntity="StoredOption"/>
+        <relationship name="storedQuiz" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredQuiz" inverseName="questionSet" inverseEntity="StoredQuiz"/>
+    </entity>
+    <entity name="StoredQuiz" representedClassName="StoredQuiz" syncable="YES" codeGenerationType="class">
+        <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="maxScore" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="questionSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoredQuestion" inverseName="storedQuiz" inverseEntity="StoredQuestion"/>
+        <relationship name="storedQuiz" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredUser" inverseName="quizSet" inverseEntity="StoredUser"/>
+    </entity>
+    <entity name="StoredUser" representedClassName="StoredUser" syncable="YES" codeGenerationType="class">
+        <attribute name="username" optional="YES" attributeType="String"/>
+        <relationship name="bookSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoredBook" inverseName="storedUser" inverseEntity="StoredBook"/>
+        <relationship name="noteSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoredNote" inverseName="storedUser" inverseEntity="StoredNote"/>
+        <relationship name="quizSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoredQuiz" inverseName="storedQuiz" inverseEntity="StoredQuiz"/>
+    </entity>
 </model>
