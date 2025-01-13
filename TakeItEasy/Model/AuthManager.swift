@@ -1,5 +1,5 @@
 //
-//  CredentialManager.swift
+//  AuthManager.swift
 //  TakeItEasy
 //
 //  Created by Alex Cabrera on 1/10/25.
@@ -8,6 +8,8 @@
 import Foundation
 
 class AuthManager {
+    
+    private init() {}
     
     static func saveCredentials(username: String, password: String) -> CredentialStatus {
         
