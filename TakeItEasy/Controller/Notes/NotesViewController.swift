@@ -7,17 +7,17 @@
 
 import UIKit
 
-class NotesTableViewController: UITableViewController {
+class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     //this implementaion of note data is temporary. It's here so I can do table modifications without DB backend
-    var noteData : [String] = ["Temporary"]
+    var noteData : [String] = ["Temporary", "Temporary 2"]
     
-    @IBOutlet weak var noteTableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        noteTableView.delegate = self
-        noteTableView.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -26,30 +26,47 @@ class NotesTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    // MARK: - Table view data source
-
     ///numberOfSections
-    ///
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     ///numberOfRowsInSection
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return noteData.count
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+    
+    ///cellForRowAt
+    ///Initializes the content of a cell and inserts it into the noteTableView
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NotesTableViewCellController
+        cell.noteTitle?.text = noteData[indexPath.row]
         return cell
     }
-    */
+    
+    ///forRowAt
+    ///Handle deletion
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
+        if editingStyle == .delete {
+            //TODO: HANDLE DELETION ONCE CORE DATA IS SUPPORTED
+        }
+    }
+    
+    ///heightForRowAt
+    ///Sets the height of the table rows
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
 
+    }
+    
+    ///addButtonPressed
+    ///Triggers when the + button in the nav bar is presssed
+    @IBAction func addButtonPressed(_ sender: Any) {
+        //TODO: TRANSITION TO NOTE EDITOR PAGE
+        print("add button pressed")
+        self.performSegue(withIdentifier: "toNoteEditor", sender: self)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
