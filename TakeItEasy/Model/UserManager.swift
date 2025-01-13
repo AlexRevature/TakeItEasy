@@ -38,4 +38,39 @@ class UserManager {
         return nil
     }
     
+    static func getQuizList() -> [StoredQuiz]? {
+        
+        let quizSet = currentUser!.quizSet as! Set<StoredQuiz>
+        return quizSet.sorted(by: {a, b in
+            a.date ?? Date() < b.date ?? Date()
+        })
+    }
+    
+    static func getNoteList() -> [StoredNote]? {
+        
+        let noteSet = currentUser!.noteSet as! Set<StoredNote>
+        return noteSet.sorted(by: {a, b in
+            a.modifiedDate ?? Date() < b.modifiedDate ?? Date()
+        })
+    }
+    
+    static func getBookList() -> [StoredBook]? {
+                
+        let bookSet = currentUser!.bookSet as! Set<StoredBook>
+        return bookSet.sorted(by: {a, b in
+            a.name ?? "" < b.name ?? ""
+        })
+    }
+    
+    static func getQuestionList(storedQuiz: StoredQuiz) -> [StoredQuestion]? {
+        let questionSet = storedQuiz.questionSet as! Set<StoredQuestion>
+        return questionSet.sorted(by: {a, b in
+            a.orderNumber < b.orderNumber
+        })
+    }
+    
+    static func getOptionList(storedQuestion: StoredQuestion) -> [StoredOption]? {
+        return storedQuestion.optionSet?.allObjects as? [StoredOption]
+    }
+    
 }
