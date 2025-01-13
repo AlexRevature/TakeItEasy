@@ -48,7 +48,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     ///Handle deletion
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete {
-            //TODO: HANDLE DELETION ONCE CORE DATA IS SUPPORTED
+            //TODO: HANDLE DELETION ONCE CORE DATA IS SUPPORTED AND AFTER ADDING IS SUPPORTED
         }
     }
     
@@ -59,10 +59,15 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
 
     }
     
+    ///didSelectRowAt
+    ///
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        //TODO: Segue to note editor, but have the selected note's data displayed rather than making a new note
+    }
+    
     ///addButtonPressed
     ///Triggers when the + button in the nav bar is presssed
     @IBAction func addButtonPressed(_ sender: Any) {
-        //TODO: TRANSITION TO NOTE EDITOR PAGE
         print("add button pressed")
         self.performSegue(withIdentifier: "toNoteEditor", sender: self)
     }

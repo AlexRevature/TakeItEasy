@@ -9,21 +9,19 @@ import UIKit
 
 class NoteEditorViewController: UIViewController {
 
+    @IBOutlet weak var noteBodyTextView: UITextView!
+    @IBOutlet weak var noteTitleTextField: UITextField!
+    
+    ///viewDIdLoad
+    ///
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        //TODO: set text field/view to the provided values or values fetched from core data
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    ///saveButtonPressed
+    ///
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        //TODO: Save to core data
     }
-    */
-
 }
