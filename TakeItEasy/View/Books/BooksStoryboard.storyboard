@@ -33,7 +33,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vBW-wv-Jet">
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search Title or Author" translatesAutoresizingMaskIntoConstraints="NO" id="vBW-wv-Jet">
                                 <rect key="frame" x="0.0" y="88" width="393" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -157,6 +157,12 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionGeneral" destination="LCi-rv-Ole" id="bhy-oy-GoV"/>
+                        <outlet property="collectionRecipes" destination="VVi-LL-SQn" id="Hzg-om-GQY"/>
+                        <outlet property="collectionTechnical" destination="ukH-27-Qhh" id="6S1-sH-nVc"/>
+                        <outlet property="searchBarTitleOrAuthor" destination="vBW-wv-Jet" id="CPy-Or-BwA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
