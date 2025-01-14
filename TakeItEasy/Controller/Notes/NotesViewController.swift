@@ -18,6 +18,10 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
         
+        UserManager.currentUser = UserManager.createUser(username: "temp")
+        
+        setViewTheme()
+        
         let coreDataNotes = UserManager.getNoteList()
         if coreDataNotes != nil {
             noteData = UserManager.getNoteList()!
@@ -28,6 +32,12 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    func setViewTheme() {
+        view.backgroundColor = ThemeManager.ligthTheme.backColor
+        UIButton.appearance().tintColor = ThemeManager.ligthTheme.primaryColor
+        UILabel.appearance().textColor = ThemeManager.ligthTheme.normalText
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -56,20 +66,16 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     ///heightForRowAt
-    ///Sets the height of the table rows
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
 
     }
     
     ///didSelectRowAt
-    ///
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         //TODO: Segue to note editor, but have the selected note's data displayed rather than making a new note
     }
     
-    ///addButtonPressed
-    ///Triggers when the + button in the nav bar is presssed
     @IBAction func addButtonPressed(_ sender: Any) {
         print("add button pressed")
         self.performSegue(withIdentifier: "toNoteEditor", sender: self)
