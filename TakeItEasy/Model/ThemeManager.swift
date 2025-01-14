@@ -44,3 +44,9 @@ class ThemeManager {
     }
 
 }
+
+class SectionLabel: UILabel {}
+class TitleLabel: UILabel {}
+class ActionButton: UIButton {}
+class CustomSwitch: UISwitch {}
+class ErrorLabel: UILabel {}
