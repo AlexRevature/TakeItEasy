@@ -54,24 +54,29 @@
                                 <rect key="frame" x="0.0" y="41" width="393" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Notes" id="lWn-RE-1QO">
+                                    <navigationItem title="[username]" id="lWn-RE-1QO">
                                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="add" id="yhd-H0-xJY">
+                                            <color key="tintColor" systemColor="systemPurpleColor"/>
                                             <connections>
                                                 <action selector="addButtonPressed:" destination="Y6W-OH-hqX" id="xLy-ys-QAN"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" id="c2B-cC-kfS">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="71E-VR-Jav">
-                                                <rect key="frame" x="290" y="5" width="87" height="34.333333333333336"/>
+                                                <rect key="frame" x="279.33333333333331" y="3" width="97.666666666666686" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Log Out"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Log Out">
+                                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
+                                                    <color key="baseForegroundColor" systemColor="systemPurpleColor"/>
+                                                </buttonConfiguration>
                                             </button>
+                                            <color key="tintColor" systemColor="systemPurpleColor"/>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RWl-IH-QgW">
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="RWl-IH-QgW">
                                 <rect key="frame" x="0.0" y="85" width="393" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -115,10 +120,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNU-SB-NZo">
-                                <rect key="frame" x="166" y="733" width="61" height="35"/>
+                                <rect key="frame" x="17" y="733" width="360" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Save"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Save">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
+                                    <color key="baseBackgroundColor" systemColor="systemPurpleColor"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="saveButtonPressed:" destination="Ppc-1n-AJl" eventType="touchUpInside" id="YZu-cl-NvC"/>
                                 </connections>
@@ -144,6 +152,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
