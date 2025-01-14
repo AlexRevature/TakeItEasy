@@ -29,7 +29,8 @@ class NoteEditorViewController: UIViewController {
             print("Note name or note text fields are empty")
             return
         } else {
-            NoteManager.shared.createNote(name: newNoteName!, text: newNoteText!, modifiedDate: modifiedDate)
+            let newNote = NoteManager.shared.createNote(name: newNoteName!, text: newNoteText!, modifiedDate: modifiedDate)
+            //TODO: add to current usernote set
         }
     }
 }

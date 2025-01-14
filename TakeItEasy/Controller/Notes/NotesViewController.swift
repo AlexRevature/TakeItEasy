@@ -13,13 +13,15 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
-        //TODO: refresh table whithout needing to refresh the app
+        //TODO: refresh table whithout needing to restart the app
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        //TODO: Get notes from core data
-        /*let CoreDataNotes = NoteManager.shared.getAllNotes()
-        noteData = CoreDataNotes*/
+        
+        let coreDataNotes = UserManager.getNoteList()
+        if coreDataNotes != nil {
+            noteData = UserManager.getNoteList()!
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
