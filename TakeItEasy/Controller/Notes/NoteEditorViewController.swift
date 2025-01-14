@@ -19,9 +19,17 @@ class NoteEditorViewController: UIViewController {
         //TODO: set text field/view to the provided values or values fetched from core data
     }
     
-    ///saveButtonPressed
-    ///
     @IBAction func saveButtonPressed(_ sender: Any) {
-        //TODO: Save to core data
+        //TODO: notifiy user
+        let newNoteName = noteTitleTextField.text
+        let newNoteText = noteBodyTextView.text
+        let modifiedDate = Date()
+        
+        if(newNoteName == nil || newNoteText == nil) {
+            print("Note name or note text fields are empty")
+            return
+        } else {
+            NoteManager.shared.createNote(name: newNoteName!, text: newNoteText!, modifiedDate: modifiedDate)
+        }
     }
 }
