@@ -19,24 +19,28 @@ struct Theme {
 
 class ThemeManager {
     
-    static var isLightEnabled = true
+    static var isLightEnabled = true // 56 61 94
     
-    static let ligthTheme = Theme(
-        primaryColor: UIColor(cgColor: CGColor(red: 92/255, green: 98/255, blue: 173/255, alpha: 1.0)),
-        secondaryColor: UIColor(cgColor: CGColor(red: 116/255, green: 120/255, blue: 185/255, alpha: 1.0)),
+    static let lightTheme = Theme(
+        primaryColor: customColor(r: 92, g: 98, b: 173),
+        secondaryColor: customColor(r: 116, g: 120, b: 185),
         backColor: UIColor.white,
         normalText: UIColor.black,
         alternateText: UIColor.white,
-        boldText: UIColor(cgColor: CGColor(red: 56/255, green: 61/255, blue: 94/255, alpha: 1.0))
+        boldText: customColor(r: 56, g: 61, b: 94)
     )
     
     static let darkTheme = Theme(
-        primaryColor: UIColor(cgColor: CGColor(red: 92/255, green: 98/255, blue: 173/255, alpha: 1.0)),
-        secondaryColor: UIColor(cgColor: CGColor(red: 116/255, green: 120/255, blue: 185/255, alpha: 1.0)),
+        primaryColor: customColor(r: 92, g: 98, b: 173),
+        secondaryColor: customColor(r: 116, g: 120, b: 185),
         backColor: UIColor.white,
         normalText: UIColor.black,
         alternateText: UIColor.white,
-        boldText: UIColor(cgColor: CGColor(red: 56/255, green: 61/255, blue: 94/255, alpha: 1.0))
+        boldText: customColor(r: 56, g: 61, b: 94)
     )
+    
+    static private func customColor(r: Int, g: Int, b: Int) -> UIColor {
+        return UIColor(cgColor: CGColor(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: 1.0))
+    }
 
 }
