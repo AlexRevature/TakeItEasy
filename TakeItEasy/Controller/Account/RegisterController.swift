@@ -10,6 +10,9 @@ import CoreData
 
 class RegisterController: UIViewController {
     
+    @IBOutlet weak var nameEntry: UITextField!
+    @IBOutlet weak var ageEntry: UITextField!
+    @IBOutlet weak var emailEntry: UITextField!
     @IBOutlet weak var usernameEntry: UITextField!
     @IBOutlet weak var passwordEntry: UITextField!
     @IBOutlet weak var pwdCheckEntry: UITextField!
@@ -27,13 +30,57 @@ class RegisterController: UIViewController {
     }
     
     @IBAction func registerAction(_ sender: Any) {
+        
+        guard let name = nameEntry.text else {
+            statusLabel.text = "Missing name"
+            statusLabel.isHidden = false
+            return
+        }
+        if name.count == 0 {
+            statusLabel.text = "Missing name"
+            statusLabel.isHidden = false
+            return
+        }
+        
+        guard let ageText = ageEntry.text else {
+            statusLabel.text = "Missing age"
+            statusLabel.isHidden = false
+            return
+        }
+        if ageText.count == 0 {
+            statusLabel.text = "Missing age"
+            statusLabel.isHidden = false
+            return
+        }
+        guard let age = Int16(ageText) else {
+            statusLabel.text = "Invalid age entry"
+            statusLabel.isHidden = false
+            return
+        }
+        
+        guard let email = emailEntry.text else {
+            statusLabel.text = "Missing email"
+            statusLabel.isHidden = false
+            return
+        }
+        if email.count == 0 {
+            statusLabel.text = "Missing email"
+            statusLabel.isHidden = false
+            return
+        }
+        if !RegisterController.checkEmail(email: email) {
+            statusLabel.text = "Invalid email"
+            statusLabel.isHidden = false
+            return
+        }
+        
         guard let username = usernameEntry.text else {
-            statusLabel.text = "Missing Username"
+            statusLabel.text = "Missing username"
             statusLabel.isHidden = false
             return
         }
         if username.count == 0 {
-            statusLabel.text = "Missing Username"
+            statusLabel.text = "Missing username"
             statusLabel.isHidden = false
             return
         }
@@ -44,18 +91,18 @@ class RegisterController: UIViewController {
         }
         
         guard let password = passwordEntry.text else {
-            statusLabel.text = "Missing Password"
+            statusLabel.text = "Missing password"
             statusLabel.isHidden = false
             return
         }
         if password.count == 0 {
-            statusLabel.text = "Missing Password"
+            statusLabel.text = "Missing password"
             statusLabel.isHidden = false
             return
         }
         
         guard let passwordCheck = pwdCheckEntry.text else {
-            statusLabel.text = "Missing Password Verification"
+            statusLabel.text = "Missing password verification"
             statusLabel.isHidden = false
             return
         }
