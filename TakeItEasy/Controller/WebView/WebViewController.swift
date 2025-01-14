@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WebKit
 
 class WebViewController: UIViewController {
 
@@ -15,7 +16,8 @@ class WebViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    @IBOutlet weak var webViewArea: WKWebView!
+    
     /*
     // MARK: - Navigation
 
