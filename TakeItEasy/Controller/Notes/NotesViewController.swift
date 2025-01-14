@@ -8,16 +8,18 @@
 import UIKit
 
 class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDataSource{
-
-    //this implementaion of note data is temporary. It's here so I can do table modifications without DB backend
-    var noteData : [String] = ["Temporary", "Temporary 2"]
+    var noteData : [StoredNote] = []
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
+        //TODO: refresh table whithout needing to refresh the app
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        //TODO: Get notes from core data
+        /*let CoreDataNotes = NoteManager.shared.getAllNotes()
+        noteData = CoreDataNotes*/
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -26,7 +28,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    ///numberOfSections
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -40,7 +41,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     ///Initializes the content of a cell and inserts it into the noteTableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NotesTableViewCellController
-        cell.noteTitle?.text = noteData[indexPath.row]
+        cell.noteTitle?.text = noteData[indexPath.row].text
         return cell
     }
     
