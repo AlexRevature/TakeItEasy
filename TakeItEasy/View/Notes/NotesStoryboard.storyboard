@@ -45,6 +45,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="noteBody" destination="ck5-Ov-6bZ" id="lI7-rF-GQB"/>
                                             <outlet property="noteTitle" destination="Ytr-PM-tct" id="8BG-qQ-da3"/>
                                         </connections>
                                     </tableViewCell>

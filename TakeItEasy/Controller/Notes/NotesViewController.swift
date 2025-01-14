@@ -38,6 +38,8 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         view.backgroundColor = ThemeManager.lightTheme.backColor
         UIButton.appearance().tintColor = ThemeManager.lightTheme.primaryColor
         UILabel.appearance().textColor = ThemeManager.lightTheme.normalText
+        UIBarButtonItem.appearance().tintColor = ThemeManager.lightTheme.primaryColor
+        tableView.backgroundColor = ThemeManager.lightTheme.backColor
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
