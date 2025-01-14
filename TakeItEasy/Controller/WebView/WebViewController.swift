@@ -8,15 +8,31 @@
 import UIKit
 import WebKit
 
-class WebViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+class WebViewController: UIViewController, WKNavigationDelegate {
+    
+    let urlFirstPage = URL(string: "https://www.google.com")
     
     @IBOutlet weak var webViewArea: WKWebView!
+    
+    // MARK: - UIViewController functionality
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        webViewArea.navigationDelegate = self
+        navigateWebView(url: urlFirstPage)
+        webViewArea.allowsBackForwardNavigationGestures = true
+    }
+    
+    // MARK: - WebView functionality
+    
+    func navigateWebView(url: URL?) {
+        guard let target = url else {
+            print("Invalid URL")
+            return
+        }
+        webViewArea.load(URLRequest(url: target))
+    }
+    
     
     /*
     // MARK: - Navigation
