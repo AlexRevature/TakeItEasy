@@ -18,6 +18,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("web view loaded")
         webViewArea.navigationDelegate = self
         navigateWebView(url: urlFirstPage)
         webViewArea.allowsBackForwardNavigationGestures = true
