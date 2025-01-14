@@ -10,16 +10,20 @@ import UIKit
 class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDataSource{
     var noteData : [StoredNote] = []
     
+    @IBOutlet weak var navBar: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
     
+    let userDefault = UserDefaults.standard
+    
     override func viewDidLoad() {
-        //TODO: refresh table whithout needing to restart the app
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         
+        //Temporary: just need it so thing will compile until the storyboards can connect
         UserManager.currentUser = UserManager.createUser(username: "temp")
         
+        displayCurrentUserName()
         setViewTheme()
         
         let coreDataNotes = UserManager.getNoteList()
@@ -32,6 +36,15 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    ///Displays the current user's username in the nav bar
+    ///This won't work until we can transition between storyboards so that the login page can populkate userDefault
+    func displayCurrentUserName() {
+        //This won't do anything until segue's and such are set up
+        let currentUsername = userDefault.string(forKey: "currentUser")
+        navBar.title = currentUsername
+
     }
     
     func setViewTheme() {
