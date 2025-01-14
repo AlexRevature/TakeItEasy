@@ -45,6 +45,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="noteBody" destination="ck5-Ov-6bZ" id="lI7-rF-GQB"/>
                                             <outlet property="noteTitle" destination="Ytr-PM-tct" id="8BG-qQ-da3"/>
                                         </connections>
                                     </tableViewCell>
@@ -61,18 +62,7 @@
                                                 <action selector="addButtonPressed:" destination="Y6W-OH-hqX" id="xLy-ys-QAN"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" id="c2B-cC-kfS">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="71E-VR-Jav">
-                                                <rect key="frame" x="279.33333333333331" y="3" width="97.666666666666686" height="38"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Log Out">
-                                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
-                                                    <color key="baseForegroundColor" systemColor="systemPurpleColor"/>
-                                                </buttonConfiguration>
-                                            </button>
-                                            <color key="tintColor" systemColor="systemPurpleColor"/>
-                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="wdz-qx-MIE"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
