@@ -12,23 +12,13 @@ class NoteManager {
     
     static var shared = NoteManager()
     
-    func createNote(name: String, text: String, modifiedDate: Date) {
+    func createNote(name: String, text: String, modifiedDate: Date) -> StoredNote{
         let newNote = StoredNote(context: CoreManager.managedContext)
         newNote.text = text
         newNote.name = name
         newNote.modifiedDate = modifiedDate
         
-        do {
-            try CoreManager.managedContext.save()
-            print("Note data saved")
-        } catch let err {
-            print("Error creating note: ", err)
-        }
+        return newNote
        
-    }
-    
-    func findNote(title: String) -> StoredNote? {
-        //TODO: all  of this
-        return nil
     }
 }
