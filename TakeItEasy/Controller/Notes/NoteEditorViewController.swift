@@ -12,15 +12,15 @@ class NoteEditorViewController: UIViewController {
     @IBOutlet weak var noteBodyTextView: UITextView!
     @IBOutlet weak var noteTitleTextField: UITextField!
     
-    ///viewDIdLoad
-    ///
+    var userDefault = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //TODO: set text field/view to the provided values or values fetched from core data
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        //TODO: notifiy user
+        //TODO: notifiy user if a field is empty
         let newNoteName = noteTitleTextField.text
         let newNoteText = noteBodyTextView.text
         let modifiedDate = Date()
@@ -30,7 +30,7 @@ class NoteEditorViewController: UIViewController {
             return
         } else {
             let newNote = NoteManager.shared.createNote(name: newNoteName!, text: newNoteText!, modifiedDate: modifiedDate)
-            //TODO: add to current usernote set
+            NoteManager.shared.addNoteToCurrentUser(noteToAdd: newNote)
         }
     }
 }
