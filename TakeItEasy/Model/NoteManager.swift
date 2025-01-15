@@ -22,10 +22,7 @@ class NoteManager {
     }
     
     func addNoteToCurrentUser(noteToAdd : StoredNote) {
-        var currentNoteSet = UserManager.currentUser?.noteSet as! Set<StoredNote>
-        currentNoteSet.insert(noteToAdd)
-        UserManager.currentUser?.noteSet = currentNoteSet as NSSet
-        CoreManager.saveContext()
+        UserManager.currentUser?.addToNoteSet(noteToAdd)
         print("Note saved")
     }
     
