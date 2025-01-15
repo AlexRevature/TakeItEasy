@@ -91,10 +91,12 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     ///forRowAt
-    ///Handle deletion
+    ///Handles deletion when a row is swiped to the left
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete {
-            //TODO: HANDLE DELETION ONCE CORE DATA IS SUPPORTED AND AFTER ADDING IS SUPPORTED
+            //9:35
+            NoteManager.shared.removeNoteFromCurrentUser(note : noteData[indexPath.row])
+            reloadFromCoreData()
         }
     }
     
