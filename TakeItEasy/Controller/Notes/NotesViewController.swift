@@ -20,22 +20,38 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.dataSource = self
         
-        //Temporary: just need it so thing will compile until the storyboards can connect
-        UserManager.currentUser = UserManager.createUser(username: "temp")
+        //Temporary: just need it so things will compile until the storyboards can connect
+        //---
+        let username = "temp"
+        if UserManager.findUser(username: username) != nil {
+            UserManager.currentUser = UserManager.createUser(username: username)
+        }
+        UserDefaults.standard.set(username, forKey: "currentUser")
+        //---
         
         displayCurrentUserName()
         setViewTheme()
         
-        let coreDataNotes = UserManager.getNoteList()
-        if coreDataNotes != nil {
-            noteData = UserManager.getNoteList()!
-        }
+        reloadFromCoreData() //may be an unessesary call with the same call in viewWillAppear
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    func reloadFromCoreData() {
+        let notesFromCoreData = UserManager.getNoteList()
+        if notesFromCoreData != nil {
+            noteData = UserManager.getNoteList()!
+        }
+        tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        reloadFromCoreData()
     }
     
     ///Displays the current user's username in the nav bar
@@ -69,6 +85,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NotesTableViewCellController
         cell.noteTitle?.text = noteData[indexPath.row].text
+        //TODO: note body
         return cell
     }
     
