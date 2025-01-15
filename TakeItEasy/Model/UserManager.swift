@@ -70,7 +70,13 @@ class UserManager {
     }
     
     static func getOptionList(storedQuestion: StoredQuestion) -> [StoredOption]? {
-        return storedQuestion.optionSet?.allObjects as? [StoredOption]
+        
+        // Note: Currently sorted by alphabetically by option content,
+        // might want to add an order number in CoreData later.
+        let optionSet = storedQuestion.optionSet as! Set<StoredOption>
+        return optionSet.sorted(by: {a, b in
+            a.text ?? "" < b.text ?? ""
+        })
     }
     
 }
