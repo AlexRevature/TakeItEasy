@@ -28,4 +28,12 @@ class NoteManager {
         CoreManager.saveContext()
         print("Note saved")
     }
+    
+    func removeNoteFromCurrentUser(note : StoredNote) {
+        var currentNoteSet = UserManager.currentUser?.noteSet as! Set<StoredNote>
+        currentNoteSet.remove(note)
+        UserManager.currentUser?.noteSet = currentNoteSet as NSSet
+        CoreManager.saveContext()
+        print("Note Deleted")
+    }
 }
