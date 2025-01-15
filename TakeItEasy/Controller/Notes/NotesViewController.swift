@@ -85,7 +85,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     ///Initializes the content of a cell and inserts it into the noteTableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NotesTableViewCellController
-        cell.noteTitle?.text = noteData[indexPath.row].text
+        cell.noteTitle?.text = noteData[indexPath.row].name
         cell.noteBody?.text = noteData[indexPath.row].text
         return cell
     }
@@ -94,7 +94,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     ///Handles deletion when a row is swiped to the left
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete {
-            //9:35
             NoteManager.shared.removeNoteFromCurrentUser(note : noteData[indexPath.row])
             reloadFromCoreData()
         }
