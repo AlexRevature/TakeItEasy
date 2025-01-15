@@ -19,6 +19,13 @@ class NoteManager {
         newNote.modifiedDate = modifiedDate
         
         return newNote
-       
+    }
+    
+    func addNoteToCurrentUser(noteToAdd : StoredNote) {
+        var currentNoteSet = UserManager.currentUser?.noteSet as! Set<StoredNote>
+        currentNoteSet.insert(noteToAdd)
+        UserManager.currentUser?.noteSet = currentNoteSet as NSSet
+        CoreManager.saveContext()
+        print("Note saved")
     }
 }
