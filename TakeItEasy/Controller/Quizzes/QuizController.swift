@@ -23,8 +23,10 @@ class QuizController: UIViewController {
         super.viewDidLoad()
         
         titleLabel.text = selectedQuiz?.name
-        authorLabel.text = "Tmp"
-        scoreLabel.text = "Best Run: \(selectedQuiz?.maxScore ?? 0)/\(selectedQuiz?.questionSet?.count ?? 0)"
+        authorLabel.text = selectedQuiz?.author
+        scoreLabel.text = "Best Score: \(selectedQuiz?.maxScore ?? 0)/\((selectedQuiz?.questionSet?.count ?? 0) * 100)"
+        
+        imageHolder.tintColor = ThemeManager.lightTheme.primaryColor
 
         // Do any additional setup after loading the view.
     }

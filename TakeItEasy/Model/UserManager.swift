@@ -75,7 +75,7 @@ class UserManager {
         // might want to add an order number in CoreData later.
         let optionSet = storedQuestion.optionSet as! Set<StoredOption>
         return optionSet.sorted(by: {a, b in
-            a.text ?? "" < b.text ?? ""
+            a.orderNumber < b.orderNumber
         })
     }
     

@@ -16,21 +16,24 @@ class QuizListController: UIViewController {
         formatter.dateFormat = "yyyy/MM/dd"
         
         var tList: [StoredQuiz] = []
-        for k in 1...4 {
+        for k in 0..<4 {
             let storedQuiz = StoredQuiz(context: CoreManager.managedContext)
-            for i in 1...4 {
+            for i in 0..<4 {
                 let storedQuestion = StoredQuestion(context: CoreManager.managedContext)
-                for j in 1...4 {
+                for j in 0..<4 {
                     let storedOption = StoredOption(context: CoreManager.managedContext)
-                    storedOption.text = "(\(i), \(j)) Testing option"
+                    storedOption.text = "(\(i+1), \(j+1)) Testing option"
+                    storedOption.orderNumber = Int32(j)
                     storedQuestion.addToOptionSet(storedOption)
                 }
-                storedQuestion.text = "(\(i)) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pharetra pellentesque leo vel interdum. Proin ex neque, maximus ac aliquam vitae, aliquet rhoncus nisi."
+                storedQuestion.text = "(\(i+1)) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pharetra pellentesque leo vel interdum. Proin ex neque, maximus ac aliquam vitae, aliquet rhoncus nisi."
                 storedQuestion.orderNumber = Int32(i)
+                storedQuestion.correctIndex = Int32(i % 4)
                 storedQuiz.addToQuestionSet(storedQuestion)
             }
-            storedQuiz.name = "Test \(k)"
-            storedQuiz.date = formatter.date(from: "2024/5/\(k)")
+            storedQuiz.name = "Test #\(k+1)"
+            storedQuiz.author = "Bobby Tables #\(k+1)"
+            storedQuiz.date = formatter.date(from: "2024/5/\(k+1)")
             tList.append(storedQuiz)
         }
         return tList
@@ -40,7 +43,19 @@ class QuizListController: UIViewController {
         super.viewDidLoad()
         quizTable.delegate = self
         quizTable.dataSource = self
+        
+        // TODO: Add back when users are actually populated
 //        quizList = UserManager.getQuizList()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let indexes = quizTable.indexPathsForSelectedRows {
+            if !indexes.isEmpty {
+                quizTable.deselectRow(at: indexes[0], animated: true)
+            }
+        }
     }
 
 }

@@ -19,28 +19,17 @@ class QuestionController: UIViewController {
     @IBOutlet weak var numberButton: UIButton!
     
     // Initialized by sender
-    var currentQuiz: StoredQuiz? /* = {
-        let storedQuiz = StoredQuiz(context: CoreManager.managedContext)
-        for i in 1...4 {
-            let storedQuestion = StoredQuestion(context: CoreManager.managedContext)
-            for j in 1...4 {
-                let storedOption = StoredOption(context: CoreManager.managedContext)
-                storedOption.text = "(\(i), \(j)) Testing option"
-                storedQuestion.addToOptionSet(storedOption)
-            }
-            storedQuestion.text = "(\(i)) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pharetra pellentesque leo vel interdum. Proin ex neque, maximus ac aliquam vitae, aliquet rhoncus nisi."
-            storedQuestion.orderNumber = Int32(i)
-            storedQuiz.addToQuestionSet(storedQuestion)
-        }
-        return storedQuiz
-    }() */
+    var currentQuiz: StoredQuiz?
     
     // Initialized in viewDidLoad(), updated later
     var questionList: [StoredQuestion]?
     var answerSelection: [Int?]?
     var currentQuestionIndex: Int?
     var currentOptions: [StoredOption]?
-    var score: Int = 0
+    
+    // Score tracking
+    var score = 0
+    var numAnswered = 0
     
     var currentQuestion: StoredQuestion? {
         if let currentQuestionIndex {
@@ -63,7 +52,6 @@ class QuestionController: UIViewController {
             }
         }
         score = 0
-        scoreLabel.text = "\(score)"
         
         scoreImage.tintColor = ThemeManager.lightTheme.primaryColor
         
@@ -88,12 +76,38 @@ class QuestionController: UIViewController {
     }
     
     func updateQuestion() {
+        
         if let currentQuestion {
             questionLabel.text = currentQuestion.text
             currentOptions = UserManager.getOptionList(storedQuestion: currentQuestion)
             numberButton.setTitle("\(currentQuestionIndex! + 1)", for: .normal)
+            
+            if answerSelection![currentQuestionIndex!] != nil {
+                optionTable.isUserInteractionEnabled = false
+            } else {
+                optionTable.isUserInteractionEnabled = true
+            }
         }
+        scoreLabel.text = "\(score * 100)"
         optionTable.reloadData()
+        
+        if numAnswered >= questionList!.count {
+            let storyboard = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
+            let resultController = storyboard.instantiateViewController(identifier: "ResultController") as! ResultController
+            
+            resultController.currentQuiz = currentQuiz
+            resultController.score = score
+            
+            var viewControllers = self.navigationController?.viewControllers
+            _ = viewControllers?.popLast()
+            viewControllers?.append(resultController)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.navigationController?.setViewControllers(viewControllers!, animated: true)
+            }
+            
+            return
+        }
     }
     
     @IBAction func prevAction(_ sender: Any) {
@@ -152,6 +166,11 @@ extension QuestionController: UITableViewDelegate, UITableViewDataSource {
         
         if answerSelection![currentQuestionIndex!] == indexPath.row {
             cell.backView.backgroundColor = ThemeManager.lightTheme.secondaryColor
+            if indexPath.row == currentQuestion!.correctIndex {
+                cell.numberWrapper.backgroundColor = .systemGreen
+            } else {
+                cell.numberWrapper.backgroundColor = .systemRed
+            }
         } else {
             cell.backView.backgroundColor = .white
         }
@@ -167,8 +186,14 @@ extension QuestionController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        answerSelection![currentQuestionIndex!] = indexPath.row
-        tableView.reloadData()
+        if answerSelection![currentQuestionIndex!] == nil {
+            if indexPath.row == currentQuestion!.correctIndex {
+                score += 1
+            }
+            numAnswered += 1
+            answerSelection![currentQuestionIndex!] = indexPath.row
+            updateQuestion()
+        }
     }
     
 }

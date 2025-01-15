@@ -371,9 +371,67 @@
                     <view key="view" contentMode="scaleToFill" id="g5h-pG-r0s">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Nw-BO-Fhm">
+                                <rect key="frame" x="114.33333333333333" y="159" width="164.33333333333337" height="28.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WAX-Ff-Zho">
+                                <rect key="frame" x="96.666666666666686" y="238.33333333333331" width="200" height="138.66666666666669"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="M5K-v7-Q6F"/>
+                                    <constraint firstAttribute="width" constant="200" id="mpl-he-eug"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEe-Lo-PcM">
+                                <rect key="frame" x="191" y="297.33333333333331" width="11" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MeY-E4-kg7">
+                                <rect key="frame" x="174" y="427.66666666666669" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f5E-5N-w8Y" customClass="ActionButton" customModule="TakeItEasy" customModuleProvider="target">
+                                <rect key="frame" x="96.666666666666686" y="738" width="200" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="3uB-WW-G8a"/>
+                                    <constraint firstAttribute="height" constant="50" id="jeq-Bk-VJ7"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Exit"/>
+                                <connections>
+                                    <action selector="exitAction:" destination="SVO-TN-Dwf" eventType="touchUpInside" id="qvu-Wj-TDJ"/>
+                                    <action selector="startAction:" destination="AcM-Cc-KeC" eventType="touchUpInside" id="d3I-Zl-qCX"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="XO8-1g-5qO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="MeY-E4-kg7" firstAttribute="centerX" secondItem="g5h-pG-r0s" secondAttribute="centerX" id="1Fk-sQ-OhG"/>
+                            <constraint firstItem="MeY-E4-kg7" firstAttribute="top" secondItem="WAX-Ff-Zho" secondAttribute="bottom" constant="50" id="Bdq-KD-WsS"/>
+                            <constraint firstItem="XO8-1g-5qO" firstAttribute="bottom" secondItem="f5E-5N-w8Y" secondAttribute="bottom" constant="30" id="H6F-YD-IED"/>
+                            <constraint firstItem="f5E-5N-w8Y" firstAttribute="centerX" secondItem="g5h-pG-r0s" secondAttribute="centerX" id="SET-Qe-TfY"/>
+                            <constraint firstItem="WAX-Ff-Zho" firstAttribute="top" secondItem="8Nw-BO-Fhm" secondAttribute="bottom" constant="50" id="X88-W5-0xj"/>
+                            <constraint firstItem="8Nw-BO-Fhm" firstAttribute="top" secondItem="XO8-1g-5qO" secondAttribute="top" constant="100" id="XKv-cq-zUc"/>
+                            <constraint firstItem="KEe-Lo-PcM" firstAttribute="centerX" secondItem="WAX-Ff-Zho" secondAttribute="centerX" id="uNn-bM-Asl"/>
+                            <constraint firstItem="8Nw-BO-Fhm" firstAttribute="centerX" secondItem="g5h-pG-r0s" secondAttribute="centerX" id="uz7-Hd-rv7"/>
+                            <constraint firstItem="WAX-Ff-Zho" firstAttribute="centerX" secondItem="g5h-pG-r0s" secondAttribute="centerX" id="xcG-eQ-6M1"/>
+                            <constraint firstItem="KEe-Lo-PcM" firstAttribute="centerY" secondItem="WAX-Ff-Zho" secondAttribute="centerY" id="y9k-ZH-BwJ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="backImage" destination="WAX-Ff-Zho" id="FNQ-wG-eSv"/>
+                        <outlet property="letterGradeLabel" destination="KEe-Lo-PcM" id="teO-fQ-7CH"/>
+                        <outlet property="messageLabel" destination="8Nw-BO-Fhm" id="Ema-QV-XWC"/>
+                        <outlet property="scoreLabel" destination="MeY-E4-kg7" id="k4K-ou-uru"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v0I-E0-1Af" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
