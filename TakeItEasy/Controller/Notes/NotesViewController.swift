@@ -86,6 +86,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NotesTableViewCellController
         cell.noteTitle?.text = noteData[indexPath.row].text
+        cell.noteBody?.text = noteData[indexPath.row].text
         return cell
     }
     
