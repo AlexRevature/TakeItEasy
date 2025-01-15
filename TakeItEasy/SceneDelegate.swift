@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             UserDefaults.standard.set(true, forKey: "keepCredentials")
         }
         
-        let storyboard = UIStoryboard(name: "BooksStoryboard", bundle: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let rootVC = storyboard.instantiateViewController(identifier: "InitialScene")
         let rootNC = UINavigationController(rootViewController: rootVC)
         
