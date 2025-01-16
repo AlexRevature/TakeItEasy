@@ -22,9 +22,9 @@ class ResultController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let maxScore = currentQuiz?.questionSet?.count ?? 1
+        let maxScore = currentQuiz?.totalScore ?? 1
         let percentageScore = Float(score) / Float(maxScore)
-        
+
         switch percentageScore {
             case let p where p == 1.0:
                 charScore = "S"
@@ -46,7 +46,7 @@ class ResultController: UIViewController {
             messageLabel.text = "Maybe try again?"
         }
         
-        scoreLabel.text = "Final Score: \(score*100)/\(maxScore*100)"
+        scoreLabel.text = "\(score)/\(maxScore)"
         
         letterGradeLabel.text = charScore
         backImage.tintColor = ThemeManager.lightTheme.primaryColor

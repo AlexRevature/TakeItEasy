@@ -20,6 +20,8 @@ class QuizListController: UIViewController {
         quizCollection.delegate = self
         quizCollection.dataSource = self
 
+        self.navigationItem.title = "\(UserManager.currentUser?.collectedPoints ?? 0) Points"
+
         quizList = UserManager.getQuizList()
     }
     
