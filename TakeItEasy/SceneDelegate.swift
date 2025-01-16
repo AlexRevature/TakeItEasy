@@ -79,7 +79,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func logOut() {
         UserDefaults.standard.removeObject(forKey: "currentUser")
 
-        let storyboard = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
+        let storyboard = UIStoryboard(name: "AccountStoryboard", bundle: nil)
         let rootVC = storyboard.instantiateViewController(identifier: "LandingController")
         let rootNC = UINavigationController(rootViewController: rootVC)
 
