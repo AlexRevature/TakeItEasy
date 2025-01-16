@@ -15,21 +15,26 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     
     let userDefault = UserDefaults.standard
     
+    private var noteToPass : StoredNote? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
         
         //Temporary: just need it so thing will compile until the storyboards can connect
-        UserManager.currentUser = UserManager.createUser(username: "temp")
+        //---
+//        let username = "temp"
+//        if UserManager.findUser(username: username) != nil {
+//            UserManager.currentUser = UserManager.createUser(name: "", age: 0, email: "", username: username)
+//        }
+//        UserDefaults.standard.set(username, forKey: "currentUser")
+        //---
         
         displayCurrentUserName()
         setViewTheme()
         
-        let coreDataNotes = UserManager.getNoteList()
-        if coreDataNotes != nil {
-            noteData = UserManager.getNoteList()!
-        }
+        reloadFromCoreData() //may be an unessesaryy call with the call also happening in  viewWIllAppear
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -38,10 +43,23 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    func reloadFromCoreData() {
+        let notesFromCoreData = UserManager.getNoteList()
+        if  notesFromCoreData != nil {
+            noteData = UserManager.getNoteList()!
+        }
+        tableView.reloadData()
+    }
+    
+    
+    override func viewWillAppear(_ animated : Bool) {
+        super.viewWillAppear(animated)
+        reloadFromCoreData()
+    }
+    
     ///Displays the current user's username in the nav bar
-    ///This won't work until we can transition between storyboards so that the login page can populkate userDefault
+    ///This won't work until we can transition between storyboards so that the login page can populate userDefault
     func displayCurrentUserName() {
-        //This won't do anything until segue's and such are set up
         let currentUsername = userDefault.string(forKey: "currentUser")
         navBar.title = currentUsername
 
@@ -68,15 +86,17 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     ///Initializes the content of a cell and inserts it into the noteTableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NotesTableViewCellController
-        cell.noteTitle?.text = noteData[indexPath.row].text
+        cell.noteTitle?.text = noteData[indexPath.row].name
+        cell.noteBody?.text = noteData[indexPath.row].text
         return cell
     }
     
     ///forRowAt
-    ///Handle deletion
+    ///Handles deletion when a row is swiped to the left
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete {
-            //TODO: HANDLE DELETION ONCE CORE DATA IS SUPPORTED AND AFTER ADDING IS SUPPORTED
+            NoteManager.shared.removeNoteFromCurrentUser(note : noteData[indexPath.row])
+            reloadFromCoreData()
         }
     }
     
@@ -86,13 +106,27 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
 
     }
     
+    ///This is used to pass the StoredNote object to the NoteEditorViewController if editMode is set to true
+    ///editMode is true if a row is selected and it is flase if the add button is pressed
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let isEditMode = userDefault.bool(forKey: "editMode")
+        if segue.identifier == "toNoteEditor" && isEditMode {
+            if let destinationVC = segue.destination as? NoteEditorViewController {
+                destinationVC.selectedNote = noteToPass
+            }
+        }
+    }
+    
     ///didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        //TODO: Segue to note editor, but have the selected note's data displayed rather than making a new note
+        userDefault.set(true, forKey: "editMode")
+        noteToPass = noteData[indexPath.row]
+        self.performSegue(withIdentifier: "toNoteEditor", sender: self)
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
         print("add button pressed")
+        userDefault.set(false, forKey: "editMode")
         self.performSegue(withIdentifier: "toNoteEditor", sender: self)
     }
     

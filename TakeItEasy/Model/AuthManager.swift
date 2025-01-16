@@ -44,7 +44,7 @@ class AuthManager {
         var response: CFTypeRef?
         let status = SecItemCopyMatching(request as CFDictionary, &response)
         
-        guard status != errSecInvalidKeyRef else {
+        guard status != errSecItemNotFound else {
             return (.invalidKey, nil)
         }
         

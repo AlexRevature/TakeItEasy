@@ -56,13 +56,13 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="[username]" id="lWn-RE-1QO">
-                                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="add" id="yhd-H0-xJY">
+                                        <barButtonItem key="leftBarButtonItem" title="Log Out" image="note" id="wdz-qx-MIE"/>
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="yhd-H0-xJY">
                                             <color key="tintColor" systemColor="systemPurpleColor"/>
                                             <connections>
                                                 <action selector="addButtonPressed:" destination="Y6W-OH-hqX" id="xLy-ys-QAN"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="wdz-qx-MIE"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -138,6 +138,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="note" width="128" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

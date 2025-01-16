@@ -52,7 +52,7 @@ class RegisterController: UIViewController {
             statusLabel.isHidden = false
             return
         }
-        guard let age = Int16(ageText) else {
+        guard let age = Int(ageText) else {
             statusLabel.text = "Invalid age entry"
             statusLabel.isHidden = false
             return
@@ -126,21 +126,11 @@ class RegisterController: UIViewController {
             return
         }
         
-        let currentUser = UserManager.createUser(username: username)
+        let currentUser = UserManager.createUser(name: name, age: age, email: email, username: username)
         UserManager.currentUser = currentUser
-        
-        // TODO: Add main page transition
-    }
-    
 
-    /*
-    // MARK: - Navigation
+        ControllerManager.mainTransition(navigationController: self.navigationController)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
 
 }

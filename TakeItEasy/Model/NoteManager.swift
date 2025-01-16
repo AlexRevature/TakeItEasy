@@ -19,6 +19,20 @@ class NoteManager {
         newNote.modifiedDate = modifiedDate
         
         return newNote
-       
+    }
+    
+    func addNoteToCurrentUser(noteToAdd : StoredNote) {
+        UserManager.currentUser?.addToNoteSet(noteToAdd)
+        print("Note saved")
+    }
+    
+    func removeNoteFromCurrentUser(note : StoredNote) {
+        UserManager.currentUser?.removeFromNoteSet(note)
+        print("Note Deleted")
+    }
+    
+    func updateNote(oldNote : StoredNote, newNote : StoredNote) {
+        removeNoteFromCurrentUser(note: oldNote)
+        addNoteToCurrentUser(noteToAdd: newNote)
     }
 }
