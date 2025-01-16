@@ -30,7 +30,7 @@ class QuestionController: UIViewController {
     // Score tracking
     var score = 0
     var numAnswered = 0
-    
+
     var currentQuestion: StoredQuestion? {
         if let currentQuestionIndex {
             return questionList?[currentQuestionIndex]
@@ -40,7 +40,7 @@ class QuestionController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if let currentQuiz {
             questionList = UserManager.getQuestionList(storedQuiz: currentQuiz)
             answerSelection = [Int?](repeating: nil, count: questionList!.count)
@@ -56,7 +56,6 @@ class QuestionController: UIViewController {
         scoreImage.tintColor = ThemeManager.lightTheme.primaryColor
         
         questionLabel.textColor = ThemeManager.lightTheme.normalText
-        
         questionLabel.contentMode = .bottom
         questionLabel.lineBreakMode = .byWordWrapping
         questionLabel.numberOfLines = 0
@@ -71,10 +70,43 @@ class QuestionController: UIViewController {
         numberButton.backgroundColor = .lightGray
         numberButton.layer.cornerRadius = 6
         numberButton.clipsToBounds = true
-        
+
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem (
+            title: "Finish",
+            style: .done,
+            target: self,
+            action: #selector(finishButtonAction)
+        )
+
         updateQuestion()
     }
-    
+
+    @objc
+    func finishButtonAction() {
+        finishQuiz(delay: 0)
+    }
+
+    func finishQuiz(delay: Double) {
+        let storyboard = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
+        let resultController = storyboard.instantiateViewController(identifier: "ResultController") as! ResultController
+
+        resultController.currentQuiz = currentQuiz
+        resultController.score = score
+
+        var viewControllers = self.navigationController?.viewControllers
+        _ = viewControllers?.popLast()
+        viewControllers?.append(resultController)
+
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        self.navigationItem.leftBarButtonItem?.isEnabled = false
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            self.navigationController?.setViewControllers(viewControllers!, animated: true)
+        }
+
+        return
+    }
+
     func updateQuestion() {
         
         if let currentQuestion {
@@ -90,23 +122,9 @@ class QuestionController: UIViewController {
         }
         scoreLabel.text = "\(score * 100)"
         optionTable.reloadData()
-        
+
         if numAnswered >= questionList!.count {
-            let storyboard = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
-            let resultController = storyboard.instantiateViewController(identifier: "ResultController") as! ResultController
-            
-            resultController.currentQuiz = currentQuiz
-            resultController.score = score
-            
-            var viewControllers = self.navigationController?.viewControllers
-            _ = viewControllers?.popLast()
-            viewControllers?.append(resultController)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.navigationController?.setViewControllers(viewControllers!, animated: true)
-            }
-            
-            return
+            finishQuiz(delay: 1)
         }
     }
     
@@ -155,11 +173,21 @@ extension QuestionController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OptionCell", for: indexPath) as! OptionCell
-        
+
         cell.backView.layer.cornerRadius = 14.0
-        cell.backView.clipsToBounds = true
+        cell.backView.layer.masksToBounds = false
+        cell.backView.layer.borderWidth = 0.2
         cell.backView.layer.borderColor = UIColor.black.cgColor
-        cell.backView.layer.borderWidth = 1.0
+
+        cell.backView.layer.shadowColor = UIColor.black.cgColor
+        cell.backView.layer.shadowOpacity = 0.5
+        cell.backView.layer.shadowOffset = CGSize(width: 5, height: 4)
+        cell.backView.layer.shadowRadius = 4
+
+        cell.backView.layer.shadowPath = UIBezierPath(
+            roundedRect: cell.backView.bounds,
+            cornerRadius: cell.backView.layer.cornerRadius
+        ).cgPath
         
         cell.numberWrapper.layer.cornerRadius = 17.0
         cell.numberWrapper.backgroundColor = UIColor.systemGray4
