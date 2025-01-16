@@ -22,13 +22,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
             UserDefaults.standard.set(true, forKey: "keepCredentials")
         }
-        
-        let storyboard = UIStoryboard(name: "AccountStoryboard", bundle: nil)
-        let rootVC = storyboard.instantiateViewController(identifier: "LandingController")
-        let rootNC = UINavigationController(rootViewController: rootVC)
-        
+
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
+
+        let rootNC = UINavigationController()
+        self.window?.rootViewController = rootNC
+
+        let username = UserDefaults.standard.string(forKey: "currentUser")
+        if username != nil {
+            UserManager.currentUser = UserManager.findUser(username: username!)
+            ControllerManager.mainTransition(navigationController: rootNC)
+
+        } else {
+            let storyboard = UIStoryboard(name: "AccountStoryboard", bundle: nil)
+            let rootVC = storyboard.instantiateViewController(identifier: "LandingController")
+            rootNC.setViewControllers([rootVC], animated: false)
+        }
         
         self.window?.rootViewController = rootNC
         self.window?.makeKeyAndVisible()
