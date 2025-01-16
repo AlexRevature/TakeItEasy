@@ -18,9 +18,6 @@ class QuizListController: UIViewController {
         quizTable.delegate = self
         quizTable.dataSource = self
 
-        self.tabBarItem = UITabBarItem(title: "Quiz", image: UIImage(systemName: "bubble.and.pencil"), tag: 0)
-
-        // TODO: Add back when users are actually populated
         quizList = UserManager.getQuizList()
     }
     
