@@ -31,6 +31,7 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     // MARK: - CollectionView functions
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellItem", for: indexPath) as! BooksCollectionViewCell
         
@@ -91,7 +92,7 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     func collectionSectionsCount() -> Int {
         var sectionsTotal = 0
-        var sectionNames = sections.values
+        let sectionNames = sections.values
         
         for book in BooksManager.storedBooks {
             if !sectionNames.contains(where: { $0 == book.category }) {

@@ -16,7 +16,7 @@ class BooksManager {
     
     static func fetchBooks() {
         let request: NSFetchRequest<StoredBook> = StoredBook.fetchRequest()
-        let managedContext = CoreManager.managedContext
+        let context = CoreManager.persistentContainer.viewContext
         let sortAuthor = NSSortDescriptor(key: "authorNameLast", ascending: true)
         let sortName = NSSortDescriptor(key: "name", ascending: true)
         var result = [StoredBook]()
@@ -24,23 +24,31 @@ class BooksManager {
         request.sortDescriptors = [sortName, sortAuthor]
         
         do {
-            try result = managedContext.fetch(request)
+            try result = context.fetch(request)
         } catch let error {
             print("Unable to fetch book data: \(error)")
         }
         storedBooks = result
     }
     
-    static func addBook(title: String, authorNameLast: String, authorNameFirst: String, releaseDate: Date, category: String) {
-        let request: NSFetchRequest<StoredBook> = StoredBook.fetchRequest()
-        let bookItem = StoredBook(context: CoreManager.managedContext)
+    static func addBook(item: StoredBook) {
+        let newStoredBook = StoredBook(context: CoreManager.persistentContainer.viewContext)
         
-        bookItem.name = title
-        bookItem.authorNameLast = authorNameLast
-        bookItem.authorNameFirst = authorNameFirst
-        bookItem.releaseDate = releaseDate
-        bookItem.category = category
+        newStoredBook.name = item.name
+        newStoredBook.authorNameLast = item.authorNameLast
+        newStoredBook.authorNameFirst = item.authorNameFirst
+        newStoredBook.category = item.category
+        newStoredBook.coverImage = item.coverImage
+        newStoredBook.fileData = item.fileData
         
+        CoreManager.saveContext()
+    }
+    
+    static func deleteBook(indexPath: Int, items: [StoredBook]) {
+        let context = CoreManager.persistentContainer.viewContext
+        let deleteTarget = items[indexPath]
+        
+        context.delete(deleteTarget)
         CoreManager.saveContext()
     }
 }
