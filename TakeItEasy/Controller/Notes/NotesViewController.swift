@@ -26,7 +26,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         //---
         let username = "temp"
         if UserManager.findUser(username: username) != nil {
-            UserManager.currentUser = UserManager.createUser(username: username)
+            UserManager.currentUser = UserManager.createUser(name: "", age: 0, email: "", username: username)
         }
         UserDefaults.standard.set(username, forKey: "currentUser")
         //---

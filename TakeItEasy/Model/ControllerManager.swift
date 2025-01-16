@@ -12,16 +12,19 @@ class ControllerManager {
     static func mainTransition(navigationController: UINavigationController?) {
 
         let quizSB = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
-        let quizListController = quizSB.instantiateViewController(identifier: "QuizListController")
+        let quizzesController = quizSB.instantiateViewController(identifier: "QuizListController")
 
         let notesSB = UIStoryboard(name: "NotesStoryboard", bundle: nil)
-        let notesTableController = notesSB.instantiateViewController(identifier: "NotesViewController")
+        let notesController = notesSB.instantiateViewController(identifier: "NotesViewController")
 
         let webSB = UIStoryboard(name: "WebViewStoryboard", bundle: nil)
-        let webViewController = webSB.instantiateViewController(identifier: "webViewStoryboard")
+        let webController = webSB.instantiateViewController(identifier: "webViewStoryboard")
+
+        let bookSB = UIStoryboard(name: "BooksStoryboard", bundle: nil)
+        let booksController = bookSB.instantiateViewController(identifier: "BooksStoryboard")
 
         let tabController = UITabBarController()
-        tabController.viewControllers = [quizListController]
+        tabController.viewControllers = [quizzesController]
 
         navigationController?.delegate = NavigationDelegate.shared
         navigationController?.setViewControllers([tabController], animated: true)
