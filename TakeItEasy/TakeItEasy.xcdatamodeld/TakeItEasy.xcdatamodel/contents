@@ -3,6 +3,8 @@
     <entity name="StoredBook" representedClassName="StoredBook" syncable="YES" codeGenerationType="class">
         <attribute name="authorNameFirst" optional="YES" attributeType="String"/>
         <attribute name="authorNameLast" optional="YES" attributeType="String"/>
+        <attribute name="category" optional="YES" attributeType="String"/>
+        <attribute name="coverImage" optional="YES" attributeType="Binary"/>
         <attribute name="fileData" optional="YES" attributeType="Binary"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="releaseDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>

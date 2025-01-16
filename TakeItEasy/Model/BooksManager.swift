@@ -31,7 +31,7 @@ class BooksManager {
         storedBooks = result
     }
     
-    static func addBook(title: String, authorNameLast: String, authorNameFirst: String, releaseDate: Date) {
+    static func addBook(title: String, authorNameLast: String, authorNameFirst: String, releaseDate: Date, category: String) {
         let request: NSFetchRequest<StoredBook> = StoredBook.fetchRequest()
         let bookItem = StoredBook(context: CoreManager.managedContext)
         
@@ -39,6 +39,7 @@ class BooksManager {
         bookItem.authorNameLast = authorNameLast
         bookItem.authorNameFirst = authorNameFirst
         bookItem.releaseDate = releaseDate
+        bookItem.category = category
         
         CoreManager.saveContext()
     }
