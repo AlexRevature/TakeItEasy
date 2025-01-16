@@ -13,6 +13,7 @@ class QuestionController: UIViewController {
     @IBOutlet weak var questionLabel: QuestionLabel!
     @IBOutlet weak var scoreImage: UIImageView!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var pointValue: UILabel!
     
     @IBOutlet weak var prevButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
@@ -93,6 +94,13 @@ class QuestionController: UIViewController {
         resultController.currentQuiz = currentQuiz
         resultController.score = score
 
+        if let currentQuiz, let currentUser = UserManager.currentUser {
+            if currentQuiz.maxScore < score {
+                currentUser.collectedPoints += currentQuiz.maxScore - Int32(score)
+                currentQuiz.maxScore = Int32(score)
+            }
+        }
+
         var viewControllers = self.navigationController?.viewControllers
         _ = viewControllers?.popLast()
         viewControllers?.append(resultController)
@@ -111,6 +119,7 @@ class QuestionController: UIViewController {
         
         if let currentQuestion {
             questionLabel.text = currentQuestion.text
+            pointValue.text = "\(currentQuestion.pointValue)"
             currentOptions = UserManager.getOptionList(storedQuestion: currentQuestion)
             numberButton.setTitle("\(currentQuestionIndex! + 1)", for: .normal)
             
@@ -120,7 +129,7 @@ class QuestionController: UIViewController {
                 optionTable.isUserInteractionEnabled = true
             }
         }
-        scoreLabel.text = "\(score * 100)"
+        scoreLabel.text = "\(score)"
         optionTable.reloadData()
 
         if numAnswered >= questionList!.count {
@@ -216,14 +225,13 @@ extension QuestionController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if answerSelection![currentQuestionIndex!] == nil {
             if indexPath.row == currentQuestion!.correctIndex {
-                score += 1
+                score += Int(currentQuestion?.pointValue ?? 0)
             }
             numAnswered += 1
             answerSelection![currentQuestionIndex!] = indexPath.row
             updateQuestion()
         }
     }
-    
 }
 
 class OptionCell: UITableViewCell {
