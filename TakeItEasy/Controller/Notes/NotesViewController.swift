@@ -24,11 +24,11 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         
         //Temporary: just need it so thing will compile until the storyboards can connect
         //---
-        let username = "temp"
-        if UserManager.findUser(username: username) != nil {
-            UserManager.currentUser = UserManager.createUser(name: "", age: 0, email: "", username: username)
-        }
-        UserDefaults.standard.set(username, forKey: "currentUser")
+//        let username = "temp"
+//        if UserManager.findUser(username: username) != nil {
+//            UserManager.currentUser = UserManager.createUser(name: "", age: 0, email: "", username: username)
+//        }
+//        UserDefaults.standard.set(username, forKey: "currentUser")
         //---
         
         displayCurrentUserName()
