@@ -13,10 +13,20 @@ class NoteEditorViewController: UIViewController {
     @IBOutlet weak var noteTitleTextField: UITextField!
     
     var userDefault = UserDefaults.standard
+    var selectedNote : StoredNote? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //TODO: set text field/view to the provided values or values fetched from core data
+    }
+    
+    func updateNoteSetWithNote(newNote : StoredNote) {
+        let isEditMode = userDefault.bool(forKey: "editMode")
+        if isEditMode {
+            NoteManager.shared.updateNote(oldNote: selectedNote!, newNote: newNote)
+        } else {
+            NoteManager.shared.addNoteToCurrentUser(noteToAdd: newNote)
+        }
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
@@ -30,7 +40,7 @@ class NoteEditorViewController: UIViewController {
             return
         } else {
             let newNote = NoteManager.shared.createNote(name: newNoteName!, text: newNoteText!, modifiedDate: modifiedDate)
-            NoteManager.shared.addNoteToCurrentUser(noteToAdd: newNote)
+            updateNoteSetWithNote(newNote: newNote)
         }
     }
 }

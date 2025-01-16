@@ -15,6 +15,8 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     
     let userDefault = UserDefaults.standard
     
+    private var noteToPass : StoredNote? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -56,9 +58,8 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     ///Displays the current user's username in the nav bar
-    ///This won't work until we can transition between storyboards so that the login page can populkate userDefault
+    ///This won't work until we can transition between storyboards so that the login page can populate userDefault
     func displayCurrentUserName() {
-        //This won't do anything until segue's and such are set up
         let currentUsername = userDefault.string(forKey: "currentUser")
         navBar.title = currentUsername
 
@@ -105,13 +106,27 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
 
     }
     
+    ///This is used to pass the StoredNote object to the NoteEditorViewController if editMode is set to true
+    ///editMode is true if a row is selected and it is flase if the add button is pressed
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let isEditMode = userDefault.bool(forKey: "editMode")
+        if segue.identifier == "toNoteEditor" && isEditMode {
+            if let destinationVC = segue.destination as? NoteEditorViewController {
+                destinationVC.selectedNote = noteToPass
+            }
+        }
+    }
+    
     ///didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        //TODO: Segue to note editor, but have the selected note's data displayed rather than making a new note
+        userDefault.set(true, forKey: "editMode")
+        noteToPass = noteData[indexPath.row]
+        self.performSegue(withIdentifier: "toNoteEditor", sender: self)
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
         print("add button pressed")
+        userDefault.set(false, forKey: "editMode")
         self.performSegue(withIdentifier: "toNoteEditor", sender: self)
     }
     
