@@ -74,7 +74,7 @@ class LoginController: UIViewController {
             UserDefaults.standard.set(username as Any?, forKey: "currentUser")
         }
                 
-        // TODO: Add main page transition
+        ControllerManager.mainTransition(navigationController: self.navigationController)
     }
 
     /*

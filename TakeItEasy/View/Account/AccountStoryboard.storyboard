@@ -223,6 +223,9 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Register"/>
+                                <connections>
+                                    <action selector="registerAction:" destination="BVq-ko-IPp" eventType="touchUpInside" id="vu2-yv-dMa"/>
+                                </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2aH-Fi-Olx" customClass="ErrorLabel" customModule="TakeItEasy" customModuleProvider="target">
                                 <rect key="frame" x="174.66666666666666" y="676.66666666666663" width="44" height="18"/>
@@ -340,6 +343,9 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="loginAction:" destination="hMA-Ni-Jmh" eventType="touchUpInside" id="R8b-WG-P8s"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zuj-FQ-zfa">
                                 <rect key="frame" x="104" y="435" width="185" height="41"/>
@@ -393,6 +399,12 @@
                             <constraint firstItem="Gze-Tr-V2j" firstAttribute="top" secondItem="5J3-VG-HcR" secondAttribute="bottom" constant="34" id="xXz-KN-v0O"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="passwordEntry" destination="TKw-Oy-eTr" id="OSx-xo-wjX"/>
+                        <outlet property="persistenceToggle" destination="eaJ-tw-xdb" id="GLj-ae-aRi"/>
+                        <outlet property="statusLabel" destination="Lzc-wQ-Omz" id="9LQ-8j-0JT"/>
+                        <outlet property="usernameEntry" destination="aA3-no-yTQ" id="gRP-4i-o0C"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XCn-G4-QJ5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

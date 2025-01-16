@@ -13,12 +13,15 @@ class UserManager {
     
     static var currentUser: StoredUser?
     
-    static func createUser(username: String) -> StoredUser? {
+    static func createUser(name: String, age: Int, email: String, username: String) -> StoredUser? {
         let storedUser = StoredUser(context: CoreManager.managedContext)
+        storedUser.name = name
+        storedUser.age = Int32(age)
+        storedUser.email = email
         storedUser.username = username
-        
+
         // Setup default books/quizes/notes/etc
-        
+        CoreManager.saveContext()
         return storedUser
     }
     

@@ -13,21 +13,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         let keepCredentials = UserDefaults.standard.bool(forKey: "keepCredentials")
         if !keepCredentials {
-            var status: CredentialStatus = AuthManager.deleteCredentials()
+            let status: CredentialStatus = AuthManager.deleteCredentials()
             if (status == .failure) {
                 return
             }
             UserDefaults.standard.set(true, forKey: "keepCredentials")
         }
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let rootVC = storyboard.instantiateViewController(identifier: "InitialScene")
+        let storyboard = UIStoryboard(name: "AccountStoryboard", bundle: nil)
+        let rootVC = storyboard.instantiateViewController(identifier: "LandingController")
         let rootNC = UINavigationController(rootViewController: rootVC)
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -66,6 +63,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Save changes in the application's managed object context when the application transitions to the background.
         CoreManager.saveContext()
+    }
+
+    @objc
+    func logOut() {
+        UserDefaults.standard.removeObject(forKey: "currentUser")
+
+        let storyboard = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
+        let rootVC = storyboard.instantiateViewController(identifier: "LandingControlller")
+        let rootNC = UINavigationController(rootViewController: rootVC)
+
+        self.window?.rootViewController = rootNC
     }
 
 
