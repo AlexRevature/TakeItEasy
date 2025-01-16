@@ -25,6 +25,7 @@
         <attribute name="correctIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="imageData" optional="YES" attributeType="Binary"/>
         <attribute name="orderNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="pointValue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="text" optional="YES" attributeType="String"/>
         <relationship name="optionSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoredOption" inverseName="storedQuestion" inverseEntity="StoredOption"/>
         <relationship name="storedQuiz" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredQuiz" inverseName="questionSet" inverseEntity="StoredQuiz"/>
@@ -36,6 +37,7 @@
         <attribute name="imageData" optional="YES" attributeType="Binary"/>
         <attribute name="maxScore" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="totalScore" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="questionSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StoredQuestion" inverseName="storedQuiz" inverseEntity="StoredQuestion"/>
         <relationship name="storedQuiz" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoredUser" inverseName="quizSet" inverseEntity="StoredUser"/>
     </entity>
