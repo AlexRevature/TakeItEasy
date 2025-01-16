@@ -20,11 +20,41 @@ class UserManager {
         storedUser.email = email
         storedUser.username = username
 
-        // Setup default books/quizes/notes/etc
+        // Populate test data, remove when app finished
+        populateTestQuizzes(storedUser: storedUser)
+
+        // TODO: Populate actual data
+
         CoreManager.saveContext()
         return storedUser
     }
-    
+
+    private static func populateTestQuizzes(storedUser: StoredUser) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+
+        for k in 0..<4 {
+            let storedQuiz = StoredQuiz(context: CoreManager.managedContext)
+            for i in 0..<4 {
+                let storedQuestion = StoredQuestion(context: CoreManager.managedContext)
+                for j in 0..<4 {
+                    let storedOption = StoredOption(context: CoreManager.managedContext)
+                    storedOption.text = "(\(i+1), \(j+1)) Testing option"
+                    storedOption.orderNumber = Int32(j)
+                    storedQuestion.addToOptionSet(storedOption)
+                }
+                storedQuestion.text = "(\(i+1)) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pharetra pellentesque leo vel interdum. Proin ex neque, maximus ac aliquam vitae, aliquet rhoncus nisi."
+                storedQuestion.orderNumber = Int32(i)
+                storedQuestion.correctIndex = Int32(i % 4)
+                storedQuiz.addToQuestionSet(storedQuestion)
+            }
+            storedQuiz.name = "Test #\(k+1)"
+            storedQuiz.author = "Bobby Tables #\(k+1)"
+            storedQuiz.date = formatter.date(from: "2024/5/\(k+1)")
+            storedUser.addToQuizSet(storedQuiz)
+        }
+    }
+
     static func findUser(username: String) -> StoredUser? {
         let fetchRequest = StoredUser.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "username == %@", username)

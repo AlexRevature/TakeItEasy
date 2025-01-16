@@ -11,33 +11,7 @@ class QuizListController: UIViewController {
     
     @IBOutlet weak var quizTable: UITableView!
     
-    var quizList: [StoredQuiz]? = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd"
-        
-        var tList: [StoredQuiz] = []
-        for k in 0..<4 {
-            let storedQuiz = StoredQuiz(context: CoreManager.managedContext)
-            for i in 0..<4 {
-                let storedQuestion = StoredQuestion(context: CoreManager.managedContext)
-                for j in 0..<4 {
-                    let storedOption = StoredOption(context: CoreManager.managedContext)
-                    storedOption.text = "(\(i+1), \(j+1)) Testing option"
-                    storedOption.orderNumber = Int32(j)
-                    storedQuestion.addToOptionSet(storedOption)
-                }
-                storedQuestion.text = "(\(i+1)) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pharetra pellentesque leo vel interdum. Proin ex neque, maximus ac aliquam vitae, aliquet rhoncus nisi."
-                storedQuestion.orderNumber = Int32(i)
-                storedQuestion.correctIndex = Int32(i % 4)
-                storedQuiz.addToQuestionSet(storedQuestion)
-            }
-            storedQuiz.name = "Test #\(k+1)"
-            storedQuiz.author = "Bobby Tables #\(k+1)"
-            storedQuiz.date = formatter.date(from: "2024/5/\(k+1)")
-            tList.append(storedQuiz)
-        }
-        return tList
-    }()
+    var quizList: [StoredQuiz]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +21,7 @@ class QuizListController: UIViewController {
         self.tabBarItem = UITabBarItem(title: "Quiz", image: UIImage(systemName: "bubble.and.pencil"), tag: 0)
 
         // TODO: Add back when users are actually populated
-//        quizList = UserManager.getQuizList()
+        quizList = UserManager.getQuizList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,12 +50,23 @@ extension QuizListController: UITableViewDelegate, UITableViewDataSource {
         cell.imageHolder.image = UIImage(systemName: "circle")
         cell.titleLabel.text = currentQuiz.name
         cell.dateLabel.text = currentQuiz.date?.formatted(date: .abbreviated, time: .omitted)
-        
+
         cell.backView.layer.borderColor = UIColor.black.cgColor
-        cell.backView.layer.borderWidth = 1.0
+        cell.backView.layer.borderWidth = 0.2
+
         cell.backView.layer.cornerRadius = 30.0
-        cell.backView.clipsToBounds = true
-        
+        cell.backView.layer.masksToBounds = false
+
+        cell.backView.layer.shadowColor = UIColor.black.cgColor
+        cell.backView.layer.shadowOpacity = 0.5
+        cell.backView.layer.shadowOffset = CGSize(width: 10, height: 7)
+        cell.backView.layer.shadowRadius = 4
+
+        cell.backView.layer.shadowPath = UIBezierPath(
+            roundedRect: cell.backView.bounds,
+            cornerRadius: cell.backView.layer.cornerRadius
+        ).cgPath
+
         return cell
     }
     
