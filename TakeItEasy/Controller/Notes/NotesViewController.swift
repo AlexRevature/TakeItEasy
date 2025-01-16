@@ -31,6 +31,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         UserDefaults.standard.set(username, forKey: "currentUser")
         //---
         
+        self.tabBarItem = UITabBarItem(title: "Notes", image: UIImage(systemName: "note.text"), tag: 1)
         displayCurrentUserName()
         setViewTheme()
         

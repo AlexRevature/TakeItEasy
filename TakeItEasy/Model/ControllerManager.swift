@@ -24,7 +24,7 @@ class ControllerManager {
         let booksController = bookSB.instantiateViewController(identifier: "BooksStoryboard")
 
         let tabController = UITabBarController()
-        tabController.viewControllers = [quizzesController]
+        tabController.viewControllers = [quizzesController, notesController]
 
         navigationController?.delegate = NavigationDelegate.shared
         navigationController?.setViewControllers([tabController], animated: true)
