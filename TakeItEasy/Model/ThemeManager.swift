@@ -19,7 +19,7 @@ struct Theme {
 
 class ThemeManager {
     
-    static var isLightEnabled = true // 56 61 94
+    static var isLightEnabled = true
     
     static let lightTheme = Theme(
         primaryColor: customColor(r: 92, g: 98, b: 173),
