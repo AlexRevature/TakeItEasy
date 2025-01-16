@@ -70,7 +70,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UserDefaults.standard.removeObject(forKey: "currentUser")
 
         let storyboard = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
-        let rootVC = storyboard.instantiateViewController(identifier: "LandingControlller")
+        let rootVC = storyboard.instantiateViewController(identifier: "LandingController")
         let rootNC = UINavigationController(rootViewController: rootVC)
 
         self.window?.rootViewController = rootNC
