@@ -30,4 +30,9 @@ class NoteManager {
         UserManager.currentUser?.removeFromNoteSet(note)
         print("Note Deleted")
     }
+    
+    func updateNote(oldNote : StoredNote, newNote : StoredNote) {
+        removeNoteFromCurrentUser(note: oldNote)
+        addNoteToCurrentUser(noteToAdd: newNote)
+    }
 }
