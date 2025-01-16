@@ -17,39 +17,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jil-Cf-3Up">
-                                <rect key="frame" x="0.0" y="103" width="393" height="680"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="724"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GTi-Pd-hO7">
-                                <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                                <items>
-                                    <navigationItem title="Google Web" style="editor" id="RgL-MD-iPY">
-                                        <barButtonItem key="rightBarButtonItem" id="Fr4-hf-4su">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="NY8-kD-RJn">
-                                                <rect key="frame" x="290" y="5" width="87" height="34.333333333333336"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Log Out"/>
-                                            </button>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="GTi-Pd-hO7" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Dxu-8Q-lX6"/>
-                            <constraint firstItem="GTi-Pd-hO7" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="MdR-lO-LOk"/>
-                            <constraint firstItem="GTi-Pd-hO7" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="O1Z-Wj-qgw"/>
-                            <constraint firstItem="GTi-Pd-hO7" firstAttribute="trailing" secondItem="jil-Cf-3Up" secondAttribute="trailing" id="Q7j-ZR-Sgh"/>
-                            <constraint firstItem="jil-Cf-3Up" firstAttribute="top" secondItem="GTi-Pd-hO7" secondAttribute="bottom" id="RDb-5n-Gjt"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="jil-Cf-3Up" secondAttribute="bottom" constant="35" id="ua6-qf-C8f"/>
-                            <constraint firstItem="GTi-Pd-hO7" firstAttribute="leading" secondItem="jil-Cf-3Up" secondAttribute="leading" id="wqg-eM-UAR"/>
+                            <constraint firstItem="jil-Cf-3Up" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="LXz-nz-6Yn"/>
+                            <constraint firstItem="jil-Cf-3Up" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="eGt-lM-GJ7"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="jil-Cf-3Up" secondAttribute="bottom" constant="35" id="kzT-ea-LiT"/>
+                            <constraint firstItem="jil-Cf-3Up" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="mD6-OG-DeL"/>
                         </constraints>
                     </view>
                     <connections>
