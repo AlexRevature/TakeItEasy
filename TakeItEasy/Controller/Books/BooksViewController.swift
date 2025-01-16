@@ -10,7 +10,8 @@ import PDFKit
 import CoreData
 
 class BooksViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, PDFViewDelegate {
-    let collectionSectionLimit = 20
+    private let collectionSectionLimit = 20
+    private let stringEmptyDataContainer = "No Books Available"
     private var pdfView = PDFView()
     var sections: Dictionary<Int, String> = Dictionary()
     
@@ -18,10 +19,6 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     @IBOutlet weak var searchBarTitleOrAuthor: UISearchBar!
     @IBOutlet weak var collectionBooks: UICollectionView!
-    
-    // MARK: - Core data
-    
-    
     
     // MARK: - ViewController functions
     
@@ -45,9 +42,7 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
             cell.bookCoverImage.image = UIImage(data: coverImage)
             return cell
         } else {
-            print("detected empty collection")
             cell.bookCoverImage.isHidden = true
-            cell.booksEmptyLabel.isHidden = false
             return cell
         }
     }
@@ -60,9 +55,16 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfSections section: Int, indexPath: IndexPath) -> Int {
+        if BooksManager.storedBooks.count > 0 {
+            return collectionSectionsCount()
+        } else {
+            return 1
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if BooksManager.storedBooks.count > 0 {
-            
             switch kind {
             case UICollectionView.elementKindSectionHeader:
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerItem", for: indexPath) as! BooksCollectionReusableView
@@ -82,9 +84,21 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         } else {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerItem", for: indexPath) as! BooksCollectionReusableView
             
-            header.sectionName.text = ""
+            header.sectionName.text = stringEmptyDataContainer
             return header
         }
+    }
+    
+    func collectionSectionsCount() -> Int {
+        var sectionsTotal = 0
+        var sectionNames = sections.values
+        
+        for book in BooksManager.storedBooks {
+            if !sectionNames.contains(where: { $0 == book.category }) {
+                sectionsTotal += 1
+            }
+        }
+        return sectionsTotal
     }
     
     // MARK: - PDF viewer
