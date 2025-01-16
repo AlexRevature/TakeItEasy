@@ -10,7 +10,6 @@ import UIKit
 class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDataSource{
     var noteData : [StoredNote] = []
     
-    @IBOutlet weak var navBar: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
     
     let userDefault = UserDefaults.standard
@@ -21,15 +20,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
-        //Temporary: just need it so thing will compile until the storyboards can connect
-        //---
-//        let username = "temp"
-//        if UserManager.findUser(username: username) != nil {
-//            UserManager.currentUser = UserManager.createUser(name: "", age: 0, email: "", username: username)
-//        }
-//        UserDefaults.standard.set(username, forKey: "currentUser")
-        //---
         
         displayCurrentUserName()
         setViewTheme()
@@ -61,7 +51,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     ///This won't work until we can transition between storyboards so that the login page can populate userDefault
     func displayCurrentUserName() {
         let currentUsername = userDefault.string(forKey: "currentUser")
-        navBar.title = currentUsername
+        //TODO: Dispaly username
 
     }
     
