@@ -31,16 +31,19 @@ class BooksManager {
         storedBooks = result
     }
     
-    static func addBook(item: StoredBook) {
-        let newStoredBook = StoredBook(context: CoreManager.persistentContainer.viewContext)
+    static func addBook(items: [Book]) {
+        let context = CoreManager.persistentContainer.viewContext
         
-        newStoredBook.name = item.name
-        newStoredBook.authorNameLast = item.authorNameLast
-        newStoredBook.authorNameFirst = item.authorNameFirst
-        newStoredBook.category = item.category
-        newStoredBook.coverImage = item.coverImage
-        newStoredBook.fileData = item.fileData
-        
+        for item in items {
+            let newStoredBook = StoredBook(context: context)
+            
+            newStoredBook.name = item.name
+            newStoredBook.authorNameLast = item.authorNameLast
+            newStoredBook.authorNameFirst = item.authorNameFirst
+            newStoredBook.category = item.category
+            //newStoredBook.coverImage = item.coverImage
+            //newStoredBook.fileData = item.fileData
+        }
         CoreManager.saveContext()
     }
     
