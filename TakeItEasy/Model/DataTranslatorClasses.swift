@@ -26,5 +26,12 @@ class Book {
         self.fileData = fileData
     }
     
+    init(name: String, authorNameLast: String, authorNameFirst: String, category: String) {
+        self.name = name
+        self.authorNameLast = authorNameLast
+        self.authorNameFirst = authorNameFirst
+        self.category = category
+    }
+
     init () {}
 }
