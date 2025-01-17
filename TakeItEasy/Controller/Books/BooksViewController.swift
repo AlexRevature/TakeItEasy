@@ -27,13 +27,24 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         collectionBooks.delegate = self
         collectionBooks.dataSource = self
         pdfView = PDFView(frame: UIScreen.main.bounds)
-        //testSetup()
+        /// - Set up test data - delete on final deployment
+        testUserDataCheck()
+        /// - End test data - delete
         BooksManager.fetchBooks()
     }
     
-    // MARK: - Test Function
+    // MARK: - Test Functions - Delete before final deployment
     
-    func testSetup() {
+    private func testUserDataCheck() {
+        guard let currentUser = UserManager.currentUser?.username else {
+            return
+        }
+        if currentUser == "testData" && BooksManager.storedBooks.count < 1 {
+            testSetup()
+        }
+    }
+    
+    private func testSetup() {
         let book1 = Book()
         let book2 = Book()
         let book3 = Book()
