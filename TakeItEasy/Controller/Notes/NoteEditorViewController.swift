@@ -54,9 +54,7 @@ class NoteEditorViewController: UIViewController {
         } else {
             let newNote = NoteManager.shared.createNote(name: newNoteName!, text: newNoteText!, modifiedDate: modifiedDate)
             updateNoteSetWithNote(newNote: newNote)
-            notificationLabel.textColor = ThemeManager.lightTheme.normalText
-            notificationLabel.text = "Note saved"
-            //TODO: Go back to list view on save?
+            self.performSegue(withIdentifier: "toNoteTableView", sender: self)
         }
     }
 }
