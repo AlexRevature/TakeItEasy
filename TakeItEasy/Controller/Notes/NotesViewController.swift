@@ -50,7 +50,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     ///Displays the current user's username in the nav bar
     ///This won't work until we can transition between storyboards so that the login page can populate userDefault
     func displayCurrentUserName() {
-        let currentUsername = userDefault.string(forKey: "currentUser")
+        //let currentUsername = userDefault.string(forKey: "currentUser")
         //TODO: Dispaly username
 
     }
