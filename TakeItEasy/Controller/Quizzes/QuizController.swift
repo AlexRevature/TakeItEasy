@@ -16,19 +16,40 @@ class QuizController: UIViewController {
     
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var scoreWrapper: UIView!
+    @IBOutlet weak var backView: UIView!
     
     var selectedQuiz: StoredQuiz?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        backView.layer.borderColor = UIColor.black.cgColor
+        backView.layer.borderWidth = 0.2
+        backView.layer.cornerRadius = 12
+        backView.layer.masksToBounds = false
+        backView.layer.shadowColor = UIColor.black.cgColor
+        backView.layer.shadowOpacity = 0.2
+        backView.layer.shadowOffset = CGSize(width: 4, height: 4)
+        backView.layer.shadowRadius = 3
+        backView.layer.shadowPath = UIBezierPath(
+            roundedRect: backView.bounds,
+            cornerRadius: backView.layer.cornerRadius
+        ).cgPath
+
+        infoWrapper.backgroundColor = ThemeManager.lightTheme.primaryColor
+        infoWrapper.layer.cornerRadius = 12
+        infoWrapper.layer.masksToBounds = false
+
         titleLabel.text = selectedQuiz?.name
-        authorLabel.text = selectedQuiz?.author
-        scoreLabel.text = "Best Score: \(selectedQuiz?.maxScore ?? 0)/\((selectedQuiz?.questionSet?.count ?? 0) * 100)"
-        
+        titleLabel.textColor = ThemeManager.lightTheme.alternateText
+
+        authorLabel.text = "By: \(selectedQuiz?.author ?? "N/A")"
+        authorLabel.textColor = ThemeManager.lightTheme.alternateText
+
+        scoreLabel.text = "\(selectedQuiz?.maxScore ?? 0)/\(selectedQuiz?.totalScore ?? 0)"
+
         imageHolder.tintColor = ThemeManager.lightTheme.primaryColor
 
-        // Do any additional setup after loading the view.
     }
     
     // Start quiz, segue to QuestionController

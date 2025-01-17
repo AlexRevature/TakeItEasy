@@ -12,6 +12,7 @@ import CoreData
 class BooksViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, PDFViewDelegate {
     private let collectionSectionLimit = 20
     private let stringEmptyDataContainer = "No Books Available"
+    private var categoryNames: [String] = []
     private var pdfView = PDFView()
     var sections: Dictionary<Int, String> = Dictionary()
     
@@ -28,6 +29,7 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         collectionBooks.dataSource = self
         pdfView = PDFView(frame: UIScreen.main.bounds)
         BooksManager.fetchBooks()
+        categoryNames = BooksManager.getAllCategoryNames()
     }
     
     // MARK: - CollectionView functions
@@ -37,7 +39,6 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         if BooksManager.storedBooks.count > 0 {
             guard let coverImage = BooksManager.storedBooks[indexPath.row].coverImage else {
-                cell.bookCoverImage.image = UIImage(systemName: "book")
                 return cell
             }
             cell.bookCoverImage.image = UIImage(data: coverImage)
@@ -49,16 +50,17 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if BooksManager.storedBooks.count > 0 {
-            return collectionSectionLimit
+        if categoryNames.count > 1 {
+            print(collectionView.dataSourceSectionIndex(forPresentationSectionIndex: 0))
+            return 2
         } else {
             return 1
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfSections section: Int, indexPath: IndexPath) -> Int {
-        if BooksManager.storedBooks.count > 0 {
-            return collectionSectionsCount()
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if BooksManager.storedBooks.count > 1 {
+            return categoryNames.count
         } else {
             return 1
         }
@@ -90,16 +92,17 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         }
     }
     
-    func collectionSectionsCount() -> Int {
-        var sectionsTotal = 0
-        let sectionNames = sections.values
+    // MARK: - Collection view supplement functions
+    
+    func countDataItemsInSection(section: String) -> Int {
+        var count = 0
         
         for book in BooksManager.storedBooks {
-            if !sectionNames.contains(where: { $0 == book.category }) {
-                sectionsTotal += 1
+            if section == book.category {
+                count += 1
             }
         }
-        return sectionsTotal
+        return count
     }
     
     // MARK: - PDF viewer

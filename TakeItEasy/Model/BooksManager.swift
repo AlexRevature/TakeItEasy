@@ -54,4 +54,15 @@ class BooksManager {
         context.delete(deleteTarget)
         CoreManager.saveContext()
     }
+    
+    // MARK: - Data information
+    
+    static func getAllCategoryNames() -> [String] {
+        var categoriesSet: Set<String> = Set()
+        
+        for book in BooksManager.storedBooks {
+            categoriesSet.insert(book.category ?? "")
+        }
+        return categoriesSet.sorted()
+    }
 }

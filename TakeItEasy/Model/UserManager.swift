@@ -32,12 +32,13 @@ class UserManager {
     private static func populateTestQuizzes(storedUser: StoredUser) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
+        let count = 5
 
-        for k in 0..<4 {
+        for k in 0..<count {
             let storedQuiz = StoredQuiz(context: CoreManager.managedContext)
-            for i in 0..<4 {
+            for i in 0..<count {
                 let storedQuestion = StoredQuestion(context: CoreManager.managedContext)
-                for j in 0..<4 {
+                for j in 0..<count {
                     let storedOption = StoredOption(context: CoreManager.managedContext)
                     storedOption.text = "(\(i+1), \(j+1)) Testing option"
                     storedOption.orderNumber = Int32(j)

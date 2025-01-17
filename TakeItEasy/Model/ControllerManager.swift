@@ -18,16 +18,16 @@ class ControllerManager {
         let notesController = notesSB.instantiateViewController(identifier: "NotesViewController")
 
         let webSB = UIStoryboard(name: "WebViewStoryboard", bundle: nil)
-        let webController = webSB.instantiateViewController(identifier: "webViewStoryboard")
+        let webController = webSB.instantiateViewController(identifier: "InitialScene")
 
         let bookSB = UIStoryboard(name: "BooksStoryboard", bundle: nil)
-        let booksController = bookSB.instantiateViewController(identifier: "BooksStoryboard")
+        let booksController = bookSB.instantiateViewController(identifier: "InitialScene")
 
         quizzesController.tabBarItem = UITabBarItem(title: "Quiz", image: UIImage(systemName: "bubble.and.pencil"), tag: 0)
         notesController.tabBarItem = UITabBarItem(title: "Notes", image: UIImage(systemName: "note.text"), tag: 1)
 
         let tabController = UITabBarController()
-        tabController.viewControllers = [quizzesController, notesController]
+        tabController.viewControllers = [quizzesController, notesController, booksController, webController]
 
         navigationController?.delegate = NavigationDelegate.shared
         navigationController?.setViewControllers([tabController], animated: true)
