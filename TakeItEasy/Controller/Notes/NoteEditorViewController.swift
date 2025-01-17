@@ -9,6 +9,7 @@ import UIKit
 
 class NoteEditorViewController: UIViewController {
 
+    @IBOutlet weak var notificationLabel: UILabel!
     @IBOutlet weak var noteBodyTextView: UITextView!
     @IBOutlet weak var noteTitleTextField: UITextField!
     
@@ -17,7 +18,16 @@ class NoteEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //TODO: set text field/view to the provided values or values fetched from core data
+        notificationLabel.text = ""
+        setViewTheme()
+        //TODO: Theme adherence
+    }
+    
+    func setViewTheme() {
+        view.backgroundColor = ThemeManager.lightTheme.backColor
+        UIButton.appearance().tintColor = ThemeManager.lightTheme.primaryColor
+        UILabel.appearance().textColor = ThemeManager.lightTheme.normalText
+        UIBarButtonItem.appearance().tintColor = ThemeManager.lightTheme.primaryColor
     }
     
     func updateNoteSetWithNote(newNote : StoredNote) {
@@ -35,12 +45,18 @@ class NoteEditorViewController: UIViewController {
         let newNoteText = noteBodyTextView.text
         let modifiedDate = Date()
         
-        if(newNoteName == nil || newNoteText == nil) {
+        if(newNoteName == "") {
             print("Note name or note text fields are empty")
+            notificationLabel.textColor = .red
+            notificationLabel.text = "Note title cannot be empty"
+            //Does is need to noot be empty?
             return
         } else {
             let newNote = NoteManager.shared.createNote(name: newNoteName!, text: newNoteText!, modifiedDate: modifiedDate)
             updateNoteSetWithNote(newNote: newNote)
+            notificationLabel.textColor = ThemeManager.lightTheme.normalText
+            notificationLabel.text = "Note saved"
+            //TODO: Go back to list view on save?
         }
     }
 }
