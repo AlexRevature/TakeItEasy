@@ -28,8 +28,34 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         collectionBooks.delegate = self
         collectionBooks.dataSource = self
         pdfView = PDFView(frame: UIScreen.main.bounds)
+        //testSetup()
         BooksManager.fetchBooks()
         categoryNames = BooksManager.getAllCategoryNames()
+    }
+    
+    // MARK: - Test Function
+    
+    func testSetup() {
+        let book1 = Book()
+        let book2 = Book()
+        let book3 = Book()
+        
+        book1.name = "Eleni"
+        book1.authorNameLast = "Gage"
+        book1.authorNameFirst = "Nicholas"
+        book1.category = "Nonfiction"
+        
+        book2.authorNameLast = "Dumas"
+        book2.authorNameFirst = "Alexandre"
+        book2.name = "The Count of Monte Cristo"
+        book2.category = "Historical Adventure"
+        
+        book3.authorNameLast = "Grisham"
+        book3.authorNameFirst = "John"
+        book3.name = "The Firm"
+        book3.category = "Legal Thriller"
+        
+        BooksManager.addBook(items: [book1, book2, book3])
     }
     
     // MARK: - CollectionView functions
@@ -41,10 +67,9 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
             guard let coverImage = BooksManager.storedBooks[indexPath.row].coverImage else {
                 return cell
             }
-            cell.bookCoverImage.image = UIImage(data: coverImage)
+            //cell.bookCoverImage.image = UIImage(data: coverImage)
             return cell
         } else {
-            cell.bookCoverImage.isHidden = true
             return cell
         }
     }
@@ -67,13 +92,18 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if BooksManager.storedBooks.count > 0 {
+        if BooksManager.storedBooks.count > 1 {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerItem", for: indexPath) as! BooksCollectionReusableView
+            
+            header.sectionName.text = stringEmptyDataContainer
+            return header
+        } else {
             switch kind {
             case UICollectionView.elementKindSectionHeader:
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerItem", for: indexPath) as! BooksCollectionReusableView
                 
-                sections[indexPath.section] = BooksManager.storedBooks[indexPath.row].category
                 header.sectionIndex = indexPath.section
+                print("\(header.sectionIndex!)")
                 
                 guard let sectionName = sections[indexPath.section] else {
                     header.sectionName.text = "Uncategorized"
@@ -84,11 +114,6 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
             default:
                 assert(false, "Invalid element")
             }
-        } else {
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerItem", for: indexPath) as! BooksCollectionReusableView
-            
-            header.sectionName.text = stringEmptyDataContainer
-            return header
         }
     }
     
