@@ -39,8 +39,10 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         guard let currentUser = UserManager.currentUser?.username else {
             return
         }
-        if currentUser == "testData" && BooksManager.storedBooks.count < 1 {
+        if currentUser != "testData" && BooksManager.storedBooks.count < 1 {
             testSetup()
+        } else if currentUser == "testData" && BooksManager.storedBooks.count > 0 {
+            testEmptyData()
         }
     }
     
@@ -65,6 +67,10 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         book3.category = "Legal Thriller"
         
         BooksManager.addBook(items: [book1, book2, book3])
+    }
+    
+    func testEmptyData() {
+        // Implement core data wipe
     }
     
     // MARK: - CollectionView functions
