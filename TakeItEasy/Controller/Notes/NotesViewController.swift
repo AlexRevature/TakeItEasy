@@ -10,6 +10,7 @@ import UIKit
 class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDataSource{
     var noteData : [StoredNote] = []
     
+    @IBOutlet weak var newButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     let userDefault = UserDefaults.standard
@@ -57,9 +58,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     
     func setViewTheme() {
         view.backgroundColor = ThemeManager.lightTheme.backColor
-//        UIButton.appearance().tintColor = ThemeManager.lightTheme.primaryColor
-//        UILabel.appearance().textColor = ThemeManager.lightTheme.normalText
-//        UIBarButtonItem.appearance().tintColor = ThemeManager.lightTheme.primaryColor
+        newButton.tintColor = ThemeManager.lightTheme.primaryColor
         tableView.backgroundColor = ThemeManager.lightTheme.backColor
     }
 
