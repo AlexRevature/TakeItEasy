@@ -22,12 +22,12 @@ class ThemeManager {
     static var isLightEnabled = true
     
     static let lightTheme = Theme(
-        primaryColor: customColor(r: 92, g: 98, b: 173),
-        secondaryColor: customColor(r: 116, g: 120, b: 185),
+        primaryColor: .init(named: "PrimaryColor") ?? .black,
+        secondaryColor: .init(named: "SecondaryColor") ?? .black,
         backColor: .init(named: "BackColor") ?? .black,
         normalText: .init(named: "NormalText") ?? .black,
         alternateText: .white,
-        boldText: customColor(r: 56, g: 61, b: 94)
+        boldText: .init(named: "BoldText") ?? .black
     )
     
     static let darkTheme = Theme(

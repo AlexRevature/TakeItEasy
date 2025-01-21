@@ -13,9 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        TitleLabel.appearance().textColor = ThemeManager.lightTheme.primaryColor
-        
+
+        TitleLabel.appearance().textColor = ThemeManager.lightTheme.boldText
         var configuration = ActionButton.Configuration.filled()
         configuration.baseBackgroundColor = ThemeManager.lightTheme.primaryColor
         configuration.baseForegroundColor = ThemeManager.lightTheme.alternateText
