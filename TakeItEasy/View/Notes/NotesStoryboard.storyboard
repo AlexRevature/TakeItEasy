@@ -13,7 +13,7 @@
             <objects>
                 <viewController storyboardIdentifier="NotesViewController" id="Y6W-OH-hqX" customClass="NotesViewController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DvP-Jb-1Ad">
@@ -72,6 +72,7 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Om4-6A-9I0"/>
                     <connections>
                         <outlet property="tableView" destination="DvP-Jb-1Ad" id="nfK-bA-5q0"/>
                         <segue destination="Ppc-1n-AJl" kind="show" identifier="toNoteEditor" id="3n6-sY-Emf"/>
@@ -130,6 +131,7 @@
                         <outlet property="noteBodyTextView" destination="iSw-gl-G7I" id="hYy-yV-dD8"/>
                         <outlet property="noteTitleTextField" destination="6YO-Ep-GSE" id="0MI-sd-oGQ"/>
                         <outlet property="notificationLabel" destination="gch-CB-Yo4" id="sNT-eA-6fc"/>
+                        <segue destination="Y6W-OH-hqX" kind="show" identifier="toNoteTableView" id="aOz-dw-Ngz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mka-Xz-OTC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -137,6 +139,9 @@
             <point key="canvasLocation" x="733.58778625954199" y="-19.014084507042256"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="aOz-dw-Ngz"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
