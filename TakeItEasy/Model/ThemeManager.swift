@@ -24,18 +24,18 @@ class ThemeManager {
     static let lightTheme = Theme(
         primaryColor: customColor(r: 92, g: 98, b: 173),
         secondaryColor: customColor(r: 116, g: 120, b: 185),
-        backColor: UIColor.white,
-        normalText: UIColor.black,
-        alternateText: UIColor.white,
+        backColor: .init(named: "BackColor") ?? .black,
+        normalText: .init(named: "NormalText") ?? .black,
+        alternateText: .white,
         boldText: customColor(r: 56, g: 61, b: 94)
     )
     
     static let darkTheme = Theme(
         primaryColor: customColor(r: 92, g: 98, b: 173),
         secondaryColor: customColor(r: 116, g: 120, b: 185),
-        backColor: UIColor.white,
-        normalText: UIColor.black,
-        alternateText: UIColor.white,
+        backColor: .white,
+        normalText: .black,
+        alternateText: .white,
         boldText: customColor(r: 56, g: 61, b: 94)
     )
     
