@@ -16,10 +16,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DvP-Jb-1Ad">
-                                <rect key="frame" x="16" y="156" width="361" height="580"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DvP-Jb-1Ad">
+                                <rect key="frame" x="16" y="44" width="361" height="580"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="580" id="Xy5-T6-PkM"/>
+                                    <constraint firstAttribute="width" constant="361" id="n7l-Fi-EhD"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="noteCell" rowHeight="86" id="f2O-xU-n0g" customClass="NotesTableViewCellController" customModule="TakeItEasy" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="361" height="86"/>
@@ -51,17 +54,23 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" fixedFrame="YES" text="" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="RWl-IH-QgW">
-                                <rect key="frame" x="0.0" y="105" width="393" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <searchBar contentMode="redraw" text="" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="RWl-IH-QgW">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="lqk-81-wLT"/>
+                                    <constraint firstAttribute="width" constant="393" id="xx7-NY-yca"/>
+                                </constraints>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="iid-s9-qCd"/>
                                 </connections>
                             </searchBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCf-yh-GNt">
-                                <rect key="frame" x="17" y="733" width="360" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCf-yh-GNt">
+                                <rect key="frame" x="96.666666666666686" y="782" width="200" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="bXA-mE-VRj"/>
+                                    <constraint firstAttribute="height" constant="55" id="vZq-EY-csY"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Create New Note"/>
                                 <connections>
@@ -71,6 +80,22 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="ZCf-yh-GNt" secondAttribute="bottom" constant="5" id="23b-ks-qsG"/>
+                            <constraint firstItem="RWl-IH-QgW" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="7Es-cS-dQl"/>
+                            <constraint firstItem="ZCf-yh-GNt" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="7qO-wl-u0e"/>
+                            <constraint firstItem="ZCf-yh-GNt" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="HKv-RS-y0g"/>
+                            <constraint firstItem="DvP-Jb-1Ad" firstAttribute="top" secondItem="RWl-IH-QgW" secondAttribute="bottom" symbolic="YES" id="XiD-0q-4ta"/>
+                            <constraint firstItem="DvP-Jb-1Ad" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="acx-GB-S1C"/>
+                            <constraint firstItem="RWl-IH-QgW" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="g7f-XE-gaX"/>
+                            <constraint firstItem="ZCf-yh-GNt" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="55" id="hk3-sf-SSo"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="hk3-sf-SSo"/>
+                                <exclude reference="7qO-wl-u0e"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Om4-6A-9I0"/>
                     <connections>
@@ -90,23 +115,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Note Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iSw-gl-G7I">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="Note Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iSw-gl-G7I">
                                 <rect key="frame" x="16" y="161" width="361" height="536"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="536" id="XEs-PJ-rr2"/>
+                                    <constraint firstAttribute="width" constant="361" id="ahd-7i-vVf"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Note Title" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6YO-Ep-GSE">
-                                <rect key="frame" x="16" y="101" width="361" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Note Title" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6YO-Ep-GSE">
+                                <rect key="frame" x="134.66666666666666" y="101" width="123.99999999999997" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="124" id="Art-1A-7Im"/>
+                                    <constraint firstAttribute="height" constant="34" id="k55-WH-rNB"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNU-SB-NZo">
-                                <rect key="frame" x="17" y="733" width="360" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNU-SB-NZo">
+                                <rect key="frame" x="96.666666666666686" y="782" width="200" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="37a-Nq-QtP"/>
+                                    <constraint firstAttribute="height" constant="55" id="T5y-1g-4HY"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Save">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
@@ -125,6 +159,13 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ddb-Rg-ueZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ddb-Rg-ueZ" firstAttribute="bottom" secondItem="iNU-SB-NZo" secondAttribute="bottom" constant="5" id="1tB-97-OsB"/>
+                            <constraint firstItem="6YO-Ep-GSE" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="Bin-o6-RCr"/>
+                            <constraint firstItem="iSw-gl-G7I" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="SUF-Jw-I7K"/>
+                            <constraint firstItem="iSw-gl-G7I" firstAttribute="top" secondItem="6YO-Ep-GSE" secondAttribute="bottom" constant="10" id="omc-Uk-5aF"/>
+                            <constraint firstItem="iNU-SB-NZo" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="sub-fY-w7n"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6hR-Qz-qNX"/>
                     <connections>
