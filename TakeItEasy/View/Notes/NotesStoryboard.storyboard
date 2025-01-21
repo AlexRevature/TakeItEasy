@@ -100,6 +100,7 @@
                     <navigationItem key="navigationItem" id="Om4-6A-9I0"/>
                     <connections>
                         <outlet property="newButton" destination="ZCf-yh-GNt" id="LW2-d8-geu"/>
+                        <outlet property="searchBar" destination="RWl-IH-QgW" id="Ckf-26-l7y"/>
                         <outlet property="tableView" destination="DvP-Jb-1Ad" id="nfK-bA-5q0"/>
                         <segue destination="Ppc-1n-AJl" kind="show" identifier="toNoteEditor" id="3n6-sY-Emf"/>
                     </connections>
@@ -134,9 +135,9 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Note Title" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6YO-Ep-GSE">
-                                <rect key="frame" x="134.66666666666666" y="101" width="123.99999999999997" height="34"/>
+                                <rect key="frame" x="16" y="101" width="361" height="34"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="124" id="Art-1A-7Im"/>
+                                    <constraint firstAttribute="width" constant="361" id="Art-1A-7Im"/>
                                     <constraint firstAttribute="height" constant="34" id="k55-WH-rNB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
