@@ -25,9 +25,9 @@ class NoteEditorViewController: UIViewController {
     
     func setViewTheme() {
         view.backgroundColor = ThemeManager.lightTheme.backColor
-        UIButton.appearance().tintColor = ThemeManager.lightTheme.primaryColor
-        UILabel.appearance().textColor = ThemeManager.lightTheme.normalText
-        UIBarButtonItem.appearance().tintColor = ThemeManager.lightTheme.primaryColor
+//        UIButton.appearance().tintColor = ThemeManager.lightTheme.primaryColor
+//        UILabel.appearance().textColor = ThemeManager.lightTheme.normalText
+//        UIBarButtonItem.appearance().tintColor = ThemeManager.lightTheme.primaryColor
     }
     
     func updateNoteSetWithNote(newNote : StoredNote) {

@@ -60,6 +60,8 @@ class NavigationDelegate: NSObject, UINavigationControllerDelegate {
 
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
 
+        viewController.navigationItem.backButtonTitle = "Back"
+
         if (navigationController.topViewController as? UITabBarController) != nil {
             viewController.navigationItem.rightBarButtonItem = barButtonItem
             viewController.navigationItem.title = UserManager.currentUser?.username ?? ""
