@@ -99,6 +99,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Om4-6A-9I0"/>
                     <connections>
+                        <outlet property="newButton" destination="ZCf-yh-GNt" id="LW2-d8-geu"/>
                         <outlet property="tableView" destination="DvP-Jb-1Ad" id="nfK-bA-5q0"/>
                         <segue destination="Ppc-1n-AJl" kind="show" identifier="toNoteEditor" id="3n6-sY-Emf"/>
                     </connections>
@@ -172,6 +173,7 @@
                         <outlet property="noteBodyTextView" destination="iSw-gl-G7I" id="hYy-yV-dD8"/>
                         <outlet property="noteTitleTextField" destination="6YO-Ep-GSE" id="0MI-sd-oGQ"/>
                         <outlet property="notificationLabel" destination="gch-CB-Yo4" id="sNT-eA-6fc"/>
+                        <outlet property="saveButton" destination="iNU-SB-NZo" id="d1W-eB-LtX"/>
                         <segue destination="Y6W-OH-hqX" kind="show" identifier="toNoteTableView" id="aOz-dw-Ngz"/>
                     </connections>
                 </viewController>
