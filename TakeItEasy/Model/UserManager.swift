@@ -36,6 +36,7 @@ class UserManager {
 
         for k in 0..<count {
             let storedQuiz = StoredQuiz(context: CoreManager.managedContext)
+            var totalScore = 0
             for i in 0..<count {
                 let storedQuestion = StoredQuestion(context: CoreManager.managedContext)
                 for j in 0..<count {
@@ -44,14 +45,18 @@ class UserManager {
                     storedOption.orderNumber = Int32(j)
                     storedQuestion.addToOptionSet(storedOption)
                 }
+                let pointValue = (i + 1) * 50
+                totalScore += pointValue
                 storedQuestion.text = "(\(i+1)) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pharetra pellentesque leo vel interdum. Proin ex neque, maximus ac aliquam vitae, aliquet rhoncus nisi."
                 storedQuestion.orderNumber = Int32(i)
-                storedQuestion.correctIndex = Int32(i % 4)
+                storedQuestion.correctIndex = Int32(i % count)
+                storedQuestion.pointValue = Int32(pointValue)
                 storedQuiz.addToQuestionSet(storedQuestion)
             }
             storedQuiz.name = "Test #\(k+1)"
-            storedQuiz.author = "Bobby Tables #\(k+1)"
+            storedQuiz.author = "Little Bobby Tables"
             storedQuiz.date = formatter.date(from: "2024/5/\(k+1)")
+            storedQuiz.totalScore = Int32(totalScore)
             storedUser.addToQuizSet(storedQuiz)
         }
     }

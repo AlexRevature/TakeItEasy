@@ -11,6 +11,9 @@ class ControllerManager {
 
     static func mainTransition(navigationController: UINavigationController?) {
 
+        let bookSB = UIStoryboard(name: "BooksStoryboard", bundle: nil)
+        let booksController = bookSB.instantiateViewController(identifier: "InitialScene")
+
         let quizSB = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
         let quizzesController = quizSB.instantiateViewController(identifier: "QuizListController")
 
@@ -20,14 +23,17 @@ class ControllerManager {
         let webSB = UIStoryboard(name: "WebViewStoryboard", bundle: nil)
         let webController = webSB.instantiateViewController(identifier: "InitialScene")
 
-        let bookSB = UIStoryboard(name: "BooksStoryboard", bundle: nil)
-        let booksController = bookSB.instantiateViewController(identifier: "InitialScene")
-
-        quizzesController.tabBarItem = UITabBarItem(title: "Quiz", image: UIImage(systemName: "bubble.and.pencil"), tag: 0)
-        notesController.tabBarItem = UITabBarItem(title: "Notes", image: UIImage(systemName: "note.text"), tag: 1)
+        booksController.tabBarItem = UITabBarItem(title: "Books", image: UIImage(systemName: "book"), tag: 0)
+        quizzesController.tabBarItem = UITabBarItem(title: "Quizs", image: UIImage(systemName: "bubble.and.pencil"), tag: 1)
+        notesController.tabBarItem = UITabBarItem(title: "Notes", image: UIImage(systemName: "note.text"), tag: 2)
+        webController.tabBarItem = UITabBarItem(title: "Web", image: UIImage(systemName: "network"), tag: 3)
 
         let tabController = UITabBarController()
         tabController.viewControllers = [quizzesController, notesController, booksController, webController]
+
+        tabController.tabBar.unselectedItemTintColor = UIColor.lightGray
+        tabController.tabBar.tintColor = UIColor.white
+        tabController.tabBar.backgroundColor = ThemeManager.lightTheme.primaryColor
 
         navigationController?.delegate = NavigationDelegate.shared
         navigationController?.setViewControllers([tabController], animated: true)
@@ -56,6 +62,7 @@ class NavigationDelegate: NSObject, UINavigationControllerDelegate {
 
         if (navigationController.topViewController as? UITabBarController) != nil {
             viewController.navigationItem.rightBarButtonItem = barButtonItem
+            viewController.navigationItem.title = UserManager.currentUser?.username ?? ""
         }
     }
 }

@@ -39,7 +39,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let rootVC = storyboard.instantiateViewController(identifier: "LandingController")
             rootNC.setViewControllers([rootVC], animated: false)
         }
-        
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = ThemeManager.lightTheme.primaryColor
+        appearance.shadowColor = nil
+        appearance.titleTextAttributes = [
+           .foregroundColor: UIColor.white
+        ]
+
+        rootNC.navigationBar.standardAppearance = appearance
+        rootNC.navigationBar.scrollEdgeAppearance = appearance
+        rootNC.navigationBar.compactAppearance = appearance
+        rootNC.navigationBar.isTranslucent = false
+        rootNC.navigationBar.tintColor = UIColor.white
+
         self.window?.rootViewController = rootNC
         self.window?.makeKeyAndVisible()
     }
