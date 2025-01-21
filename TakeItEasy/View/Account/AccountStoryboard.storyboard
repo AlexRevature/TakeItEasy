@@ -16,6 +16,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hij-1H-Jes">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Srg-fE-olY">
+                                <rect key="frame" x="76.666666666666686" y="218" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Srg-fE-olY" secondAttribute="height" multiplier="1:1" id="LxR-Mg-WYN"/>
+                                    <constraint firstAttribute="width" constant="240" id="zyZ-bY-H6n"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pst-Mi-B7r" customClass="ActionButton" customModule="TakeItEasy" customModuleProvider="target">
                                 <rect key="frame" x="96.666666666666686" y="628" width="200" height="50"/>
                                 <constraints>
@@ -46,14 +56,24 @@
                         <constraints>
                             <constraint firstItem="i3c-p6-73s" firstAttribute="top" secondItem="pst-Mi-B7r" secondAttribute="bottom" constant="30" id="4uq-M4-Ken"/>
                             <constraint firstItem="i3c-p6-73s" firstAttribute="centerX" secondItem="pst-Mi-B7r" secondAttribute="centerX" id="79f-Dt-kEK"/>
+                            <constraint firstItem="Srg-fE-olY" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Dhi-61-H0Y"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Hij-1H-Jes" secondAttribute="trailing" id="Kwx-bH-49k"/>
+                            <constraint firstItem="Hij-1H-Jes" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="LsA-RF-Tco"/>
                             <constraint firstItem="pst-Mi-B7r" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="aCb-gc-I6E"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="i3c-p6-73s" secondAttribute="bottom" constant="60" id="ei1-L5-uPJ"/>
+                            <constraint firstItem="pst-Mi-B7r" firstAttribute="top" secondItem="Srg-fE-olY" secondAttribute="bottom" constant="170" id="gVu-Rk-tTS"/>
+                            <constraint firstItem="Hij-1H-Jes" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="qlg-9m-3bi"/>
+                            <constraint firstAttribute="bottom" secondItem="Hij-1H-Jes" secondAttribute="bottom" id="rEm-eM-ARA"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="backView" destination="Hij-1H-Jes" id="Pn3-v9-Bbr"/>
+                        <outlet property="logoView" destination="Srg-fE-olY" id="9Ac-7B-WFF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="5"/>
+            <point key="canvasLocation" x="135.1145038167939" y="4.9295774647887329"/>
         </scene>
         <!--Register Controller-->
         <scene sceneID="lsY-3L-kdN">

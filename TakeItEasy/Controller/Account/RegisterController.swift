@@ -128,6 +128,7 @@ class RegisterController: UIViewController {
         
         let currentUser = UserManager.createUser(name: name, age: age, email: email, username: username)
         UserManager.currentUser = currentUser
+        UserDefaults.standard.set(username as Any?, forKey: "currentUser")
 
         ControllerManager.mainTransition(navigationController: self.navigationController)
 

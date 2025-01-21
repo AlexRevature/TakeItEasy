@@ -9,6 +9,9 @@ import UIKit
 
 class LandingController: UIViewController {
 
+    @IBOutlet weak var backView: UIImageView!
+    @IBOutlet weak var logoView: UIImageView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
