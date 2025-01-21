@@ -116,6 +116,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Notifaction Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gch-CB-Yo4">
+                                <rect key="frame" x="132" y="705" width="129.33333333333337" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="Note Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iSw-gl-G7I">
                                 <rect key="frame" x="16" y="161" width="361" height="536"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -150,19 +156,14 @@
                                     <action selector="saveButtonPressed:" destination="Ppc-1n-AJl" eventType="touchUpInside" id="YZu-cl-NvC"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notifaction Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gch-CB-Yo4">
-                                <rect key="frame" x="17" y="705" width="353" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ddb-Rg-ueZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ddb-Rg-ueZ" firstAttribute="bottom" secondItem="iNU-SB-NZo" secondAttribute="bottom" constant="5" id="1tB-97-OsB"/>
                             <constraint firstItem="6YO-Ep-GSE" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="Bin-o6-RCr"/>
+                            <constraint firstItem="gch-CB-Yo4" firstAttribute="top" secondItem="iSw-gl-G7I" secondAttribute="bottom" constant="5" id="DJH-2x-bH3"/>
+                            <constraint firstItem="gch-CB-Yo4" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="QEp-By-Reb"/>
                             <constraint firstItem="iSw-gl-G7I" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="SUF-Jw-I7K"/>
                             <constraint firstItem="iSw-gl-G7I" firstAttribute="top" secondItem="6YO-Ep-GSE" secondAttribute="bottom" constant="10" id="omc-Uk-5aF"/>
                             <constraint firstItem="iNU-SB-NZo" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="sub-fY-w7n"/>
