@@ -7,9 +7,10 @@
 
 import UIKit
 
-class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDataSource{
+class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     var noteData : [StoredNote] = []
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var newButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
@@ -21,11 +22,11 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
         
-        displayCurrentUserName()
         setViewTheme()
         
-        reloadFromCoreData() //may be an unessesaryy call with the call also happening in  viewWIllAppear
+        reloadFromCoreData() //may be an unessesaryy call with the call also happening in viewWIllAppear
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -46,14 +47,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     override func viewWillAppear(_ animated : Bool) {
         super.viewWillAppear(animated)
         reloadFromCoreData()
-    }
-    
-    ///Displays the current user's username in the nav bar
-    ///This won't work until we can transition between storyboards so that the login page can populate userDefault
-    func displayCurrentUserName() {
-        //let currentUsername = userDefault.string(forKey: "currentUser")
-        //TODO: Dispaly username
-
     }
     
     func setViewTheme() {
@@ -117,6 +110,33 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         print("add button pressed")
         userDefault.set(false, forKey: "editMode")
         self.performSegue(withIdentifier: "toNoteEditor", sender: self)
+    }
+    
+    ///search bar
+    ///searches by note name
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("entered text: ", searchText)
+        var temporaryArray : [StoredNote] = []
+        
+        if (noteData.isEmpty) {
+            return
+        }
+        
+        if (searchText == "") {
+            //Restoring original list currenl doesn't work
+            reloadFromCoreData()
+        }
+        
+        for note in noteData {
+            //want casse independence
+            if note.name!.contains(searchText) {
+                print("Note found")
+                temporaryArray.append(note)
+            }
+        }
+        
+        noteData = temporaryArray
+        tableView.reloadData()
     }
     
     /*
