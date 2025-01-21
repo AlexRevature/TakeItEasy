@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jil-Cf-3Up">
-                                <rect key="frame" x="0.0" y="59" width="393" height="724"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -28,9 +28,9 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="jil-Cf-3Up" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="H9C-Uu-Dwt"/>
                             <constraint firstItem="jil-Cf-3Up" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="LXz-nz-6Yn"/>
-                            <constraint firstItem="jil-Cf-3Up" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="eGt-lM-GJ7"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="jil-Cf-3Up" secondAttribute="bottom" constant="35" id="kzT-ea-LiT"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="jil-Cf-3Up" secondAttribute="bottom" id="kzT-ea-LiT"/>
                             <constraint firstItem="jil-Cf-3Up" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="mD6-OG-DeL"/>
                         </constraints>
                     </view>
