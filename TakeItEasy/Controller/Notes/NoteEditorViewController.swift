@@ -54,7 +54,7 @@ class NoteEditorViewController: UIViewController {
         } else {
             let newNote = NoteManager.shared.createNote(name: newNoteName!, text: newNoteText!, modifiedDate: modifiedDate)
             updateNoteSetWithNote(newNote: newNote)
-            self.performSegue(withIdentifier: "toNoteTableView", sender: self)
+            //self.performSegue(withIdentifier: "toNoteTableView", sender: self)
         }
     }
 }
