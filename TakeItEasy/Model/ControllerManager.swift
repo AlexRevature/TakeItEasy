@@ -24,16 +24,24 @@ class ControllerManager {
         let webController = webSB.instantiateViewController(identifier: "InitialScene")
 
         booksController.tabBarItem = UITabBarItem(title: "Books", image: UIImage(systemName: "book"), tag: 0)
-        quizzesController.tabBarItem = UITabBarItem(title: "Quizs", image: UIImage(systemName: "bubble.and.pencil"), tag: 1)
+        quizzesController.tabBarItem = UITabBarItem(title: "Quizzes", image: UIImage(systemName: "bubble.and.pencil"), tag: 1)
         notesController.tabBarItem = UITabBarItem(title: "Notes", image: UIImage(systemName: "note.text"), tag: 2)
         webController.tabBarItem = UITabBarItem(title: "Web", image: UIImage(systemName: "network"), tag: 3)
 
         let tabController = UITabBarController()
         tabController.viewControllers = [quizzesController, notesController, booksController, webController]
 
-        tabController.tabBar.unselectedItemTintColor = UIColor.lightGray
-        tabController.tabBar.tintColor = UIColor.white
-        tabController.tabBar.backgroundColor = ThemeManager.lightTheme.primaryColor
+        let tabAppearance = UITabBarAppearance()
+        tabAppearance.backgroundColor = ThemeManager.lightTheme.primaryColor
+
+        tabAppearance.stackedLayoutAppearance.selected.iconColor = UIColor.white
+        tabAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+
+        tabAppearance.stackedLayoutAppearance.normal.iconColor = UIColor.lightGray
+        tabAppearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+
+        tabController.tabBar.standardAppearance = tabAppearance
+        tabController.tabBar.scrollEdgeAppearance = tabAppearance
 
         navigationController?.delegate = NavigationDelegate.shared
         navigationController?.setViewControllers([tabController], animated: true)
