@@ -53,7 +53,21 @@ class QuestionController: UIViewController {
             }
         }
         score = 0
-        
+
+        var childrenList: [UIAction] = []
+        for i in 0..<questionList!.count {
+            let question = questionList![i]
+            let child = UIAction(title: "Question \(i+1) (\(question.pointValue) points)") { _ in
+                self.currentQuestionIndex = i
+                self.updateQuestion()
+            }
+            childrenList.append(child)
+        }
+        let menu = UIMenu(title: "Qsuestions", options: .displayInline, children: childrenList)
+
+        numberButton.menu = menu
+        numberButton.showsMenuAsPrimaryAction = true
+
         scoreImage.tintColor = ThemeManager.lightTheme.primaryColor
         
         questionLabel.textColor = ThemeManager.lightTheme.normalText
@@ -209,7 +223,7 @@ extension QuestionController: UITableViewDelegate, UITableViewDataSource {
                 cell.numberWrapper.backgroundColor = .systemRed
             }
         } else {
-            cell.backView.backgroundColor = .white
+            cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
         }
         
         cell.numberLabel.text = "\(indexPath.row + 1)"

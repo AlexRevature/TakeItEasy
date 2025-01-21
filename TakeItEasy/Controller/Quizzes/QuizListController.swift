@@ -20,8 +20,6 @@ class QuizListController: UIViewController {
         quizCollection.delegate = self
         quizCollection.dataSource = self
 
-        self.navigationItem.title = "\(UserManager.currentUser?.collectedPoints ?? 0) Points"
-
         quizList = UserManager.getQuizList()
     }
     
@@ -58,7 +56,8 @@ extension QuizListController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.countBack.backgroundColor = ThemeManager.lightTheme.secondaryColor
         cell.countBack.layer.cornerRadius = 5
 
-        cell.backView.layer.borderColor = UIColor.black.cgColor
+        cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
+        cell.backView.layer.borderColor = UIColor.systemBackground.cgColor
         cell.backView.layer.borderWidth = 0.2
 
         cell.backView.layer.cornerRadius = 18.0

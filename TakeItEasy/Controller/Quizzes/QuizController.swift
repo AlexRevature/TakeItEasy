@@ -23,6 +23,7 @@ class QuizController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        backView.backgroundColor = ThemeManager.lightTheme.backColor
         backView.layer.borderColor = UIColor.black.cgColor
         backView.layer.borderWidth = 0.2
         backView.layer.cornerRadius = 12
@@ -36,7 +37,7 @@ class QuizController: UIViewController {
             cornerRadius: backView.layer.cornerRadius
         ).cgPath
 
-        infoWrapper.backgroundColor = ThemeManager.lightTheme.primaryColor
+        infoWrapper.backgroundColor = ThemeManager.lightTheme.secondaryColor
         infoWrapper.layer.cornerRadius = 12
         infoWrapper.layer.masksToBounds = false
 
@@ -47,6 +48,7 @@ class QuizController: UIViewController {
         authorLabel.textColor = ThemeManager.lightTheme.alternateText
 
         scoreLabel.text = "\(selectedQuiz?.maxScore ?? 0)/\(selectedQuiz?.totalScore ?? 0)"
+        scoreWrapper.layer.cornerRadius = 8
 
         imageHolder.tintColor = ThemeManager.lightTheme.primaryColor
 
