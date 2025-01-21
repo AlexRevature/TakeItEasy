@@ -13,9 +13,23 @@ class LoginController: UIViewController {
     @IBOutlet weak var passwordEntry: UITextField!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var persistenceToggle: UISwitch!
-
+    @IBOutlet weak var backView: UIView!
+    
+    @IBOutlet weak var userBack: UIView!
+    @IBOutlet weak var passwordBack: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        userBack.backgroundColor = nil
+        passwordBack.backgroundColor = nil
+
+        usernameEntry.backgroundColor = .systemGray5
+        passwordEntry.backgroundColor = .systemGray5
+
+        backView.backgroundColor = ThemeManager.lightTheme.backColor
+        backView.layer.cornerRadius = 12
+        backView.layer.masksToBounds = false
 
     }
     

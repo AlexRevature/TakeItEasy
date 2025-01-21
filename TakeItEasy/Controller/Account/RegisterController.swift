@@ -17,7 +17,15 @@ class RegisterController: UIViewController {
     @IBOutlet weak var passwordEntry: UITextField!
     @IBOutlet weak var pwdCheckEntry: UITextField!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var backView: UIView!
+
+    @IBOutlet weak var nameBack: UIView!
+    @IBOutlet weak var emailBack: UIView!
+    @IBOutlet weak var userBack: UIView!
+    @IBOutlet weak var passwordBack: UIView!
+    @IBOutlet weak var checkBack: UIView!
     
+
     static private func checkEmail(email: String) -> Bool {
         let regex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,10}"
         let predicate = NSPredicate(format:"SELF MATCHES %@", regex)
@@ -26,6 +34,23 @@ class RegisterController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        nameBack.backgroundColor = nil
+        emailBack.backgroundColor = nil
+        userBack.backgroundColor = nil
+        passwordBack.backgroundColor = nil
+        checkBack.backgroundColor = nil
+
+        nameEntry.backgroundColor = .systemGray5
+        ageEntry.backgroundColor = .systemGray5
+        emailEntry.backgroundColor = .systemGray5
+        usernameEntry.backgroundColor = .systemGray5
+        passwordEntry.backgroundColor = .systemGray5
+        pwdCheckEntry.backgroundColor = .systemGray5
+
+        backView.backgroundColor = ThemeManager.lightTheme.backColor
+        backView.layer.cornerRadius = 12
+        backView.layer.masksToBounds = false
 
     }
     
