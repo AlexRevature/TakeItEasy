@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
 
-        let rootNC = UINavigationController()
+        let rootNC = createNavigation()
         self.window?.rootViewController = rootNC
 
         let username = UserDefaults.standard.string(forKey: "currentUser")
@@ -39,20 +39,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let rootVC = storyboard.instantiateViewController(identifier: "LandingController")
             rootNC.setViewControllers([rootVC], animated: false)
         }
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = ThemeManager.lightTheme.primaryColor
-        appearance.shadowColor = nil
-        appearance.titleTextAttributes = [
-           .foregroundColor: UIColor.white
-        ]
-
-        rootNC.navigationBar.standardAppearance = appearance
-        rootNC.navigationBar.scrollEdgeAppearance = appearance
-        rootNC.navigationBar.compactAppearance = appearance
-        rootNC.navigationBar.isTranslucent = false
-        rootNC.navigationBar.tintColor = UIColor.white
 
         self.window?.rootViewController = rootNC
         self.window?.makeKeyAndVisible()
@@ -95,9 +81,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let storyboard = UIStoryboard(name: "AccountStoryboard", bundle: nil)
         let rootVC = storyboard.instantiateViewController(identifier: "LandingController")
-        let rootNC = UINavigationController(rootViewController: rootVC)
+        let rootNC = createNavigation()
+        rootNC.setViewControllers([rootVC], animated: false)
 
         self.window?.rootViewController = rootNC
+    }
+
+    func createNavigation() -> UINavigationController {
+        let rootNC = UINavigationController()
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = ThemeManager.lightTheme.primaryColor
+        appearance.shadowColor = nil
+        appearance.titleTextAttributes = [
+           .foregroundColor: UIColor.white
+        ]
+
+        rootNC.navigationBar.standardAppearance = appearance
+        rootNC.navigationBar.scrollEdgeAppearance = appearance
+        rootNC.navigationBar.compactAppearance = appearance
+        rootNC.navigationBar.isTranslucent = false
+        rootNC.navigationBar.tintColor = UIColor.white
+
+        return rootNC
     }
 
 
