@@ -89,7 +89,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     ///This is used to pass the StoredNote object to the NoteEditorViewController if editMode is set to true
-    ///editMode is true if a row is selected and it is flase if the add button is pressed
+    ///editMode is true if a row is selected and it is false if the add button is pressed
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let isEditMode = userDefault.bool(forKey: "editMode")
         if segue.identifier == "toNoteEditor" && isEditMode {
@@ -123,13 +123,13 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         if (searchText == "") {
-            //Restoring original list currenl doesn't work
+            //Restoring original list currently doesn't work
             reloadFromCoreData()
         }
         
         for note in noteData {
-            //want casse independence
-            if note.name!.contains(searchText) {
+            let noteName = note.name!.lowercased()
+            if noteName.contains(searchText.lowercased()) {
                 print("Note found")
                 temporaryArray.append(note)
             }
