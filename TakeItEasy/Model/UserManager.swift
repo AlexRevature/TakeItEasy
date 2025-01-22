@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import UIKit
 
 class UserManager {
     
@@ -117,5 +118,130 @@ class UserManager {
             a.orderNumber < b.orderNumber
         })
     }
-    
+
+    let questionList: [QuizInfo] = [
+        .init(name: "Swift Language", author: "John Apple", date: Date(), image: UIImage(), questionList: [
+            .init(text: "How would you force unwrap the optional variable 'tmp'?", value: 50, correctIndex: 0, options: [
+                "tmp!",
+                "tmp?",
+                "!tmp",
+                "tmp ?? nil",
+                "tmp -> nTmp"
+            ]),
+            .init(text: "What keyword is used in a closure after listing its arguments?", value: 60, correctIndex: 3, options: [
+                "perform",
+                "do",
+                "for",
+                "in",
+                "action"
+            ]),
+            .init(text: "What is the some keyword used for?", value: 90, correctIndex: 2, options: [
+                "closures",
+                "reference types",
+                "opaque types",
+                "ForLoop callback",
+                "H-O value dereferencing"
+            ]),
+            .init(text: "Who created the Swift language?", value: 10, correctIndex: 4, options: [
+                "Bobby Tables",
+                "John Swift",
+                "Graydon Hoare",
+                "John Closure",
+                "Christ Lattner"
+            ]),
+            .init(text: "Which of these is not a feature of the language?", value: 120, correctIndex: 0, options: [
+                "Garbage Collection",
+                "Closures",
+                "Reference Counting",
+                "Extensions",
+                "Protocols"
+            ]),
+        ]),
+        .init(name: "UIKit Features", author: "Johnathan Apple", date: Date(), image: UIImage(), questionList: [
+            .init(text: "How do you navigate to a new viewController when using a Navigation Controller?", value: 50, correctIndex: 0, options: [
+                "nav.pushViewController(vc)",
+                "nav.present(vc)",
+                "present(vc)",
+                "nav.viewTransition(vc)",
+                "addToQueue(vc)"
+            ]),
+            .init(text: "Which is not a valid core data entity attribute type?", value: 60, correctIndex: 3, options: [
+                "String",
+                "Int",
+                "Date",
+                "Boolean",
+                "Float"
+            ]),
+            .init(text: "Which transition callback doesn't exist?", value: 90, correctIndex: 3, options: [
+                "viewWillTransition",
+                "viewIsAppearing",
+                "viewDidLayoutSubviews",
+                "viewWillSetMargins",
+                "viewDidDisappear"
+            ]),
+            .init(text: "Which of these are properties of the main queue of the GCD?", value: 90, correctIndex: 2, options: [
+                "serial and async",
+                "concurrent and sync",
+                "serial and sync",
+                "concurrent and async",
+                "N/A"
+            ]),
+            .init(text: "To what iOS layer does AVFoundation belong to?", value: 120, correctIndex: 2, options: [
+                "Core OS",
+                "Core Services",
+                "Media",
+                "Cocoa Touch",
+                "N/A"
+            ]),
+        ])
+    ]
+
+    func populateQuizzes(storedUser: StoredUser, quizzes: [QuizInfo]) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+
+        for (idx, quiz) in quizzes.enumerated() {
+            let storedQuiz = StoredQuiz(context: CoreManager.managedContext)
+            var totalScore = 0
+
+            for (jdx, question) in quiz.questionList.enumerated() {
+                let storedQuestion = StoredQuestion(context: CoreManager.managedContext)
+
+                for (kdx, option) in question.options.enumerated() {
+                    let storedOption = StoredOption(context: CoreManager.managedContext)
+                    storedOption.text = option
+                    storedOption.orderNumber = Int32(kdx)
+                    storedQuestion.addToOptionSet(storedOption)
+                }
+
+                totalScore += question.value
+                storedQuestion.text = question.text
+                storedQuestion.orderNumber = Int32(jdx)
+                storedQuestion.correctIndex = Int32(question.correctIndex)
+                storedQuestion.pointValue = Int32(question.value)
+                storedQuiz.addToQuestionSet(storedQuestion)
+            }
+            storedQuiz.name = quiz.name
+            storedQuiz.author = quiz.author
+            storedQuiz.date = quiz.date
+            storedQuiz.totalScore = Int32(totalScore)
+            storedUser.addToQuizSet(storedQuiz)
+        }
+    }
+
+}
+
+struct QuizInfo {
+    let name: String
+    let author: String
+    let date: Date
+    let image: UIImage
+    var questionList: [QuestionInfo]
+}
+
+struct QuestionInfo {
+    let text: String
+    let value: Int
+    let correctIndex: Int
+    var options: [String]
 }

@@ -63,7 +63,7 @@ class QuestionController: UIViewController {
             }
             childrenList.append(child)
         }
-        let menu = UIMenu(title: "Qsuestions", options: .displayInline, children: childrenList)
+        let menu = UIMenu(title: "Questions", options: .displayInline, children: childrenList)
 
         numberButton.menu = menu
         numberButton.showsMenuAsPrimaryAction = true
@@ -146,12 +146,28 @@ class QuestionController: UIViewController {
                 optionTable.isUserInteractionEnabled = true
             }
         }
+
+        if let currentQuestionIndex {
+            if currentQuestionIndex <= 0 {
+                prevButton.isEnabled = false
+            } else {
+                prevButton.isEnabled = true
+            }
+            if currentQuestionIndex >= questionList!.count - 1 {
+                nextButton.isEnabled = false
+            } else {
+                nextButton.isEnabled = true
+            }
+        }
+
         scoreLabel.text = "\(score)"
         optionTable.reloadData()
 
         if numAnswered >= questionList!.count {
             finishQuiz(delay: 1)
         }
+
+
     }
     
     @IBAction func prevAction(_ sender: Any) {
@@ -159,11 +175,6 @@ class QuestionController: UIViewController {
         if currentQuestionIndex != nil {
             if currentQuestionIndex! > 0 {
                 currentQuestionIndex! -= 1
-                
-                if currentQuestionIndex! <= 0 {
-                    prevButton.isEnabled = false
-                }
-                nextButton.isEnabled = true
             }
         }
         updateQuestion()
@@ -174,19 +185,9 @@ class QuestionController: UIViewController {
         if currentQuestionIndex != nil {
             if currentQuestionIndex! < (questionList!.count - 1) {
                 currentQuestionIndex! += 1
-                
-                if currentQuestionIndex! >= questionList!.count - 1 {
-                    nextButton.isEnabled = false
-                }
-                prevButton.isEnabled = true
             }
         }
         updateQuestion()
-    }
-    
-    @IBAction func submitAction(_ sender: Any) {
-        
-        // TODO: Transition to results screen
     }
 
 }
