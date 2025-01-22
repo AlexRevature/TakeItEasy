@@ -47,13 +47,16 @@ class QuizController: UIViewController {
         authorLabel.text = "By: \(selectedQuiz?.author ?? "N/A")"
         authorLabel.textColor = ThemeManager.lightTheme.alternateText
 
-        scoreLabel.text = "\(selectedQuiz?.maxScore ?? 0)/\(selectedQuiz?.totalScore ?? 0)"
         scoreWrapper.layer.cornerRadius = 8
-
         imageHolder.tintColor = ThemeManager.lightTheme.primaryColor
 
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        scoreLabel.text = "\(selectedQuiz?.maxScore ?? 0)/\(selectedQuiz?.totalScore ?? 0)"
+    }
+
     // Start quiz, segue to QuestionController
     @IBAction func startAction(_ sender: Any) {
         let storyboard = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)

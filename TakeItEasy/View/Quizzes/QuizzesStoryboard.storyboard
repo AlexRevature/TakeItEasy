@@ -572,7 +572,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAD-3W-2Nu">
-                                <rect key="frame" x="50" y="149" width="293" height="441"/>
+                                <rect key="frame" x="50" y="149" width="293" height="406"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Nw-BO-Fhm">
                                         <rect key="frame" x="64.333333333333329" y="49.999999999999993" width="164.33333333333337" height="28.666666666666664"/>
@@ -625,7 +625,7 @@
                                     <constraint firstItem="8Nw-BO-Fhm" firstAttribute="centerX" secondItem="XAD-3W-2Nu" secondAttribute="centerX" id="gkf-sT-eCN"/>
                                     <constraint firstItem="WAX-Ff-Zho" firstAttribute="top" secondItem="8Nw-BO-Fhm" secondAttribute="bottom" constant="40" id="h4A-wx-wI1"/>
                                     <constraint firstItem="5Ip-Tt-fat" firstAttribute="top" secondItem="WAX-Ff-Zho" secondAttribute="bottom" constant="50" id="jX0-qa-TuX"/>
-                                    <constraint firstAttribute="bottom" secondItem="MeY-E4-kg7" secondAttribute="bottom" constant="90" id="oc4-tH-Jlw"/>
+                                    <constraint firstAttribute="bottom" secondItem="MeY-E4-kg7" secondAttribute="bottom" constant="55" id="oc4-tH-Jlw"/>
                                     <constraint firstItem="MeY-E4-kg7" firstAttribute="top" secondItem="5Ip-Tt-fat" secondAttribute="bottom" constant="2" id="xne-65-xCL"/>
                                 </constraints>
                             </view>
@@ -642,6 +642,24 @@
                                     <action selector="startAction:" destination="AcM-Cc-KeC" eventType="touchUpInside" id="d3I-Zl-qCX"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2JI-ZK-YR1">
+                                <rect key="frame" x="134" y="585" width="125" height="31"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score Update" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GlO-bF-t85">
+                                        <rect key="frame" x="10" y="5" width="105" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="GlO-bF-t85" firstAttribute="centerX" secondItem="2JI-ZK-YR1" secondAttribute="centerX" id="6Kb-QX-FY8"/>
+                                    <constraint firstItem="GlO-bF-t85" firstAttribute="leading" secondItem="2JI-ZK-YR1" secondAttribute="leading" constant="10" id="9bc-G3-uUO"/>
+                                    <constraint firstItem="GlO-bF-t85" firstAttribute="centerY" secondItem="2JI-ZK-YR1" secondAttribute="centerY" id="PMp-0N-WBa"/>
+                                    <constraint firstItem="GlO-bF-t85" firstAttribute="top" secondItem="2JI-ZK-YR1" secondAttribute="top" constant="5" id="rIW-65-zg2"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XO8-1g-5qO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -650,7 +668,9 @@
                             <constraint firstItem="XO8-1g-5qO" firstAttribute="bottom" secondItem="f5E-5N-w8Y" secondAttribute="bottom" constant="30" id="H6F-YD-IED"/>
                             <constraint firstItem="XAD-3W-2Nu" firstAttribute="leading" secondItem="XO8-1g-5qO" secondAttribute="leading" constant="50" id="Kbx-WG-ed4"/>
                             <constraint firstItem="f5E-5N-w8Y" firstAttribute="centerX" secondItem="g5h-pG-r0s" secondAttribute="centerX" id="SET-Qe-TfY"/>
+                            <constraint firstItem="2JI-ZK-YR1" firstAttribute="top" secondItem="XAD-3W-2Nu" secondAttribute="bottom" constant="30" id="Tzc-KA-wVa"/>
                             <constraint firstItem="XAD-3W-2Nu" firstAttribute="top" secondItem="XO8-1g-5qO" secondAttribute="top" constant="90" id="cUk-xu-0E0"/>
+                            <constraint firstItem="2JI-ZK-YR1" firstAttribute="centerX" secondItem="g5h-pG-r0s" secondAttribute="centerX" id="egw-cC-Grf"/>
                         </constraints>
                     </view>
                     <connections>
@@ -659,6 +679,8 @@
                         <outlet property="letterGradeLabel" destination="KEe-Lo-PcM" id="teO-fQ-7CH"/>
                         <outlet property="messageLabel" destination="8Nw-BO-Fhm" id="Ema-QV-XWC"/>
                         <outlet property="scoreLabel" destination="MeY-E4-kg7" id="k4K-ou-uru"/>
+                        <outlet property="updateBack" destination="2JI-ZK-YR1" id="yGS-HG-U9U"/>
+                        <outlet property="updateLabel" destination="GlO-bF-t85" id="dL2-M2-TkO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v0I-E0-1Af" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

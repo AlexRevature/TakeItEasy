@@ -14,15 +14,20 @@ class ResultController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var backImage: UIImageView!
     @IBOutlet weak var backView: UIView!
+
+    @IBOutlet weak var updateBack: UIView!
+    @IBOutlet weak var updateLabel: UILabel!
     
     // Initialized by sender
     var currentQuiz: StoredQuiz?
     var score: Int = 0
     var charScore: String?
-    
+    var pointUpdate: Int32?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        backView.backgroundColor = ThemeManager.lightTheme.backColor
         backView.layer.borderColor = UIColor.black.cgColor
         backView.layer.borderWidth = 0.2
         backView.layer.cornerRadius = 12
@@ -41,14 +46,12 @@ class ResultController: UIViewController {
 
         switch percentageScore {
             case let p where p == 1.0:
-                charScore = "S"
-            case let p where p >= 0.8:
                 charScore = "A"
-            case let p where p >= 0.6:
+            case let p where p >= 0.8:
                 charScore = "B"
-            case let p where p >= 0.4:
+            case let p where p >= 0.6:
                 charScore = "C"
-            case let p where p >= 0.2:
+            case let p where p >= 0.4:
                 charScore = "D"
             default:
                 charScore = "F"
@@ -64,6 +67,19 @@ class ResultController: UIViewController {
         
         letterGradeLabel.text = charScore
         backImage.tintColor = ThemeManager.lightTheme.primaryColor
+
+        updateBack.layer.cornerRadius = 5
+        updateBack.backgroundColor = ThemeManager.lightTheme.backColor
+
+        if let pointUpdate {
+            var updateString = "You gained \(pointUpdate) point"
+            if pointUpdate != 1 {
+                updateString += "s"
+            }
+            updateLabel.text = updateString
+        } else {
+            updateLabel.text = "No points gained"
+        }
 
     }
     

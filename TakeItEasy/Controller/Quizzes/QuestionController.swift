@@ -110,8 +110,11 @@ class QuestionController: UIViewController {
 
         if let currentQuiz, let currentUser = UserManager.currentUser {
             if currentQuiz.maxScore < score {
-                currentUser.collectedPoints += currentQuiz.maxScore - Int32(score)
+                let pointDifference = Int32(score) - currentQuiz.maxScore
+                currentUser.collectedPoints += pointDifference
                 currentQuiz.maxScore = Int32(score)
+                CoreManager.saveContext()
+                resultController.pointUpdate = pointDifference
             }
         }
 
