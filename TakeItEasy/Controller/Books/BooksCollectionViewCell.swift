@@ -10,4 +10,5 @@ import UIKit
 class BooksCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bookCoverImage: UIImageView!
     @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var backView: UIView!
 }

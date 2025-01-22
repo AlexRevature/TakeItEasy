@@ -80,11 +80,23 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellItem", for: indexPath) as! BooksCollectionViewCell
         let item = indexPath.item
-
-        print(indexPath.debugDescription)
-        print("Section: \(indexPath.section)")
-        print("Item: \(indexPath.item)")
-        print()
+        
+        cell.bookCoverImage.tintColor = ThemeManager.lightTheme.primaryColor
+        cell.labelTitle.textColor = ThemeManager.lightTheme.alternateText
+        cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
+        cell.backView.layer.borderColor = UIColor.systemBackground.cgColor
+        cell.backView.layer.borderWidth = 0.2
+        cell.backView.layer.cornerRadius = 18.0
+        cell.backView.layer.masksToBounds = false
+        cell.backView.layer.shadowColor = UIColor.black.cgColor
+        cell.backView.layer.shadowOpacity = 0.5
+        cell.backView.layer.shadowOffset = CGSize(width: 4, height: 4)
+        cell.backView.layer.shadowRadius = 4
+        cell.backView.layer.shadowPath = UIBezierPath(
+            roundedRect: cell.backView.bounds,
+            cornerRadius: cell.backView.layer.cornerRadius
+        ).cgPath
+        
         
         if indexPath.section < BooksManager.bookCategories.count, let categorySection = BooksManager.categorizedBooks[indexPath.section] {
             let itemData = categorySection[item]
@@ -138,17 +150,6 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
                 assert(false, "Invalid element")
             }
         }
-    }
-    
-    func cellFillContent(cell: BooksCollectionViewCell, indexPath: IndexPath) -> BooksCollectionViewCell {
-        
-        
-        guard let title = BooksManager.storedBooks[indexPath.row].name else {
-            cell.labelTitle.text = "Title Unavailable"
-            return cell
-        }
-        cell.labelTitle.text = title
-        return cell
     }
     
     
