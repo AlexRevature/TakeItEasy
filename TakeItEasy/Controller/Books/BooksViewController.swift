@@ -82,7 +82,6 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         let item = indexPath.item
         
         cell.bookCoverImage.tintColor = ThemeManager.lightTheme.primaryColor
-        cell.labelTitle.textColor = ThemeManager.lightTheme.alternateText
         cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
         cell.backView.layer.borderColor = UIColor.systemBackground.cgColor
         cell.backView.layer.borderWidth = 0.2
@@ -90,8 +89,8 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         cell.backView.layer.masksToBounds = false
         cell.backView.layer.shadowColor = UIColor.black.cgColor
         cell.backView.layer.shadowOpacity = 0.5
-        cell.backView.layer.shadowOffset = CGSize(width: 4, height: 4)
         cell.backView.layer.shadowRadius = 4
+        cell.backView.layer.shadowOffset = CGSizeMake(2, 2)
         cell.backView.layer.shadowPath = UIBezierPath(
             roundedRect: cell.backView.bounds,
             cornerRadius: cell.backView.layer.cornerRadius
@@ -101,6 +100,7 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         if indexPath.section < BooksManager.bookCategories.count, let categorySection = BooksManager.categorizedBooks[indexPath.section] {
             let itemData = categorySection[item]
             cell.labelTitle.text = itemData.name
+            print("Title: \(itemData.name)")
         } else {
             cell.bookCoverImage.isHidden = true
             cell.labelTitle.isHidden = true
