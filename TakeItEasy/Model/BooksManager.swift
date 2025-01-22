@@ -10,18 +10,18 @@ import CoreData
 class BooksManager {
     lazy var dataContainer = NSPersistentContainer(name: "StoredBook")
     static var storedBooks = [StoredBook]()
+    static var categorizedBooks: Dictionary<Int, [StoredBook]> = Dictionary()
+    static var bookCategories: [String] = []
+    static let dataEmptyMessage = "Data Currently Unavailable"
     
     private init() {
     }
     
     static func fetchBooks() {
-        let request: NSFetchRequest<StoredBook> = StoredBook.fetchRequest()
+        let request = StoredBook.fetchRequest()
         let context = CoreManager.persistentContainer.viewContext
-        let sortAuthor = NSSortDescriptor(key: "authorNameLast", ascending: true)
-        let sortName = NSSortDescriptor(key: "name", ascending: true)
         var result = [StoredBook]()
-        
-        request.sortDescriptors = [sortName, sortAuthor]
+        var categoriesSet: Set<String> = Set()
         
         do {
             try result = context.fetch(request)
@@ -29,6 +29,29 @@ class BooksManager {
             print("Unable to fetch book data: \(error)")
         }
         storedBooks = result
+        // Define categorization reference
+        for book in storedBooks {
+            guard let category = book.category else {
+                continue
+            }
+            categoriesSet.insert(category)
+        }
+        bookCategories = Array(categoriesSet)
+        
+        // Arrange [section, item] coordinate collection
+        for category in bookCategories {
+            guard let index = bookCategories.firstIndex(of: category) else {
+                continue
+            }
+            categorizedBooks[index] = []
+        }
+        
+        for book in storedBooks {
+            guard let category = book.category, let index = bookCategories.firstIndex(of: category) else {
+                continue
+            }
+            categorizedBooks[index]?.append(book)
+        }
     }
     
     static func addBook(items: [Book]) {
@@ -45,6 +68,7 @@ class BooksManager {
             //newStoredBook.fileData = item.fileData
         }
         CoreManager.saveContext()
+        print("Data updated")
     }
     
     static func deleteBook(indexPath: Int, items: [StoredBook]) {
