@@ -37,9 +37,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="148" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e7d-ms-lMB" userLabel="Background View">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e7d-ms-lMB" userLabel="Background View">
                                                     <rect key="frame" x="0.0" y="0.0" width="148" height="200"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 </view>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DdS-D6-897">
@@ -58,11 +57,15 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="DdS-D6-897" firstAttribute="leading" secondItem="Zde-qT-dm1" secondAttribute="leading" id="4zv-Jx-Yeg"/>
+                                                <constraint firstItem="e7d-ms-lMB" firstAttribute="trailing" secondItem="DdS-D6-897" secondAttribute="trailing" id="Gl2-ZV-dyc"/>
                                                 <constraint firstItem="DdS-D6-897" firstAttribute="leading" secondItem="8Ar-IQ-Zc3" secondAttribute="leading" id="T2H-4m-YKK"/>
                                                 <constraint firstItem="DdS-D6-897" firstAttribute="centerX" secondItem="Zde-qT-dm1" secondAttribute="centerX" id="VV5-5j-bv2"/>
                                                 <constraint firstItem="DdS-D6-897" firstAttribute="top" secondItem="Zde-qT-dm1" secondAttribute="top" constant="-1.6666666666666643" id="dbU-kN-73S"/>
+                                                <constraint firstAttribute="bottom" secondItem="e7d-ms-lMB" secondAttribute="bottom" id="g2p-Yf-QM6"/>
                                                 <constraint firstAttribute="bottom" secondItem="8Ar-IQ-Zc3" secondAttribute="bottom" constant="-12" id="jdg-Bb-Mkw"/>
                                                 <constraint firstItem="DdS-D6-897" firstAttribute="trailing" secondItem="8Ar-IQ-Zc3" secondAttribute="trailing" id="jrV-NN-wzc"/>
+                                                <constraint firstItem="e7d-ms-lMB" firstAttribute="top" secondItem="Zde-qT-dm1" secondAttribute="top" id="sVx-M4-fAS"/>
+                                                <constraint firstItem="e7d-ms-lMB" firstAttribute="leading" secondItem="DdS-D6-897" secondAttribute="leading" id="twy-Y0-dE3"/>
                                                 <constraint firstItem="8Ar-IQ-Zc3" firstAttribute="top" secondItem="DdS-D6-897" secondAttribute="bottom" constant="21.666666666666657" id="xeZ-z4-GZt"/>
                                             </constraints>
                                         </collectionViewCellContentView>
