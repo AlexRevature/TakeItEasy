@@ -11,7 +11,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     var noteData : [StoredNote] = []
     
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var newButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     let userDefault = UserDefaults.standard
@@ -25,7 +24,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         searchBar.delegate = self
         
         setViewTheme()
-        
         reloadFromCoreData() //may be an unessesaryy call with the call also happening in viewWIllAppear
 
         // Uncomment the following line to preserve selection between presentations
@@ -43,15 +41,39 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         tableView.reloadData()
     }
     
+    func addAddButtonToNavBar(){
+        let plusImage = UIImage(systemName: "plus")
+        let addButton = UIBarButtonItem(image: plusImage, style: .done, target: self, action: #selector(self.addButtonPressed))
+        self.navigationController?.navigationBar.topItem?.leftBarButtonItem = addButton
+    }
+    
+    func removeAddButtonFromNavBar(){
+        self.navigationController?.navigationBar.topItem?.leftBarButtonItem = nil
+    }
+    
+    @objc func addButtonPressed() {
+        print("nav bar add button pressed")
+        userDefault.set(false, forKey: "editMode")
+        self.performSegue(withIdentifier: "toNoteEditor", sender: self)
+    }
     
     override func viewWillAppear(_ animated : Bool) {
         super.viewWillAppear(animated)
         reloadFromCoreData()
     }
     
+    override func viewDidAppear(_ animated: Bool){
+        super.viewDidAppear(animated)
+        addAddButtonToNavBar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeAddButtonFromNavBar()
+    }
+    
     func setViewTheme() {
         view.backgroundColor = ThemeManager.lightTheme.backColor
-        newButton.tintColor = ThemeManager.lightTheme.primaryColor
         tableView.backgroundColor = ThemeManager.lightTheme.backColor
     }
 
@@ -103,12 +125,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         userDefault.set(true, forKey: "editMode")
         noteToPass = noteData[indexPath.row]
-        self.performSegue(withIdentifier: "toNoteEditor", sender: self)
-    }
-    
-    @IBAction func addButtonPressed(_ sender: Any) {
-        print("add button pressed")
-        userDefault.set(false, forKey: "editMode")
         self.performSegue(withIdentifier: "toNoteEditor", sender: self)
     }
     

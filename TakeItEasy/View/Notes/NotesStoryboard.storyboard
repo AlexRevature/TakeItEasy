@@ -65,41 +65,18 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="iid-s9-qCd"/>
                                 </connections>
                             </searchBar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCf-yh-GNt">
-                                <rect key="frame" x="96.666666666666686" y="782" width="200" height="55"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="bXA-mE-VRj"/>
-                                    <constraint firstAttribute="height" constant="55" id="vZq-EY-csY"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Create New Note"/>
-                                <connections>
-                                    <action selector="addButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="yFl-t4-UEN"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="ZCf-yh-GNt" secondAttribute="bottom" constant="5" id="23b-ks-qsG"/>
                             <constraint firstItem="RWl-IH-QgW" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="7Es-cS-dQl"/>
-                            <constraint firstItem="ZCf-yh-GNt" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="7qO-wl-u0e"/>
-                            <constraint firstItem="ZCf-yh-GNt" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="HKv-RS-y0g"/>
                             <constraint firstItem="DvP-Jb-1Ad" firstAttribute="top" secondItem="RWl-IH-QgW" secondAttribute="bottom" symbolic="YES" id="XiD-0q-4ta"/>
                             <constraint firstItem="DvP-Jb-1Ad" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="acx-GB-S1C"/>
                             <constraint firstItem="RWl-IH-QgW" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="g7f-XE-gaX"/>
-                            <constraint firstItem="ZCf-yh-GNt" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="55" id="hk3-sf-SSo"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="hk3-sf-SSo"/>
-                                <exclude reference="7qO-wl-u0e"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Om4-6A-9I0"/>
                     <connections>
-                        <outlet property="newButton" destination="ZCf-yh-GNt" id="LW2-d8-geu"/>
                         <outlet property="searchBar" destination="RWl-IH-QgW" id="Ckf-26-l7y"/>
                         <outlet property="tableView" destination="DvP-Jb-1Ad" id="nfK-bA-5q0"/>
                         <segue destination="Ppc-1n-AJl" kind="show" identifier="toNoteEditor" id="3n6-sY-Emf"/>
@@ -185,7 +162,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="aOz-dw-Ngz"/>
+        <segue reference="3n6-sY-Emf"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">
