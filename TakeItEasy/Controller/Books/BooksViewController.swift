@@ -141,6 +141,8 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func cellFillContent(cell: BooksCollectionViewCell, indexPath: IndexPath) -> BooksCollectionViewCell {
+        
+        
         guard let title = BooksManager.storedBooks[indexPath.row].name else {
             cell.labelTitle.text = "Title Unavailable"
             return cell
