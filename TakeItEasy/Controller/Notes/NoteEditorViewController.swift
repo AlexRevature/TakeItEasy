@@ -20,13 +20,20 @@ class NoteEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         notificationLabel.text = ""
+        setTextFieldContents()
         setViewTheme()
-        //TODO: Theme adherence
     }
     
     func setViewTheme() {
         view.backgroundColor = ThemeManager.lightTheme.backColor
         saveButton.tintColor = ThemeManager.lightTheme.primaryColor
+    }
+    
+    func setTextFieldContents(){
+        if selectedNote != nil {
+            noteTitleTextField.text = selectedNote?.name
+            noteBodyTextView.text = selectedNote?.text
+        }
     }
     
     func updateNoteSetWithNote(newNote : StoredNote) {
@@ -48,7 +55,7 @@ class NoteEditorViewController: UIViewController {
             print("Note name or note text fields are empty")
             notificationLabel.textColor = .red
             notificationLabel.text = "Note title cannot be empty"
-            //Does is need to noot be empty?
+            //Does is need to not be empty?
             return
         } else {
             let newNote = NoteManager.shared.createNote(name: newNoteName!, text: newNoteText!, modifiedDate: modifiedDate)
