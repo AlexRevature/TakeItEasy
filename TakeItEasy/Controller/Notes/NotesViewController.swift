@@ -51,6 +51,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = nil
     }
     
+    //TODO: Fix edit mode
     @objc func addButtonPressed() {
         print("nav bar add button pressed")
         userDefault.set(false, forKey: "editMode")
@@ -131,7 +132,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     ///search bar
     ///searches by note name
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("entered text: ", searchText)
         var temporaryArray : [StoredNote] = []
         
         if (noteData.isEmpty) {
@@ -139,16 +139,27 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         if (searchText == "") {
-            //Restoring original list currently doesn't work
             reloadFromCoreData()
+            return
         }
         
+        //seraches by title
         for note in noteData {
             let noteName = note.name!.lowercased()
             if noteName.contains(searchText.lowercased()) {
                 print("Note found")
                 temporaryArray.append(note)
             }
+        }
+        
+        //searches by body after the title
+        for note in noteData {
+            let noteBody = note.text!.lowercased()
+            if noteBody.contains(searchText.lowercased()) && !(temporaryArray.contains(note)) {
+                print("Note found (body)")
+                temporaryArray.append(note)
+            }
+                
         }
         
         noteData = temporaryArray
