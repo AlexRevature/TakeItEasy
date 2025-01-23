@@ -49,8 +49,8 @@ class QuizController: UIViewController {
 
         scoreWrapper.layer.cornerRadius = 8
 
-        if selectedQuiz?.imageData != nil {
-            imageHolder.image = UIImage(data: selectedQuiz!.imageData!)
+        if selectedQuiz?.imageName != nil {
+            imageHolder.image = UIImage(systemName: selectedQuiz!.imageName!)
         } else {
             imageHolder.image = UIImage(systemName: "circle")
         }

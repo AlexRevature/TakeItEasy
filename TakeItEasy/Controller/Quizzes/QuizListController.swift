@@ -46,8 +46,8 @@ extension QuizListController: UICollectionViewDelegate, UICollectionViewDataSour
         let currentQuiz = quizList![indexPath.row]
 
         cell.imageHolder.tintColor = ThemeManager.lightTheme.primaryColor
-        if currentQuiz.imageData != nil {
-            cell.imageHolder.image = UIImage(data: currentQuiz.imageData!)
+        if currentQuiz.imageName != nil {
+            cell.imageHolder.image = UIImage(systemName: currentQuiz.imageName!)
         } else {
             cell.imageHolder.image = UIImage(systemName: "circle")
         }

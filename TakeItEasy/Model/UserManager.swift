@@ -121,7 +121,7 @@ class UserManager {
     }
 
     static let quizList: [QuizInfo] = [
-        .init(name: "Swift Language", author: "John Apple", date: Date(), image: UIImage(systemName: "swift") ?? UIImage(), questionList: [
+        .init(name: "Swift Language", author: "John Apple", date: Date(), imageName: "swift", questionList: [
             .init(text: "How would you force unwrap the optional variable 'tmp'?", value: 50, correctIndex: 0, options: [
                 "tmp!",
                 "tmp?",
@@ -158,7 +158,7 @@ class UserManager {
                 "Protocols"
             ])
         ]),
-        .init(name: "UIKit Features", author: "Johnathan Apple", date: Date(), image: UIImage(systemName: "square") ?? UIImage(), questionList: [
+        .init(name: "UIKit Features", author: "Johnathan Apple", date: Date(), imageName: "square", questionList: [
             .init(text: "How do you navigate to a new viewController when using a Navigation Controller?", value: 50, correctIndex: 0, options: [
                 "nav.pushViewController(vc)",
                 "nav.present(vc)",
@@ -195,7 +195,7 @@ class UserManager {
                 "N/A"
             ])
         ]),
-        .init(name: "Design Patterns", author: "Joe Apple", date: Date(), image: UIImage(systemName: "pencil") ?? UIImage(), questionList: [
+        .init(name: "Design Patterns", author: "Joe Apple", date: Date(), imageName: "pencil", questionList: [
             .init(text: "Which of these is not a SOLID principle?", value: 80, correctIndex: 4, options: [
                 "Dependency Inversion",
                 "Lizkov Substitution",
@@ -232,7 +232,7 @@ class UserManager {
                 "UICollectionViewDelegate"
             ])
         ]),
-        .init(name: "Potpourri", author: "George Apple", date: Date(), image: UIImage(systemName: "carrot") ?? UIImage(), questionList: [
+        .init(name: "Potpourri", author: "George Apple", date: Date(), imageName: "carrot", questionList: [
             .init(text: "What is the key difference between MVC and MVVM?", value: 50, correctIndex: 0, options: [
                 "Data binding",
                 "Location services",
@@ -269,7 +269,7 @@ class UserManager {
                 "protocol"
             ])
         ]),
-        .init(name: "Trivia", author: "Gregory Apple", date: Date(), image: UIImage(systemName: "newspaper") ?? UIImage(), questionList: [
+        .init(name: "Trivia", author: "Gregory Apple", date: Date(), imageName: "newspaper", questionList: [
             .init(text: "What is the world population as of January 2025", value: 50, correctIndex: 0, options: [
                 "8.2 billion",
                 "7.9 billion",
@@ -336,7 +336,7 @@ class UserManager {
             storedQuiz.name = quiz.name
             storedQuiz.author = quiz.author
             storedQuiz.date = quiz.date
-            storedQuiz.imageData = quiz.image.pngData()
+            storedQuiz.imageName = quiz.imageName
             storedQuiz.totalScore = Int32(totalScore)
             storedUser.addToQuizSet(storedQuiz)
         }
@@ -348,7 +348,7 @@ struct QuizInfo {
     let name: String
     let author: String
     let date: Date
-    let image: UIImage
+    let imageName: String
     var questionList: [QuestionInfo]
 }
 
