@@ -22,8 +22,8 @@ class ThemeManager {
     static var isLightEnabled = true
     
     static let lightTheme = Theme(
-        primaryColor: .init(named: "PrimaryColor") ?? .black,
-        secondaryColor: .init(named: "SecondaryColor") ?? .black,
+        primaryColor: .init(named: "CustomPrimary") ?? .black,
+        secondaryColor: .init(named: "CustomSecondary") ?? .black,
         backColor: .init(named: "BackColor") ?? .black,
         normalText: .init(named: "NormalText") ?? .black,
         alternateText: .white,
@@ -48,5 +48,6 @@ class ThemeManager {
 class SectionLabel: UILabel {}
 class TitleLabel: UILabel {}
 class ActionButton: UIButton {}
+class AlternateButton: UIButton {}
 class CustomSwitch: UISwitch {}
 class ErrorLabel: UILabel {}
