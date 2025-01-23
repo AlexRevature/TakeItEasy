@@ -51,7 +51,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem = nil
     }
     
-    //TODO: Fix edit mode
     @objc func addButtonPressed() {
         print("nav bar add button pressed")
         userDefault.set(false, forKey: "editMode")
