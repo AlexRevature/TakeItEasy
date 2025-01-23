@@ -120,31 +120,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iNU-SB-NZo">
-                                <rect key="frame" x="96.666666666666686" y="782" width="200" height="55"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="37a-Nq-QtP"/>
-                                    <constraint firstAttribute="height" constant="55" id="T5y-1g-4HY"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Save">
-                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="saveButtonPressed:" destination="Ppc-1n-AJl" eventType="touchUpInside" id="YZu-cl-NvC"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ddb-Rg-ueZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ddb-Rg-ueZ" firstAttribute="bottom" secondItem="iNU-SB-NZo" secondAttribute="bottom" constant="5" id="1tB-97-OsB"/>
                             <constraint firstItem="6YO-Ep-GSE" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="Bin-o6-RCr"/>
                             <constraint firstItem="gch-CB-Yo4" firstAttribute="top" secondItem="iSw-gl-G7I" secondAttribute="bottom" constant="5" id="DJH-2x-bH3"/>
                             <constraint firstItem="gch-CB-Yo4" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="QEp-By-Reb"/>
                             <constraint firstItem="iSw-gl-G7I" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="SUF-Jw-I7K"/>
                             <constraint firstItem="iSw-gl-G7I" firstAttribute="top" secondItem="6YO-Ep-GSE" secondAttribute="bottom" constant="10" id="omc-Uk-5aF"/>
-                            <constraint firstItem="iNU-SB-NZo" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="sub-fY-w7n"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6hR-Qz-qNX"/>
@@ -152,7 +136,6 @@
                         <outlet property="noteBodyTextView" destination="iSw-gl-G7I" id="hYy-yV-dD8"/>
                         <outlet property="noteTitleTextField" destination="6YO-Ep-GSE" id="0MI-sd-oGQ"/>
                         <outlet property="notificationLabel" destination="gch-CB-Yo4" id="sNT-eA-6fc"/>
-                        <outlet property="saveButton" destination="iNU-SB-NZo" id="d1W-eB-LtX"/>
                         <segue destination="Y6W-OH-hqX" kind="show" identifier="toNoteTableView" id="aOz-dw-Ngz"/>
                     </connections>
                 </viewController>
@@ -162,7 +145,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3n6-sY-Emf"/>
+        <segue reference="aOz-dw-Ngz"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">
