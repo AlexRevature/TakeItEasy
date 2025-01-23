@@ -38,7 +38,13 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         if  notesFromCoreData != nil {
             noteData = UserManager.getNoteList()!
         }
+        sortNotesByRecentcy()
         tableView.reloadData()
+    }
+    
+    func sortNotesByRecentcy() {
+        let sortedNotes = noteData.sorted(by: {$0.modifiedDate! > $1.modifiedDate!})
+        noteData = sortedNotes
     }
     
     func addAddButtonToNavBar(){
