@@ -16,16 +16,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hij-1H-Jes">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Srg-fE-olY">
-                                <rect key="frame" x="76.666666666666686" y="218" width="240" height="240"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AiW-Pz-q1n">
+                                <rect key="frame" x="45" y="129" width="303" height="376"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Srg-fE-olY">
+                                        <rect key="frame" x="31.666666666666686" y="40" width="240" height="240"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Srg-fE-olY" secondAttribute="height" multiplier="1:1" id="LxR-Mg-WYN"/>
+                                            <constraint firstAttribute="width" constant="240" id="zyZ-bY-H6n"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7mK-wM-tc7">
+                                        <rect key="frame" x="41.666666666666686" y="300" width="220" height="46"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The TakeItEasy App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmm-TT-Ydc" customClass="TitleLabel" customModule="TakeItEasy" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="10" width="180" height="26"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="vmm-TT-Ydc" firstAttribute="top" secondItem="7mK-wM-tc7" secondAttribute="top" constant="10" id="892-yA-pzc"/>
+                                            <constraint firstAttribute="bottom" secondItem="vmm-TT-Ydc" secondAttribute="bottom" constant="10" id="Taz-pZ-Y2r"/>
+                                            <constraint firstAttribute="trailing" secondItem="vmm-TT-Ydc" secondAttribute="trailing" constant="20" id="ssK-sO-2AO"/>
+                                            <constraint firstItem="vmm-TT-Ydc" firstAttribute="leading" secondItem="7mK-wM-tc7" secondAttribute="leading" constant="20" id="xYH-9o-MYz"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Srg-fE-olY" secondAttribute="height" multiplier="1:1" id="LxR-Mg-WYN"/>
-                                    <constraint firstAttribute="width" constant="240" id="zyZ-bY-H6n"/>
+                                    <constraint firstAttribute="bottom" secondItem="7mK-wM-tc7" secondAttribute="bottom" constant="30" id="5Wv-zk-jam"/>
+                                    <constraint firstItem="Srg-fE-olY" firstAttribute="top" secondItem="AiW-Pz-q1n" secondAttribute="top" constant="40" id="8tt-Nk-eTY"/>
+                                    <constraint firstItem="Srg-fE-olY" firstAttribute="centerX" secondItem="AiW-Pz-q1n" secondAttribute="centerX" id="OIg-Yh-9jB"/>
+                                    <constraint firstItem="7mK-wM-tc7" firstAttribute="top" secondItem="Srg-fE-olY" secondAttribute="bottom" constant="20" id="fR9-bk-Mup"/>
+                                    <constraint firstItem="7mK-wM-tc7" firstAttribute="centerX" secondItem="Srg-fE-olY" secondAttribute="centerX" id="v7l-dF-esq"/>
                                 </constraints>
-                            </imageView>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pst-Mi-B7r" customClass="ActionButton" customModule="TakeItEasy" customModuleProvider="target">
                                 <rect key="frame" x="96.666666666666686" y="628" width="200" height="50"/>
                                 <constraints>
@@ -38,7 +66,7 @@
                                     <action selector="loginAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="AaH-n8-NVa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3c-p6-73s" customClass="ActionButton" customModule="TakeItEasy" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3c-p6-73s" customClass="AlternateButton" customModule="TakeItEasy" customModuleProvider="target">
                                 <rect key="frame" x="96.666666666666686" y="708" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Nma-wb-aVi"/>
@@ -56,19 +84,18 @@
                         <constraints>
                             <constraint firstItem="i3c-p6-73s" firstAttribute="top" secondItem="pst-Mi-B7r" secondAttribute="bottom" constant="30" id="4uq-M4-Ken"/>
                             <constraint firstItem="i3c-p6-73s" firstAttribute="centerX" secondItem="pst-Mi-B7r" secondAttribute="centerX" id="79f-Dt-kEK"/>
-                            <constraint firstItem="Srg-fE-olY" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Dhi-61-H0Y"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Hij-1H-Jes" secondAttribute="trailing" id="Kwx-bH-49k"/>
-                            <constraint firstItem="Hij-1H-Jes" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="LsA-RF-Tco"/>
+                            <constraint firstItem="AiW-Pz-q1n" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="70" id="I91-PT-vkn"/>
                             <constraint firstItem="pst-Mi-B7r" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="aCb-gc-I6E"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="i3c-p6-73s" secondAttribute="bottom" constant="60" id="ei1-L5-uPJ"/>
-                            <constraint firstItem="pst-Mi-B7r" firstAttribute="top" secondItem="Srg-fE-olY" secondAttribute="bottom" constant="170" id="gVu-Rk-tTS"/>
-                            <constraint firstItem="Hij-1H-Jes" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="qlg-9m-3bi"/>
-                            <constraint firstAttribute="bottom" secondItem="Hij-1H-Jes" secondAttribute="bottom" id="rEm-eM-ARA"/>
+                            <constraint firstItem="AiW-Pz-q1n" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="45" id="fd3-Hf-xIT"/>
+                            <constraint firstItem="AiW-Pz-q1n" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="zXh-E2-eo0"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="backView" destination="Hij-1H-Jes" id="Pn3-v9-Bbr"/>
+                        <outlet property="backView" destination="AiW-Pz-q1n" id="3j9-ad-EgC"/>
                         <outlet property="logoView" destination="Srg-fE-olY" id="9Ac-7B-WFF"/>
+                        <outlet property="titleBack" destination="7mK-wM-tc7" id="Bfx-gL-rUb"/>
+                        <outlet property="titleLabel" destination="vmm-TT-Ydc" id="FDt-ob-mtv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -89,7 +116,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYN-Df-ARq" customClass="ActionButton" customModule="TakeItEasy" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYN-Df-ARq" customClass="AlternateButton" customModule="TakeItEasy" customModuleProvider="target">
                                 <rect key="frame" x="96.666666666666686" y="606.66666666666663" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Rhh-86-hNr"/>

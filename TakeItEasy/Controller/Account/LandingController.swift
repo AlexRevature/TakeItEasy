@@ -9,13 +9,37 @@ import UIKit
 
 class LandingController: UIViewController {
 
-    @IBOutlet weak var backView: UIImageView!
     @IBOutlet weak var logoView: UIImageView!
-
+    @IBOutlet weak var titleBack: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var backView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        logoView.image = .init(named: "ClearIcon.png")
+        logoView.tintColor = ThemeManager.lightTheme.primaryColor
+        logoView.tintColor = ThemeManager.lightTheme.primaryColor
+        logoView.layer.cornerRadius = 20
+        logoView.backgroundColor = UIColor.systemGray5
+        logoView.clipsToBounds = true
 
-        // Do any additional setup after loading the view.
+        titleBack.backgroundColor = nil
+
+        backView.backgroundColor = ThemeManager.lightTheme.backColor
+        backView.layer.cornerRadius = 30
+        backView.layer.borderColor = UIColor.black.cgColor
+        backView.layer.borderWidth = 0.2
+        backView.layer.cornerRadius = 12
+        backView.layer.masksToBounds = false
+        backView.layer.shadowColor = UIColor.black.cgColor
+        backView.layer.shadowOpacity = 0.2
+        backView.layer.shadowOffset = CGSize(width: 6, height: 4)
+        backView.layer.shadowRadius = 3
+        backView.layer.shadowPath = UIBezierPath(
+            roundedRect: backView.bounds,
+            cornerRadius: backView.layer.cornerRadius
+        ).cgPath
+
     }
     
     @IBAction func loginAction(_ sender: Any) {
@@ -29,15 +53,5 @@ class LandingController: UIViewController {
         let loginController = storyboard.instantiateViewController(identifier: "RegisterController")
         self.navigationController?.pushViewController(loginController, animated: true)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
