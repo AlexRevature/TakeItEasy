@@ -18,15 +18,23 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
     // MARK: - Builder Outlets, Actions, etc.
     
     @IBOutlet weak var searchBarTitleOrAuthor: UISearchBar!
-    @IBOutlet weak var collectionBooks: UICollectionView!
-    
+    @IBOutlet weak var collectionTop: UICollectionView!
+    @IBOutlet weak var collectionMiddle: UICollectionView!
+    @IBOutlet weak var collectionBottom: UICollectionView!
+    @IBOutlet weak var labelCollectionBottom: UILabel!
+    @IBOutlet weak var labelCollectionMiddle: UILabel!
+    @IBOutlet weak var labelCollectionTop: UILabel!
     
     // MARK: - ViewController functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionBooks.delegate = self
-        collectionBooks.dataSource = self
+        collectionBottom.delegate = self
+        collectionBottom.dataSource = self
+        collectionMiddle.delegate = self
+        collectionMiddle.dataSource = self
+        collectionTop.delegate = self
+        collectionTop.dataSource = self
         pdfView = PDFView(frame: UIScreen.main.bounds)
         BooksManager.fetchBooks()
         // - Set up test data - delete on final deployment
@@ -78,78 +86,111 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
     // MARK: - CollectionView functions
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellItem", for: indexPath) as! BooksCollectionViewCell
-        let item = indexPath.item
+        let categories = BooksManager.bookCategories
         
-        cell.bookCoverImage.tintColor = ThemeManager.lightTheme.primaryColor
-        cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
-        cell.backView.layer.borderColor = UIColor.systemBackground.cgColor
-        cell.backView.layer.borderWidth = 0.2
-        cell.backView.layer.cornerRadius = 18.0
-        cell.backView.layer.masksToBounds = false
-        cell.backView.layer.shadowColor = UIColor.black.cgColor
-        cell.backView.layer.shadowOpacity = 0.5
-        cell.backView.layer.shadowRadius = 4
-        cell.backView.layer.shadowOffset = CGSizeMake(2, 2)
-        cell.backView.layer.shadowPath = UIBezierPath(
-            roundedRect: cell.backView.bounds,
-            cornerRadius: cell.backView.layer.cornerRadius
-        ).cgPath
-        
-        
-        if indexPath.section < BooksManager.bookCategories.count, let categorySection = BooksManager.categorizedBooks[indexPath.section] {
-            let itemData = categorySection[item]
-            cell.labelTitle.text = itemData.name
-            print("Title: \(itemData.name)")
+        if collectionView == collectionTop {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellForTop", for: indexPath) as! BooksCollectionViewCellTop
+                cell.bookCoverImage.tintColor = ThemeManager.lightTheme.primaryColor
+                cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
+                cell.backView.layer.borderColor = UIColor.systemBackground.cgColor
+                cell.backView.layer.borderWidth = 0.2
+                cell.backView.layer.cornerRadius = 18.0
+                cell.backView.layer.masksToBounds = false
+                cell.backView.layer.shadowColor = UIColor.black.cgColor
+                cell.backView.layer.shadowOpacity = 0.5
+                cell.backView.layer.shadowRadius = 4
+                cell.backView.layer.shadowOffset = CGSizeMake(2, 2)
+                cell.backView.layer.shadowPath = UIBezierPath(
+                    roundedRect: cell.backView.bounds,
+                    cornerRadius: cell.backView.layer.cornerRadius
+                ).cgPath
+            
+            if let categorySection = BooksManager.categorizedBooks[0] {
+                let itemData = categorySection[indexPath.item]
+                cell.labelTitle.text = itemData.name
+                print("Title: \(itemData.name!)")
+            } else {
+                cell.bookCoverImage.isHidden = true
+                cell.labelTitle.isHidden = true
+            }
+            return cell
+        } else if collectionView == collectionMiddle {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellForMiddle", for: indexPath) as! BooksCollectionViewCellMiddle
+            
+            cell.bookCoverImage.tintColor = ThemeManager.lightTheme.primaryColor
+            cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
+            cell.backView.layer.borderColor = UIColor.systemBackground.cgColor
+            cell.backView.layer.borderWidth = 0.2
+            cell.backView.layer.cornerRadius = 18.0
+            cell.backView.layer.masksToBounds = false
+            cell.backView.layer.shadowColor = UIColor.black.cgColor
+            cell.backView.layer.shadowOpacity = 0.5
+            cell.backView.layer.shadowRadius = 4
+            cell.backView.layer.shadowOffset = CGSizeMake(2, 2)
+            cell.backView.layer.shadowPath = UIBezierPath(
+                roundedRect: cell.backView.bounds,
+                cornerRadius: cell.backView.layer.cornerRadius
+            ).cgPath
+            return cell
+            
+            if let categorySection = BooksManager.categorizedBooks[1] {
+                let itemData = categorySection[indexPath.item]
+                cell.labelTitle.text = itemData.name
+                print("Title: \(itemData.name!)")
+            } else {
+                cell.bookCoverImage.isHidden = true
+                cell.labelTitle.isHidden = true
+            }
         } else {
-            cell.bookCoverImage.isHidden = true
-            cell.labelTitle.isHidden = true
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellforBottom", for: indexPath) as! BooksCollectionViewCellBottom
+            cell.bookCoverImage.tintColor = ThemeManager.lightTheme.primaryColor
+            cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
+            cell.backView.layer.borderColor = UIColor.systemBackground.cgColor
+            cell.backView.layer.borderWidth = 0.2
+            cell.backView.layer.cornerRadius = 18.0
+            cell.backView.layer.masksToBounds = false
+            cell.backView.layer.shadowColor = UIColor.black.cgColor
+            cell.backView.layer.shadowOpacity = 0.5
+            cell.backView.layer.shadowRadius = 4
+            cell.backView.layer.shadowOffset = CGSizeMake(2, 2)
+            cell.backView.layer.shadowPath = UIBezierPath(
+                roundedRect: cell.backView.bounds,
+                cornerRadius: cell.backView.layer.cornerRadius
+            ).cgPath
+            
+            if let categorySection = BooksManager.categorizedBooks[2] {
+                let itemData = categorySection[indexPath.item]
+                cell.labelTitle.text = itemData.name
+                print("Title: \(itemData.name!)")
+            } else {
+                cell.bookCoverImage.isHidden = true
+                cell.labelTitle.isHidden = true
+            }
+            return cell
         }
-        
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var count = 0
-        
-        for item in BooksManager.storedBooks {
-            if item.category == BooksManager.bookCategories[section] {
-                count += 1
+        if collectionView == collectionTop {
+            guard let data = BooksManager.categorizedBooks[0] else {
+                return 0
             }
+            return data.count
+        } else if collectionView == collectionMiddle {
+            guard let data = BooksManager.categorizedBooks[1] else {
+                return 0
+            }
+            return data.count
+        } else {
+            guard let data = BooksManager.categorizedBooks[2] else {
+                return 0
+            }
+            return data.count
         }
-        
-        return count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if BooksManager.storedBooks.count < 1 {
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerItem", for: indexPath) as! BooksCollectionReusableView
-            
-            header.sectionName.text = stringEmptyDataContainer
-            return header
-        } else {
-            switch kind {
-            case UICollectionView.elementKindSectionHeader:
-                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerItem", for: indexPath) as! BooksCollectionReusableView
-                
-                header.sectionIndex = indexPath.section
-                if (indexPath.section < BooksManager.bookCategories.count) {
-                    
-                    header.sectionName.text = BooksManager.bookCategories[indexPath.section]
-                    
-                    return header
-                } else {
-                    header.sectionName.text = BooksManager.dataEmptyMessage
-                    return header
-                }
-            default:
-                assert(false, "Invalid element")
-            }
-        }
+        return 1
     }
     
     
