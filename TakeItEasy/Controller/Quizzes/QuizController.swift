@@ -48,7 +48,16 @@ class QuizController: UIViewController {
         authorLabel.textColor = ThemeManager.lightTheme.alternateText
 
         scoreWrapper.layer.cornerRadius = 8
+
+        if selectedQuiz?.imageData != nil {
+            imageHolder.image = UIImage(data: selectedQuiz!.imageData!)
+        } else {
+            imageHolder.image = UIImage(systemName: "circle")
+        }
         imageHolder.tintColor = ThemeManager.lightTheme.primaryColor
+        imageHolder.layer.cornerRadius = 20
+        imageHolder.backgroundColor = UIColor.systemGray5
+        imageHolder.clipsToBounds = true
 
     }
 

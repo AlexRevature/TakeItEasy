@@ -46,7 +46,15 @@ extension QuizListController: UICollectionViewDelegate, UICollectionViewDataSour
         let currentQuiz = quizList![indexPath.row]
 
         cell.imageHolder.tintColor = ThemeManager.lightTheme.primaryColor
-        cell.imageHolder.image = UIImage(systemName: "circle")
+        if currentQuiz.imageData != nil {
+            cell.imageHolder.image = UIImage(data: currentQuiz.imageData!)
+        } else {
+            cell.imageHolder.image = UIImage(systemName: "circle")
+        }
+        cell.imageHolder.layer.cornerRadius = 12
+        cell.imageHolder.backgroundColor = UIColor.systemGray5
+        cell.imageHolder.clipsToBounds = true
+
         cell.titleLabel.text = currentQuiz.name
         cell.dateLabel.text = currentQuiz.date?.formatted(date: .abbreviated, time: .omitted)
 
