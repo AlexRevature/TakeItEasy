@@ -9,7 +9,6 @@ import UIKit
 
 class NoteEditorViewController: UIViewController {
 
-    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var notificationLabel: UILabel!
     @IBOutlet weak var noteBodyTextView: UITextView!
     @IBOutlet weak var noteTitleTextField: UITextField!
@@ -26,7 +25,6 @@ class NoteEditorViewController: UIViewController {
     
     func setViewTheme() {
         view.backgroundColor = ThemeManager.lightTheme.backColor
-        saveButton.tintColor = ThemeManager.lightTheme.primaryColor
     }
     
     func setTextFieldContents(){
@@ -45,8 +43,16 @@ class NoteEditorViewController: UIViewController {
         }
     }
     
-    @IBAction func saveButtonPressed(_ sender: Any) {
-        //TODO: notifiy user if a field is empty
+    override func viewWillDisappear(_ animated : Bool) {
+        let newNoteName = noteTitleTextField.text
+        let newNoteText = noteBodyTextView.text
+        let modifiedDate = Date()
+        
+        let newNote = NoteManager.shared.createNote(name: newNoteName!, text: newNoteText!, modifiedDate: modifiedDate)
+        updateNoteSetWithNote(newNote: newNote)
+    }
+    
+    /*@IBAction func saveButtonPressed(_ sender: Any) {
         let newNoteName = noteTitleTextField.text
         let newNoteText = noteBodyTextView.text
         let modifiedDate = Date()
@@ -62,5 +68,5 @@ class NoteEditorViewController: UIViewController {
             updateNoteSetWithNote(newNote: newNote)
             navigationController?.popViewController(animated: true)
         }
-    }
+    }*/
 }
