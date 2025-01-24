@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import PDFKit
 
 class PdfViewController: ViewController {
 
+    @IBOutlet weak var pdfView: UIView!
+    
+    var selectedBook : StoredBook? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("book in pdf viewer", selectedBook?.name)
         // Do any additional setup after loading the view.
     }
     
