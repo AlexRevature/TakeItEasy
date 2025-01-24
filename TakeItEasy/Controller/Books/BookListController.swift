@@ -15,9 +15,9 @@ class BookListController: UIViewController {
     var onlineCategoryList = [CategoryInfo(name: "Java"), CategoryInfo(name: "Python"), CategoryInfo(name: "Linux")]
 
     var offlineCategoryList = [CategoryInfo(name: "Offline", isOnline: false, bookList: [
-        .init(title: "John", author: "John", image: UIImage(systemName: "circle") ?? UIImage(), url: URL(fileURLWithPath: "Test")),
-        .init(title: "John", author: "John", image: UIImage(systemName: "circle") ?? UIImage(), url: URL(fileURLWithPath: "Test")),
-        .init(title: "John", author: "John", image: UIImage(systemName: "circle") ?? UIImage(), url: URL(fileURLWithPath: "Test")),
+        .init(title: "The Eclogues", author: "Virgil", image: UIImage(named: "bcover0.jpeg"), url: Bundle.main.url(forResource: "bsample0", withExtension: "pdf")),
+        .init(title: "The Forerunner", author: "Khalil Gibran", image: UIImage(named: "bcover1.jpeg"), url: Bundle.main.url(forResource: "bsample1", withExtension: "pdf")),
+        .init(title: "Songs of a Sourdough", author: "Robert W. Service", image: UIImage(named: "bcover2.jpeg"), url: Bundle.main.url(forResource: "bsample2", withExtension: "pdf")),
     ])]
 
     func reloadCollection(isOnline: Bool) {
@@ -29,6 +29,7 @@ class BookListController: UIViewController {
         super.viewDidLoad()
         categoryTable.delegate = self
         categoryTable.dataSource = self
+        categoryTable.allowsSelection = false
     }
 
 }
@@ -103,9 +104,29 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.titleLabel.text = currentBook.title
         cell.authorLabel.text = currentBook.author
         cell.imageHolder.image = currentBook.image
-        cell.imageHolder.backgroundColor = UIColor.gray
+        cell.imageHolder.contentMode = .scaleAspectFit
+//        cell.imageHolder.backgroundColor = UIColor.gray
 
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let booksCollection = collectionView as? BooksCollection else {
+            return
+        }
+
+        guard let categoryIndex = booksCollection.categoryIndex else {
+            return
+        }
+
+        let currentBook = isOnline ? onlineCategoryList[categoryIndex].bookList[indexPath.row] : offlineCategoryList[categoryIndex].bookList[indexPath.row]
+
+        // TODO: Write URL to PDFViewController and segue to it, create selectedUrl in pdfController and use it
+        // Note: Might need to change to webKit if PDFKit can't load online URLs
+//        let bookSB = UIStoryboard(name: "BooksStoryboard", bundle: nil)
+//        var pdfController = bookSB.instantiateViewController(identifier: "PdfViewControler")
+//        pdfController.selectedUrl = currentBook.url
+//        self.navigationController?.pushViewController(pdfController, animated: true)
     }
 
 }
@@ -113,8 +134,8 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
 struct BookInfo {
     var title: String
     var author: String
-    var image: UIImage
-    var url: URL
+    var image: UIImage?
+    var url: URL?
 }
 
 struct CategoryInfo {
