@@ -295,11 +295,43 @@
                         <outlet property="labelCollectionMiddle" destination="oXF-1X-UAz" id="9Mj-yz-SyB"/>
                         <outlet property="labelCollectionTop" destination="hwz-Va-2WB" id="zdd-5q-cTL"/>
                         <outlet property="searchBarTitleOrAuthor" destination="vBW-wv-Jet" id="CPy-Or-BwA"/>
+                        <segue destination="HUg-U5-MHE" kind="show" identifier="toPDFViewer" id="HcE-bB-Kan"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.76335877862595414" y="-27.464788732394368"/>
+            <point key="canvasLocation" x="-269" y="-20"/>
+        </scene>
+        <!--Pdf View Controller-->
+        <scene sceneID="8EZ-lv-6Sy">
+            <objects>
+                <viewController id="HUg-U5-MHE" customClass="PdfViewController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Be-Pj-vNH">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x8z-Sa-sSR">
+                                <rect key="frame" x="0.0" y="59" width="393" height="771"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="771" id="IfC-4I-2EM"/>
+                                    <constraint firstAttribute="width" constant="393" id="fHz-Xq-c4F"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QDM-ie-yeQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="x8z-Sa-sSR" firstAttribute="centerX" secondItem="QDM-ie-yeQ" secondAttribute="centerX" id="opR-by-p1G"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="nOp-Cv-vwD"/>
+                    <connections>
+                        <outlet property="pdfView" destination="x8z-Sa-sSR" id="bgT-zo-Z7Y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Xr-gO-j4L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="719.84732824427476" y="-20.422535211267608"/>
         </scene>
     </scenes>
     <resources>
@@ -308,7 +340,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -13,6 +13,7 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
     private let collectionSectionLimit = 20
     private let stringEmptyDataContainer = "No Books Available"
     private var pdfView = PDFView()
+    private var bookToPass : StoredBook? = nil
     var sections: Dictionary<Int, String> = Dictionary()
     
     // MARK: - Builder Outlets, Actions, etc.
@@ -142,7 +143,7 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
                 cell.labelTitle.isHidden = true
             }
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellforBottom", for: indexPath) as! BooksCollectionViewCellBottom
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellForBottom", for: indexPath) as! BooksCollectionViewCellBottom
             cell.bookCoverImage.tintColor = ThemeManager.lightTheme.primaryColor
             cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
             cell.backView.layer.borderColor = UIColor.systemBackground.cgColor
@@ -199,7 +200,42 @@ class BooksViewController: UIViewController, UICollectionViewDelegate, UICollect
         pdfView.document = PDFDocument(url: url)
     }
     
-    // MARK: - Navigation
+    func identifyCurrentCollectionView(collectionView: UICollectionView) -> Int {
+        if collectionView == collectionTop  {
+            return 0
+        } else if collectionView == collectionMiddle {
+            return 1
+        } else if collectionView == collectionBottom {
+            return 2
+        }
+        
+        return -1
+    }
+    
+    func getBookInSelectedCell(collectionView: UICollectionView, indexPath : IndexPath) -> StoredBook {
+        let currentColectionView = identifyCurrentCollectionView(collectionView: collectionView)
+        
+        let booksInCategory = BooksManager.categorizedBooks[currentColectionView]
+        let selectedBook = booksInCategory![indexPath.item]
+        return selectedBook
+    }
     
     
+    ///didSelectItemAt
+    ///This method is called when an item is selcted in any of the collections
+    ///itretrieves the book asssocaited with the selected item and passes it to the pdf view controller beofre segueing there
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedBook = getBookInSelectedCell(collectionView: collectionView, indexPath: indexPath)
+        bookToPass = selectedBook
+        performSegue(withIdentifier: "toPDFViewer", sender: self)
+    }
+    
+    ///This is used to pass the StoredBook object found in didSelectItem to PdfViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPDFViewer" {
+            if let destinationViewController = segue.destination as? PdfViewController {
+                destinationViewController.selectedBook = bookToPass
+            }
+        }
+    }
 }
