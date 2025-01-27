@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import PDFKit
 
 class BookListController: UIViewController {
 
     @IBOutlet weak var categoryTable: UITableView!
-    var isOnline = false
+    var isOnline = true
 
-    var onlineCategoryList = [CategoryInfo(name: "Java"), CategoryInfo(name: "Python"), CategoryInfo(name: "Linux")]
+    var onlineCategoryList = [CategoryInfo(name: "JavaScript"), CategoryInfo(name: "Linux"), CategoryInfo(name: "Swift")]
 
     var offlineCategoryList = [CategoryInfo(name: "Offline", isOnline: false, bookList: [
         .init(title: "The Eclogues", author: "Virgil", image: UIImage(named: "bcover0.jpeg"), url: Bundle.main.url(forResource: "bsample0", withExtension: "pdf")),
@@ -25,11 +26,141 @@ class BookListController: UIViewController {
         categoryTable.reloadData()
     }
 
+    func fetchCategoryData(categoryIndex: Int, completion: (() -> Void)?) {
+        let category = onlineCategoryList[categoryIndex]
+        let textUrl = "https://www.dbooks.org/api/search/\(category.name.lowercased())"
+        guard let url = URL(string: textUrl) else {
+            return
+        }
+
+        // Retrieve book list
+        self.fetchData(url: url) { data, error in
+
+            // Switch to offline mode on failure
+            if error != nil {
+                self.reloadCollection(isOnline: false)
+                return
+            }
+
+            guard let jsonData = try? JSONDecoder().decode(DBooksSearchResponse.self, from: data) else {
+                print("Unexpected json format")
+                print(textUrl)
+                return
+            }
+
+            let limitedBooks = jsonData.books.prefix(20)
+
+            // Populate books array with fetched books
+            for dBook in limitedBooks {
+                category.bookList.append(BookInfo(details: dBook))
+            }
+            DispatchQueue.main.async {
+                self.reloadCollection(isOnline: true)
+            }
+
+            for (idx, dBook) in limitedBooks.enumerated() {
+                self.retrieveImage(dBook: dBook, categoryIndex: categoryIndex, bookIndex: idx)
+                self.retrieveUrl(dBook: dBook, categoryIndex: categoryIndex, bookIndex: idx)
+            }
+
+            completion?()
+        }
+    }
+
+    func retrieveImage(dBook: DBookDetails, categoryIndex: Int, bookIndex: Int) {
+
+
+        let category = onlineCategoryList[categoryIndex]
+        guard let textUrl = dBook.image, let url = URL(string: textUrl) else {
+            return
+        }
+
+        // Retrieve images for each book
+        self.fetchData(url: url) { data, error in
+
+            if error != nil {
+                return
+            }
+
+            category.bookList[bookIndex].image = UIImage(data: data)
+
+            let categoryIndexPath = IndexPath(row: categoryIndex, section: 0)
+            let bookIndexPath = IndexPath(row: bookIndex, section: 0)
+
+            DispatchQueue.main.async {
+                guard let categoryRow = self.categoryTable.cellForRow(at: categoryIndexPath) as? CategoryCell else {
+                    return
+                }
+                categoryRow.booksCollection.reloadItems(at: [bookIndexPath])
+            }
+        }
+
+    }
+
+    func retrieveUrl(dBook: DBookDetails, categoryIndex: Int, bookIndex: Int) {
+
+        let category = onlineCategoryList[categoryIndex]
+        guard dBook.id != nil else {
+            return
+        }
+
+        var textUrl = "https://www.dbooks.org/api/book/\(dBook.id!)"
+        if textUrl.last == "X" {
+            textUrl.removeLast()
+        }
+
+        guard let url = URL(string: textUrl) else {
+            return
+        }
+
+        // Retrieve further detalis for each book
+        self.fetchData(url: url) { data, error in
+
+            if error != nil {
+                return
+            }
+
+            guard let jsonData = try? JSONDecoder().decode(DBookDetails.self, from: data) else {
+                print("Unexpected json format")
+                print(textUrl)
+                return
+            }
+
+            guard jsonData.download != nil else {
+                return
+            }
+            category.bookList[bookIndex].url = URL(string: jsonData.download!)
+        }
+
+    }
+
+    func fetchData(url: URL, completion: @escaping (Data, Error?) -> Void) {
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 10.0
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error {
+                print("Error: \(error)")
+                return
+            }
+            guard let data else {
+                print("No data returned")
+                return
+            }
+            completion(data, error)
+        }
+        task.resume()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryTable.delegate = self
         categoryTable.dataSource = self
         categoryTable.allowsSelection = false
+
+        for idx in 0..<onlineCategoryList.count {
+            self.fetchCategoryData(categoryIndex: idx, completion: nil)
+        }
     }
 
 }
@@ -122,7 +253,7 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
         let currentBook = isOnline ? onlineCategoryList[categoryIndex].bookList[indexPath.row] : offlineCategoryList[categoryIndex].bookList[indexPath.row]
 
         // TODO: Write URL to PDFViewController and segue to it, create selectedUrl in pdfController and use it
-        // Note: Might need to change to webKit if PDFKit can't load online URLs
+        // Note: Tested, PDFKit works with online URLs, and URLs are being retrieved properly.
 //        let bookSB = UIStoryboard(name: "BooksStoryboard", bundle: nil)
 //        var pdfController = bookSB.instantiateViewController(identifier: "PdfViewControler")
 //        pdfController.selectedUrl = currentBook.url
@@ -131,17 +262,36 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
 
 }
 
-struct BookInfo {
+class BookInfo {
     var title: String
     var author: String
     var image: UIImage?
     var url: URL?
+
+    init(title: String, author: String, image: UIImage? = nil, url: URL? = nil) {
+        self.title = title
+        self.author = author
+        self.image = image
+        self.url = url
+    }
+
+    init(details: DBookDetails) {
+        self.title = details.title ?? ""
+        self.author = details.authors ?? ""
+    }
 }
 
-struct CategoryInfo {
+
+class CategoryInfo {
     var name: String
-    var isOnline = true
-    var bookList = [BookInfo]()
+    var isOnline: Bool
+    var bookList: [BookInfo]
+
+    init(name: String, isOnline: Bool = true, bookList: [BookInfo] = [BookInfo]()) {
+        self.name = name
+        self.isOnline = isOnline
+        self.bookList = bookList
+    }
 }
 
 class CategoryCell: UITableViewCell {
@@ -159,4 +309,18 @@ class BookCell: UICollectionViewCell {
 
 class BooksCollection: UICollectionView {
     var categoryIndex: Int?
+}
+
+class DBooksSearchResponse: Decodable {
+    let status: String
+    let books: [DBookDetails]
+}
+
+class DBookDetails: Decodable {
+    let id: String?
+    let title: String?
+    let subtitle: String?
+    let authors: String?
+    let image: String?
+    var download: String?
 }
