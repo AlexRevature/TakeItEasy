@@ -63,9 +63,7 @@ class BookListController: UIViewController {
             for dBook in limitedBooks {
                 category.bookList.append(BookInfo(details: dBook))
             }
-            DispatchQueue.main.async {
-                self.reloadCollection(status: .online)
-            }
+            self.reloadCollection(status: .online)
 
             for (idx, dBook) in limitedBooks.enumerated() {
                 self.retrieveImage(dBook: dBook, categoryIndex: categoryIndex, bookIndex: idx)
