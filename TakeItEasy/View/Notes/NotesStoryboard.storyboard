@@ -39,8 +39,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note body preview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ck5-Ov-6bZ">
-                                                    <rect key="frame" x="25" y="42" width="294.66666666666669" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Note body preview" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ck5-Ov-6bZ">
+                                                    <rect key="frame" x="25" y="32" width="295" height="85"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -106,19 +106,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iSw-gl-G7I">
-                                <rect key="frame" x="30" y="133" width="333" height="554"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="30" y="89" width="333" height="600"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="600" id="c6k-BQ-jnt"/>
+                                    <constraint firstAttribute="width" constant="333" id="piM-jc-7Zw"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Note Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6YO-Ep-GSE">
-                                <rect key="frame" x="30" y="89" width="333" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifaction Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gch-CB-Yo4">
-                                <rect key="frame" x="132" y="697" width="129.33333333333337" height="21"/>
+                                <rect key="frame" x="132" y="699" width="129.33333333333337" height="19"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -127,21 +125,16 @@
                         <viewLayoutGuide key="safeArea" id="ddb-Rg-ueZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="iSw-gl-G7I" firstAttribute="width" secondItem="6YO-Ep-GSE" secondAttribute="width" id="2qi-ea-4li"/>
                             <constraint firstItem="ddb-Rg-ueZ" firstAttribute="bottom" secondItem="gch-CB-Yo4" secondAttribute="bottom" constant="100" id="4rS-MI-kHH"/>
-                            <constraint firstItem="6YO-Ep-GSE" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="Bin-o6-RCr"/>
                             <constraint firstItem="gch-CB-Yo4" firstAttribute="top" secondItem="iSw-gl-G7I" secondAttribute="bottom" constant="10" id="DJH-2x-bH3"/>
+                            <constraint firstItem="iSw-gl-G7I" firstAttribute="top" secondItem="ddb-Rg-ueZ" secondAttribute="top" constant="30" id="KWr-30-Ib9"/>
                             <constraint firstItem="gch-CB-Yo4" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="QEp-By-Reb"/>
                             <constraint firstItem="iSw-gl-G7I" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="SUF-Jw-I7K"/>
-                            <constraint firstItem="6YO-Ep-GSE" firstAttribute="leading" secondItem="ddb-Rg-ueZ" secondAttribute="leading" constant="30" id="Wfg-as-GGv"/>
-                            <constraint firstItem="iSw-gl-G7I" firstAttribute="top" secondItem="6YO-Ep-GSE" secondAttribute="bottom" constant="10" id="omc-Uk-5aF"/>
-                            <constraint firstItem="6YO-Ep-GSE" firstAttribute="top" secondItem="ddb-Rg-ueZ" secondAttribute="top" constant="30" id="qFx-rI-YWp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6hR-Qz-qNX"/>
                     <connections>
                         <outlet property="noteBodyTextView" destination="iSw-gl-G7I" id="hYy-yV-dD8"/>
-                        <outlet property="noteTitleTextField" destination="6YO-Ep-GSE" id="0MI-sd-oGQ"/>
                         <outlet property="notificationLabel" destination="gch-CB-Yo4" id="sNT-eA-6fc"/>
                     </connections>
                 </viewController>

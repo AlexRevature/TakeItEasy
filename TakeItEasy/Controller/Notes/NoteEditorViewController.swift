@@ -11,7 +11,7 @@ class NoteEditorViewController: UIViewController {
 
     @IBOutlet weak var notificationLabel: UILabel!
     @IBOutlet weak var noteBodyTextView: UITextView!
-    @IBOutlet weak var noteTitleTextField: UITextField!
+    //@IBOutlet weak var noteTitleTextField: UITextField!
     
     // Enough to use selectedNote to check edit mode
     var selectedNote : StoredNote?
@@ -32,14 +32,23 @@ class NoteEditorViewController: UIViewController {
     
     func setTextFieldContents(){
         if selectedNote != nil {
-            noteTitleTextField.text = selectedNote?.name
+            //noteTitleTextField.text = selectedNote?.name
             noteBodyTextView.text = selectedNote?.text
         }
+    }
+    
+    func getNoteTitle() -> String? {
+        let noteText = noteBodyTextView.text
+        let title = noteText?.components(separatedBy: "\n").first
+        return title
     }
 
     // Note: Won't save when closing the app from this screen, may need to be fixed.
     override func viewWillDisappear(_ animated : Bool) {
-        let noteName = noteTitleTextField.text
+        //let noteName = noteTitleTextField.text
+        //temp
+        let noteName : String? = getNoteTitle()
+        //
         let noteText = noteBodyTextView.text
         let modifiedDate = Date()
 
@@ -61,22 +70,4 @@ class NoteEditorViewController: UIViewController {
         CoreManager.saveContext()
 
     }
-    
-    /*@IBAction func saveButtonPressed(_ sender: Any) {
-        let newNoteName = noteTitleTextField.text
-        let newNoteText = noteBodyTextView.text
-        let modifiedDate = Date()
-        
-        if(newNoteName == "") {
-            print("Note name or note text fields are empty")
-            notificationLabel.textColor = .red
-            notificationLabel.text = "Note title cannot be empty"
-            //Does is need to not be empty?
-            return
-        } else {
-            let newNote = NoteManager.shared.createNote(name: newNoteName!, text: newNoteText!, modifiedDate: modifiedDate)
-            updateNoteSetWithNote(newNote: newNote)
-            navigationController?.popViewController(animated: true)
-        }
-    }*/
 }

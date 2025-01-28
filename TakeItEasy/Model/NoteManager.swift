@@ -29,11 +29,4 @@ class NoteManager {
         UserManager.currentUser?.removeFromNoteSet(note)
         print("Note Deleted")
     }
-
-    // Do not use this function, this is terribly inefficient
-    func updateNote(oldNote : StoredNote, newNote : StoredNote) {
-        removeNoteFromCurrentUser(note: oldNote)
-        addNoteToCurrentUser(noteToAdd: newNote)
-        CoreManager.saveContext()
-    }
 }
