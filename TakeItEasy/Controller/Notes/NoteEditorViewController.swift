@@ -11,7 +11,6 @@ class NoteEditorViewController: UIViewController {
 
     @IBOutlet weak var notificationLabel: UILabel!
     @IBOutlet weak var noteBodyTextView: UITextView!
-    //@IBOutlet weak var noteTitleTextField: UITextField!
     
     // Enough to use selectedNote to check edit mode
     var selectedNote : StoredNote?
@@ -32,7 +31,6 @@ class NoteEditorViewController: UIViewController {
     
     func setTextFieldContents(){
         if selectedNote != nil {
-            //noteTitleTextField.text = selectedNote?.name
             noteBodyTextView.text = selectedNote?.text
         }
     }
@@ -42,18 +40,24 @@ class NoteEditorViewController: UIViewController {
         let title = noteText?.components(separatedBy: "\n").first
         return title
     }
+    
+    func noteIsNotEmpty() -> Bool {
+        let noteText = noteBodyTextView.text
+
+        if noteText!.isEmpty{
+            return false
+        }
+        return true
+    }
 
     // Note: Won't save when closing the app from this screen, may need to be fixed.
     override func viewWillDisappear(_ animated : Bool) {
-        //let noteName = noteTitleTextField.text
-        //temp
         let noteName : String? = getNoteTitle()
-        //
         let noteText = noteBodyTextView.text
         let modifiedDate = Date()
 
-        // Only save note if a title is given
-        guard noteName != nil && noteName!.count != 0 else {
+        // Only save note if note isn't empty (without a title text field old gaurd statment wasn't as effective)
+        guard noteIsNotEmpty() else {
             return
         }
 
