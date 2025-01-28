@@ -13,9 +13,9 @@ class NoteEditorViewController: UIViewController {
     @IBOutlet weak var noteBodyTextView: UITextView!
     @IBOutlet weak var noteTitleTextField: UITextField!
     
-    var userDefault = UserDefaults.standard
-    var selectedNote : StoredNote? = nil
-    
+    // Enough to use selectedNote to check edit mode
+    var selectedNote : StoredNote?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         notificationLabel.text = ""
@@ -25,6 +25,9 @@ class NoteEditorViewController: UIViewController {
     
     func setViewTheme() {
         view.backgroundColor = ThemeManager.lightTheme.backColor
+        noteBodyTextView.layer.borderColor = UIColor.gray.cgColor
+        noteBodyTextView.layer.borderWidth = 0.5
+        noteBodyTextView.layer.cornerRadius = 2
     }
     
     func setTextFieldContents(){
@@ -33,23 +36,30 @@ class NoteEditorViewController: UIViewController {
             noteBodyTextView.text = selectedNote?.text
         }
     }
-    
-    func updateNoteSetWithNote(newNote : StoredNote) {
-        let isEditMode = userDefault.bool(forKey: "editMode")
-        if isEditMode {
-            NoteManager.shared.updateNote(oldNote: selectedNote!, newNote: newNote)
+
+    // Note: Won't save when closing the app from this screen, may need to be fixed.
+    override func viewWillDisappear(_ animated : Bool) {
+        let noteName = noteTitleTextField.text
+        let noteText = noteBodyTextView.text
+        let modifiedDate = Date()
+
+        // Only save note if a title is given
+        guard noteName != nil && noteName!.count != 0 else {
+            return
+        }
+
+        // Proper way to update values
+        if selectedNote != nil {
+            selectedNote?.name = noteName
+            selectedNote?.text = noteText
+            selectedNote?.modifiedDate = modifiedDate
         } else {
+            let newNote = NoteManager.shared.createNote(name: noteName!, text: noteText!, modifiedDate: modifiedDate)
             NoteManager.shared.addNoteToCurrentUser(noteToAdd: newNote)
         }
-    }
-    
-    override func viewWillDisappear(_ animated : Bool) {
-        let newNoteName = noteTitleTextField.text
-        let newNoteText = noteBodyTextView.text
-        let modifiedDate = Date()
-        
-        let newNote = NoteManager.shared.createNote(name: newNoteName!, text: newNoteText!, modifiedDate: modifiedDate)
-        updateNoteSetWithNote(newNote: newNote)
+
+        CoreManager.saveContext()
+
     }
     
     /*@IBAction func saveButtonPressed(_ sender: Any) {

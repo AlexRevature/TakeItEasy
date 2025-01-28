@@ -11,6 +11,7 @@ class NotesTableViewCellController: UITableViewCell {
 
     @IBOutlet weak var noteBody: UILabel!
     @IBOutlet weak var noteTitle: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -49,30 +49,27 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     
     func addAddButtonToNavBar(){
         let plusImage = UIImage(systemName: "plus")
-        let addButton = UIBarButtonItem(image: plusImage, style: .done, target: self, action: #selector(self.addButtonPressed))
-        self.navigationController?.navigationBar.topItem?.leftBarButtonItem = addButton
+        // Because of the way navBar is set up, the navItem being used is the one from the tabBar here
+        self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: plusImage, style: .done, target: self, action: #selector(self.addButtonPressed))
     }
-    
+
     func removeAddButtonFromNavBar(){
-        self.navigationController?.navigationBar.topItem?.leftBarButtonItem = nil
+        self.tabBarController?.navigationItem.leftBarButtonItem = nil
     }
-    
+
     @objc func addButtonPressed() {
-        print("nav bar add button pressed")
-        userDefault.set(false, forKey: "editMode")
-        self.performSegue(withIdentifier: "toNoteEditor", sender: self)
+        let storyboard = UIStoryboard(name: "NotesStoryboard", bundle: nil)
+        let editorController = storyboard.instantiateViewController(identifier: "NoteEditorController") as! NoteEditorViewController
+        editorController.selectedNote = nil
+        self.navigationController?.pushViewController(editorController, animated: true)
     }
     
     override func viewWillAppear(_ animated : Bool) {
         super.viewWillAppear(animated)
+        addAddButtonToNavBar()
         reloadFromCoreData()
     }
-    
-    override func viewDidAppear(_ animated: Bool){
-        super.viewDidAppear(animated)
-        addAddButtonToNavBar()
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         removeAddButtonFromNavBar()
@@ -81,10 +78,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     func setViewTheme() {
         view.backgroundColor = ThemeManager.lightTheme.backColor
         tableView.backgroundColor = ThemeManager.lightTheme.backColor
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        searchBar.searchBarStyle = .minimal
     }
 
     ///numberOfRowsInSection
@@ -116,22 +110,13 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
 
     }
     
-    ///This is used to pass the StoredNote object to the NoteEditorViewController if editMode is set to true
-    ///editMode is true if a row is selected and it is false if the add button is pressed
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let isEditMode = userDefault.bool(forKey: "editMode")
-        if segue.identifier == "toNoteEditor" && isEditMode {
-            if let destinationVC = segue.destination as? NoteEditorViewController {
-                destinationVC.selectedNote = noteToPass
-            }
-        }
-    }
-    
     ///didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        userDefault.set(true, forKey: "editMode")
-        noteToPass = noteData[indexPath.row]
-        self.performSegue(withIdentifier: "toNoteEditor", sender: self)
+        let storyboard = UIStoryboard(name: "NotesStoryboard", bundle: nil)
+        let editorController = storyboard.instantiateViewController(identifier: "NoteEditorController") as! NoteEditorViewController
+        editorController.selectedNote = noteData[indexPath.row]
+        // Better to interact with navController when set up progamatically
+        self.navigationController?.pushViewController(editorController, animated: true)
     }
     
     ///search bar
