@@ -15,11 +15,14 @@ class NotesTableViewCellController: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        noteBody.numberOfLines = 3
+        noteBody.lineBreakMode = .byWordWrapping
     }
     
     func setCellTheme() {
         noteBody.textColor = .gray
         noteTitle.textColor = ThemeManager.lightTheme.boldText
+       
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
