@@ -10,7 +10,7 @@ import WebKit
 
 class WebViewController: UIViewController, WKNavigationDelegate {
     
-    let urlFirstPage = URL(string: "https://www.google.com")
+    let urlFirstPage = URL(string: "https://duckduckgo.com")
     
     @IBOutlet weak var webViewArea: WKWebView!
     

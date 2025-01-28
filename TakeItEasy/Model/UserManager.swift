@@ -21,12 +21,7 @@ class UserManager {
         storedUser.email = email
         storedUser.username = username
 
-        // Populate test data, remove when app finished
-//        populateTestQuizzes(storedUser: storedUser)
-
-        // TODO: Populate actual data
         populateQuizzes(storedUser: storedUser, quizzes: quizList)
-
         CoreManager.saveContext()
         return storedUser
     }
