@@ -169,11 +169,85 @@
                     </view>
                     <connections>
                         <outlet property="categoryTable" destination="3aY-Vz-mDK" id="cN5-Qz-4Oy"/>
+                        <outlet property="listSearchBar" destination="lP3-ZE-FpC" id="iwn-NZ-l5Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-14.503816793893129" y="4.9295774647887329"/>
+        </scene>
+        <!--Book Results Controller-->
+        <scene sceneID="qs4-NS-9re">
+            <objects>
+                <viewController id="vVh-F5-jRb" customClass="BookResultsController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tt2-ex-Yaw">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="29A-Kj-7Kj">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="yKO-Nu-MiW">
+                                    <size key="itemSize" width="155" height="230"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="6ZP-k2-bbk">
+                                        <rect key="frame" x="0.0" y="0.0" width="155" height="230"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="RST-v6-1B6">
+                                            <rect key="frame" x="0.0" y="0.0" width="155" height="230"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5SR-5K-pXA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="29A-Kj-7Kj" firstAttribute="top" secondItem="5SR-5K-pXA" secondAttribute="top" id="B7p-F2-neW"/>
+                            <constraint firstItem="29A-Kj-7Kj" firstAttribute="leading" secondItem="5SR-5K-pXA" secondAttribute="leading" id="Lcu-53-MWK"/>
+                            <constraint firstItem="5SR-5K-pXA" firstAttribute="bottom" secondItem="29A-Kj-7Kj" secondAttribute="bottom" id="O64-CR-rdR"/>
+                            <constraint firstItem="5SR-5K-pXA" firstAttribute="trailing" secondItem="29A-Kj-7Kj" secondAttribute="trailing" id="PV7-BR-ngA"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CVy-Lp-IUi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="848" y="5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="qRE-ie-5WU">
+            <objects>
+                <viewController storyboardIdentifier="PDFViewController" id="9bG-wS-9l4" customClass="PDFViewController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vcs-2Y-GyC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dyo-SV-zUH">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="AD5-5f-yd9"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="AD5-5f-yd9" firstAttribute="trailing" secondItem="Dyo-SV-zUH" secondAttribute="trailing" id="0aO-rJ-Ow4"/>
+                            <constraint firstItem="Dyo-SV-zUH" firstAttribute="leading" secondItem="AD5-5f-yd9" secondAttribute="leading" id="TPX-O1-mKM"/>
+                            <constraint firstItem="AD5-5f-yd9" firstAttribute="bottom" secondItem="Dyo-SV-zUH" secondAttribute="bottom" id="WnQ-gv-Ge3"/>
+                            <constraint firstItem="Dyo-SV-zUH" firstAttribute="top" secondItem="AD5-5f-yd9" secondAttribute="top" id="tL7-vw-UfP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="documentWrapper" destination="Dyo-SV-zUH" id="NHF-ai-oBF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hgk-eU-Aqa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1677" y="5"/>
         </scene>
     </scenes>
     <resources>

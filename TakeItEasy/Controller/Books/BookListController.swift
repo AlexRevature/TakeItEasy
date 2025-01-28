@@ -10,8 +10,10 @@ import PDFKit
 
 class BookListController: UIViewController {
 
+    @IBOutlet weak var listSearchBar: UISearchBar!
     @IBOutlet weak var categoryTable: UITableView!
-    var isOnline = true
+
+    var loadStatus: LoadStatus = .empty
 
     var onlineCategoryList = [CategoryInfo(name: "JavaScript"), CategoryInfo(name: "Linux"), CategoryInfo(name: "Swift")]
 
@@ -21,9 +23,11 @@ class BookListController: UIViewController {
         .init(title: "Songs of a Sourdough", author: "Robert W. Service", image: UIImage(named: "bcover2.jpeg"), url: Bundle.main.url(forResource: "bsample2", withExtension: "pdf")),
     ])]
 
-    func reloadCollection(isOnline: Bool) {
-        self.isOnline = isOnline
-        categoryTable.reloadData()
+    func reloadCollection(status: LoadStatus) {
+        loadStatus = status
+        DispatchQueue.main.async {
+            self.categoryTable.reloadData()
+        }
     }
 
     func fetchCategoryData(categoryIndex: Int, completion: (() -> Void)?) {
@@ -38,7 +42,12 @@ class BookListController: UIViewController {
 
             // Switch to offline mode on failure
             if error != nil {
-                self.reloadCollection(isOnline: false)
+                self.reloadCollection(status: .offline)
+                return
+            }
+
+            guard let data else {
+                self.reloadCollection(status: .offline)
                 return
             }
 
@@ -55,7 +64,7 @@ class BookListController: UIViewController {
                 category.bookList.append(BookInfo(details: dBook))
             }
             DispatchQueue.main.async {
-                self.reloadCollection(isOnline: true)
+                self.reloadCollection(status: .online)
             }
 
             for (idx, dBook) in limitedBooks.enumerated() {
@@ -79,6 +88,10 @@ class BookListController: UIViewController {
         self.fetchData(url: url) { data, error in
 
             if error != nil {
+                return
+            }
+
+            guard let data else {
                 return
             }
 
@@ -120,6 +133,10 @@ class BookListController: UIViewController {
                 return
             }
 
+            guard let data else {
+                return
+            }
+
             guard let jsonData = try? JSONDecoder().decode(DBookDetails.self, from: data) else {
                 print("Unexpected json format")
                 print(textUrl)
@@ -134,19 +151,11 @@ class BookListController: UIViewController {
 
     }
 
-    func fetchData(url: URL, completion: @escaping (Data, Error?) -> Void) {
+    func fetchData(url: URL, completion: @escaping (Data?, Error?) -> Void) {
         var request = URLRequest(url: url)
-        request.timeoutInterval = 10.0
+        request.timeoutInterval = 5.0
 
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error {
-                print("Error: \(error)")
-                return
-            }
-            guard let data else {
-                print("No data returned")
-                return
-            }
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             completion(data, error)
         }
         task.resume()
@@ -168,12 +177,23 @@ class BookListController: UIViewController {
 extension BookListController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isOnline ? onlineCategoryList.count : offlineCategoryList.count
+        switch loadStatus {
+            case .empty:
+                return 0
+            case .online:
+                return onlineCategoryList.count
+            case .offline:
+                return offlineCategoryList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
-        let currentCategory = isOnline ? onlineCategoryList[indexPath.row] : offlineCategoryList[indexPath.row]
+        if loadStatus == .empty {
+            return cell
+        }
+
+        let currentCategory = loadStatus == .online ? onlineCategoryList[indexPath.row] : offlineCategoryList[indexPath.row]
 
         cell.categoryLabel.text = currentCategory.name
 
@@ -198,7 +218,14 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
             return 0
         }
 
-        return isOnline ? onlineCategoryList[categoryIndex].bookList.count : offlineCategoryList[categoryIndex].bookList.count
+        switch loadStatus {
+            case .empty:
+                return 0
+            case .online:
+                return onlineCategoryList[categoryIndex].bookList.count
+            case .offline:
+                return offlineCategoryList[categoryIndex].bookList.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -213,7 +240,11 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         }
 
-        let currentBook = isOnline ? onlineCategoryList[categoryIndex].bookList[indexPath.row] : offlineCategoryList[categoryIndex].bookList[indexPath.row]
+        if loadStatus == .empty {
+            return cell
+        }
+
+        let currentBook = loadStatus == .online ? onlineCategoryList[categoryIndex].bookList[indexPath.row] : offlineCategoryList[categoryIndex].bookList[indexPath.row]
 
         cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
         cell.backView.layer.borderColor = UIColor.systemBackground.cgColor
@@ -250,14 +281,16 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
             return
         }
 
-        let currentBook = isOnline ? onlineCategoryList[categoryIndex].bookList[indexPath.row] : offlineCategoryList[categoryIndex].bookList[indexPath.row]
+        if loadStatus == .empty {
+            return
+        }
 
-        // TODO: Write URL to PDFViewController and segue to it, create selectedUrl in pdfController and use it
-        // Note: Tested, PDFKit works with online URLs, and URLs are being retrieved properly.
-//        let bookSB = UIStoryboard(name: "BooksStoryboard", bundle: nil)
-//        var pdfController = bookSB.instantiateViewController(identifier: "PdfViewControler")
-//        pdfController.selectedUrl = currentBook.url
-//        self.navigationController?.pushViewController(pdfController, animated: true)
+        let currentBook = loadStatus == .online ? onlineCategoryList[categoryIndex].bookList[indexPath.row] : offlineCategoryList[categoryIndex].bookList[indexPath.row]
+
+        let bookSB = UIStoryboard(name: "BookStoryboard", bundle: nil)
+        let pdfController = bookSB.instantiateViewController(identifier: "PDFViewController") as! PDFViewController
+        pdfController.selectedBook = currentBook
+        self.navigationController?.pushViewController(pdfController, animated: true)
     }
 
 }
@@ -267,6 +300,7 @@ class BookInfo {
     var author: String
     var image: UIImage?
     var url: URL?
+    var document: PDFDocument?
 
     init(title: String, author: String, image: UIImage? = nil, url: URL? = nil) {
         self.title = title
@@ -323,4 +357,10 @@ class DBookDetails: Decodable {
     let authors: String?
     let image: String?
     var download: String?
+}
+
+enum LoadStatus {
+    case online
+    case offline
+    case empty
 }

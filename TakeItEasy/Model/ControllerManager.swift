@@ -11,7 +11,7 @@ class ControllerManager {
 
     static func mainTransition(navigationController: UINavigationController?) {
 
-        let bookSB = UIStoryboard(name: "BookListStoryboard", bundle: nil)
+        let bookSB = UIStoryboard(name: "BookStoryboard", bundle: nil)
         let booksController = bookSB.instantiateViewController(identifier: "BookListController")
 
         let quizSB = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
