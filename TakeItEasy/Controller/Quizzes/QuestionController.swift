@@ -53,6 +53,7 @@ class QuestionController: UIViewController {
             }
         }
         score = 0
+        self.scoreLabel.text = "0"
 
         var childrenList: [UIAction] = []
         for i in 0..<questionList!.count {
@@ -136,7 +137,8 @@ class QuestionController: UIViewController {
         
         if let currentQuestion {
             questionLabel.text = currentQuestion.text
-            pointValue.text = "\(currentQuestion.pointValue)"
+            self.pointValue.text = "\(currentQuestion.pointValue)"
+
             currentOptions = UserManager.getOptionList(storedQuestion: currentQuestion)
             numberButton.setTitle("\(currentQuestionIndex! + 1)", for: .normal)
             
@@ -160,14 +162,23 @@ class QuestionController: UIViewController {
             }
         }
 
-        scoreLabel.text = "\(score)"
+        let pointText = "\(score)"
+        if scoreLabel.text != pointText {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.scoreLabel.alpha = 0
+            }, completion: { _ in
+                self.scoreLabel.text = pointText
+                UIView.animate(withDuration: 0.5) {
+                    self.scoreLabel.alpha = 1.0
+                }
+            })
+        }
+
         optionTable.reloadData()
 
         if numAnswered >= questionList!.count {
             finishQuiz(delay: 1)
         }
-
-
     }
     
     @IBAction func prevAction(_ sender: Any) {

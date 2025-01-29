@@ -74,7 +74,7 @@ class NavigationDelegate: NSObject, UINavigationControllerDelegate {
 
         if (navigationController.topViewController as? UITabBarController) != nil {
             viewController.navigationItem.rightBarButtonItem = barButtonItem
-            viewController.navigationItem.title = UserManager.currentUser?.username ?? ""
+            viewController.navigationItem.title = "User: \(UserManager.currentUser?.username ?? "")"
         }
     }
 }

@@ -95,7 +95,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appearance.backgroundColor = ThemeManager.lightTheme.primaryColor
         appearance.shadowColor = nil
         appearance.titleTextAttributes = [
-           .foregroundColor: UIColor.white
+            .foregroundColor: UIColor.white,
+           .font: UIFont(name: "Courier New Bold", size: 18) ?? UIFont.italicSystemFont(ofSize: 18)
         ]
 
         rootNC.navigationBar.standardAppearance = appearance
