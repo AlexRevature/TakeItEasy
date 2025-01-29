@@ -88,6 +88,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     
     ///forRowAt
     ///Handles deletion when a row is swiped to the left
+    //TODO: FIX
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete {
             NoteManager.shared.removeNoteFromCurrentUser(note : noteData[indexPath.row])

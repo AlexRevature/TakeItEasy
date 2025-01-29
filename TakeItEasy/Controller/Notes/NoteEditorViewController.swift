@@ -26,9 +26,15 @@ class NoteEditorViewController: UIViewController {
         noteBodyTextView.layer.cornerRadius = 2
     }
     
+    //this is sloppy but I had to be quick
+    func assembleNoteForDisplay() -> String {
+        let assembledNote = (selectedNote?.name)! + "\n" + (selectedNote?.text!)!
+        return assembledNote
+    }
+    
     func setTextFieldContents(){
         if selectedNote != nil {
-            noteBodyTextView.text = selectedNote?.text
+            noteBodyTextView.text = assembleNoteForDisplay()
         }
     }
     
@@ -36,6 +42,26 @@ class NoteEditorViewController: UIViewController {
         let noteText = noteBodyTextView.text
         let title = noteText?.components(separatedBy: "\n").first
         return title
+    }
+    
+    //TODO: Refactor
+    func getNoteBody() -> String {
+        let fullNote = noteBodyTextView.text
+        let segmentedNote = fullNote?.components(separatedBy: "\n")
+        
+        //TODO: remove the hard codded value
+        if segmentedNote?.count == 1 {
+            return ""
+        }
+
+        var noteBody = ""
+        let numberOfLines = segmentedNote?.count
+        let lastLineToReadIndex = numberOfLines! - 1
+        for i in 1...lastLineToReadIndex {
+            noteBody.append(segmentedNote![i])
+            noteBody.append("\n")
+        }
+        return noteBody
     }
     
     func noteIsNotEmpty() -> Bool {
@@ -46,11 +72,12 @@ class NoteEditorViewController: UIViewController {
         }
         return true
     }
-
+    
+    //TODO: placeholder text
     // Note: Won't save when closing the app from this screen, may need to be fixed.
     override func viewWillDisappear(_ animated : Bool) {
         let noteName : String? = getNoteTitle()
-        let noteText = noteBodyTextView.text
+        let noteText = getNoteBody()
         let modifiedDate = Date()
 
         // Only save note if note isn't empty (without a title text field old gaurd statment wasn't as effective)
@@ -64,7 +91,7 @@ class NoteEditorViewController: UIViewController {
             selectedNote?.text = noteText
             selectedNote?.modifiedDate = modifiedDate
         } else {
-            let newNote = NoteManager.shared.createNote(name: noteName!, text: noteText!, modifiedDate: modifiedDate)
+            let newNote = NoteManager.shared.createNote(name: noteName!, text: noteText, modifiedDate: modifiedDate)
             NoteManager.shared.addNoteToCurrentUser(noteToAdd: newNote)
         }
 
