@@ -175,7 +175,7 @@ class UserManager {
                 "viewWillSetMargins",
                 "viewDidDisappear"
             ]),
-            .init(text: "Which of these are properties of the main queue of the GCD?", value: 150, correctIndex: 2, options: [
+            .init(text: "Which of these are properties of the main task in the GCD?", value: 150, correctIndex: 2, options: [
                 "serial and async",
                 "concurrent and sync",
                 "serial and sync",
@@ -212,7 +212,7 @@ class UserManager {
                 "Known Variable Optimization",
                 "Kind Variable Operation"
             ]),
-            .init(text: "What keyword-pair is necessary to (generally) create a singleton?", value: 100, correctIndex: 2, options: [
+            .init(text: "What keyword-pair is necessary to (generally) create a singleton?", value: 100, correctIndex: 3, options: [
                 "static func",
                 "some func",
                 "final struct",
@@ -249,9 +249,9 @@ class UserManager {
                 "Homebrew",
                 "Carthage"
             ]),
-            .init(text: "Where are swift primitive types (Int/Double/etc) provided?", value: 90, correctIndex: 2, options: [
+            .init(text: "Where are swift primitive types (Int/Double/etc) provided?", value: 90, correctIndex: 1, options: [
                 "Core Swift language",
-                "Swift Standarl Library",
+                "Swift Standard Library",
                 "CoreFoundation",
                 "Swift Foundation",
                 "N/A"
