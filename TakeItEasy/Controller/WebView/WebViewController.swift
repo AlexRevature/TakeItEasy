@@ -10,38 +10,34 @@ import WebKit
 
 class WebViewController: UIViewController, WKNavigationDelegate {
     
-    let urlFirstPage = URL(string: "https://duckduckgo.com")
-    
-    @IBOutlet weak var webViewArea: WKWebView!
-    
-    // MARK: - UIViewController functionality
-    
+    let pageURL = URL(string: "https://duckduckgo.com")
+    var webView: WKWebView?
+
+    @IBOutlet weak var documentWrapper: UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("web view loaded")
-        webViewArea.navigationDelegate = self
-        navigateWebView(url: urlFirstPage)
-        webViewArea.allowsBackForwardNavigationGestures = true
-    }
-    
-    // MARK: - WebView functionality
-    
-    func navigateWebView(url: URL?) {
-        guard let target = url else {
-            print("Invalid URL")
-            return
-        }
-        webViewArea.load(URLRequest(url: target))
-    }
-    
-    
-    /*
-    // MARK: - Navigation
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if webView == nil {
+            setUpWebView()
+        }
+
+        webView?.navigationDelegate = self
+        webView?.allowsBackForwardNavigationGestures = true
+        webView?.translatesAutoresizingMaskIntoConstraints = false
+
+        documentWrapper.addSubview(webView!)
+        let viewsDict = ["view": webView]
+        documentWrapper.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", metrics: nil, views: viewsDict as [String : Any]))
+        documentWrapper.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", metrics: nil, views: viewsDict as [String : Any]))
+
     }
-    */
+    
+    func setUpWebView() {
+        if let pageURL {
+            webView = WKWebView()
+            webView?.load(URLRequest(url: pageURL))
+        }
+    }
 
 }

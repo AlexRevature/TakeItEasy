@@ -14,7 +14,7 @@ class BookListController: UIViewController {
     @IBOutlet weak var categoryTable: UITableView!
 
     var loadStatus: LoadStatus = .empty
-
+    var isLoadingData = false
     var onlineCategoryList = [CategoryInfo(name: "JavaScript"), CategoryInfo(name: "Linux"), CategoryInfo(name: "Swift")]
 
     var offlineCategoryList = [CategoryInfo(name: "Offline", isOnline: false, bookList: [
@@ -23,142 +23,6 @@ class BookListController: UIViewController {
         .init(title: "Songs of a Sourdough", author: "Robert W. Service", image: UIImage(named: "bcover2.jpeg"), url: Bundle.main.url(forResource: "bsample2", withExtension: "pdf")),
         .init(title: "Sonnets from the Portuguese", author: "Elizabeth Browning", image: UIImage(named: "bcover3.jpeg"), url: Bundle.main.url(forResource: "bsample3", withExtension: "pdf")),
     ])]
-
-    func reloadCollection(status: LoadStatus) {
-        loadStatus = status
-        DispatchQueue.main.async {
-            self.categoryTable.reloadData()
-        }
-    }
-
-    func fetchCategoryData(categoryIndex: Int, completion: (() -> Void)?) {
-        let category = onlineCategoryList[categoryIndex]
-        let textUrl = "https://www.dbooks.org/api/search/\(category.name.lowercased())"
-        guard let url = URL(string: textUrl) else {
-            return
-        }
-
-        // Retrieve book list
-        self.fetchData(url: url) { data, error in
-
-            // Switch to offline mode on failure
-            if error != nil {
-                self.reloadCollection(status: .offline)
-                return
-            }
-
-            guard let data else {
-                self.reloadCollection(status: .offline)
-                return
-            }
-
-            guard let jsonData = try? JSONDecoder().decode(DBooksSearchResponse.self, from: data) else {
-                print("Unexpected json format")
-                print(textUrl)
-                return
-            }
-
-            let limitedBooks = jsonData.books.prefix(20)
-
-            // Populate books array with fetched books
-            for dBook in limitedBooks {
-                category.bookList.append(BookInfo(details: dBook))
-            }
-            self.reloadCollection(status: .online)
-
-            for (idx, dBook) in limitedBooks.enumerated() {
-                self.retrieveImage(dBook: dBook, categoryIndex: categoryIndex, bookIndex: idx)
-                self.retrieveUrl(dBook: dBook, categoryIndex: categoryIndex, bookIndex: idx)
-            }
-
-            completion?()
-        }
-    }
-
-    func retrieveImage(dBook: DBookDetails, categoryIndex: Int, bookIndex: Int) {
-
-
-        let category = onlineCategoryList[categoryIndex]
-        guard let textUrl = dBook.image, let url = URL(string: textUrl) else {
-            return
-        }
-
-        // Retrieve images for each book
-        self.fetchData(url: url) { data, error in
-
-            if error != nil {
-                return
-            }
-
-            guard let data else {
-                return
-            }
-
-            category.bookList[bookIndex].image = UIImage(data: data)
-
-            let categoryIndexPath = IndexPath(row: categoryIndex, section: 0)
-            let bookIndexPath = IndexPath(row: bookIndex, section: 0)
-
-            DispatchQueue.main.async {
-                guard let categoryRow = self.categoryTable.cellForRow(at: categoryIndexPath) as? CategoryCell else {
-                    return
-                }
-                categoryRow.booksCollection.reloadItems(at: [bookIndexPath])
-            }
-        }
-
-    }
-
-    func retrieveUrl(dBook: DBookDetails, categoryIndex: Int, bookIndex: Int) {
-
-        let category = onlineCategoryList[categoryIndex]
-        guard dBook.id != nil else {
-            return
-        }
-
-        var textUrl = "https://www.dbooks.org/api/book/\(dBook.id!)"
-        if textUrl.last == "X" {
-            textUrl.removeLast()
-        }
-
-        guard let url = URL(string: textUrl) else {
-            return
-        }
-
-        // Retrieve further detalis for each book
-        self.fetchData(url: url) { data, error in
-
-            if error != nil {
-                return
-            }
-
-            guard let data else {
-                return
-            }
-
-            guard let jsonData = try? JSONDecoder().decode(DBookDetails.self, from: data) else {
-                print("Unexpected json format")
-                print(textUrl)
-                return
-            }
-
-            guard jsonData.download != nil else {
-                return
-            }
-            category.bookList[bookIndex].url = URL(string: jsonData.download!)
-        }
-
-    }
-
-    func fetchData(url: URL, completion: @escaping (Data?, Error?) -> Void) {
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 5.0
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            completion(data, error)
-        }
-        task.resume()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,9 +33,161 @@ class BookListController: UIViewController {
         listSearchBar.delegate = self
         listSearchBar.placeholder = "Search"
 
-        for idx in 0..<onlineCategoryList.count {
-            self.fetchCategoryData(categoryIndex: idx, completion: nil)
+        loadAllCategories()
+    }
+
+    func loadAllCategories() {
+        if !isLoadingData {
+            isLoadingData = true
+            for idx in 0..<onlineCategoryList.count {
+                self.updateCategoryData(categoryIndex: idx, completion: nil)
+            }
         }
+    }
+
+    func reloadCollection(status: LoadStatus) {
+        loadStatus = status
+        if categoryTable != nil {
+            DispatchQueue.main.async {
+                self.categoryTable.reloadData()
+            }
+        }
+    }
+
+    func reloadCollectionItem(categoryPath: IndexPath, itemPath: IndexPath) {
+        if categoryTable != nil {
+            DispatchQueue.main.async {
+                let row = self.categoryTable.cellForRow(at: categoryPath) as? CategoryCell
+                if let row {
+                    let cell = row.booksCollection.cellForItem(at: itemPath)
+                    if cell != nil {
+                        row.booksCollection.reloadItems(at: [itemPath])
+                    }
+                }
+            }
+        }
+    }
+
+    func updateCategoryData(categoryIndex: Int, completion: (() -> Void)?) {
+        let category = onlineCategoryList[categoryIndex]
+        let categoryPath = IndexPath(row: categoryIndex, section: 0)
+        let url = prepareSearchURL(searchString: category.name.lowercased())
+
+        guard let url else {
+            print("Invalid search url")
+            return
+        }
+
+        let completion = { (data: Data) in
+            guard let jsonData = try? JSONDecoder().decode(DBooksSearchResponse.self, from: data) else {
+                print("Unexpected json format")
+                return
+            }
+            let limitedBooks = jsonData.books.prefix(20)
+
+            for (idx, dBook) in limitedBooks.enumerated() {
+                let book = BookInfo(details: dBook)
+                let itemPath = IndexPath(row: idx, section: 0)
+                if dBook.image != nil {
+                    self.fetchBookImage(imageURL: dBook.image!, book: book, categoryPath: categoryPath, itemPath: itemPath)
+                }
+                if dBook.id != nil {
+                    self.fetchBookURL(bookID: dBook.id!, book: book, categoryPath: categoryPath, itemPath: itemPath)
+                }
+                category.bookList.append(book)
+                self.reloadCollection(status: .online)
+            }
+        }
+
+        let failure = { (error: Error?) in
+            print("Image retrieval failure")
+            if error != nil {
+                print(error!)
+            }
+            self.reloadCollection(status: .offline)
+        }
+
+        fetchData(url: url, completion: completion, failure: failure)
+    }
+
+    func fetchBookImage(imageURL: String, book: BookInfo, categoryPath: IndexPath, itemPath: IndexPath) {
+
+        let url = URL(string: imageURL)
+        guard let url else {
+            print("Invalid image url")
+            return
+        }
+
+        let completion = { (data: Data) in
+            book.image = UIImage(data: data)
+
+            self.reloadCollectionItem(categoryPath: categoryPath, itemPath: itemPath)
+        }
+
+        let failure = { (error: Error?) in
+            print("Image retrieval failure")
+            if error != nil {
+                print(error!)
+            }
+        }
+
+        fetchData(url: url, completion: completion, failure: failure)
+    }
+
+    func fetchBookURL(bookID: String, book: BookInfo, categoryPath: IndexPath, itemPath: IndexPath) {
+        let url = prepareBookURL(bookID: bookID)
+        guard let url else {
+            print("Invalid book url")
+            return
+        }
+
+        let completion = { (data: Data) in
+            guard let jsonData = try? JSONDecoder().decode(DBookDetails.self, from: data) else {
+                print("Unexpected json format")
+                return
+            }
+            if jsonData.download != nil {
+                book.url = URL(string: jsonData.download!)
+            }
+
+            self.reloadCollectionItem(categoryPath: categoryPath, itemPath: itemPath)
+        }
+
+        let failure = { (error: Error?) in
+            print("Book url retrieval failure")
+            if error != nil {
+                print(error!)
+            }
+        }
+
+        fetchData(url: url, completion: completion, failure: failure)
+    }
+
+    func prepareSearchURL(searchString: String) -> URL? {
+        let textUrl = "https://www.dbooks.org/api/search/\(searchString)"
+        return URL(string: textUrl)
+    }
+
+    func prepareBookURL(bookID: String) -> URL? {
+        var textUrl = "https://www.dbooks.org/api/book/\(bookID)"
+        if textUrl.last == "X" {
+            textUrl.removeLast()
+        }
+        return URL(string: textUrl)
+    }
+
+    func fetchData(url: URL, completion: ((Data) -> Void)?, failure: ((Error?) -> Void)?) {
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 5.0
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data, error == nil else {
+                failure?(error)
+                return
+            }
+            completion?(data)
+        }
+        task.resume()
     }
 
 }

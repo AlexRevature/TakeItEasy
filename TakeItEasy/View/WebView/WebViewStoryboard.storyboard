@@ -11,31 +11,27 @@
         <!--Web View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="InitialScene" id="Y6W-OH-hqX" customClass="WebViewController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewController" id="Y6W-OH-hqX" customClass="WebViewController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jil-Cf-3Up">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pOs-mX-kha">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="jil-Cf-3Up" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="H9C-Uu-Dwt"/>
-                            <constraint firstItem="jil-Cf-3Up" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="LXz-nz-6Yn"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="jil-Cf-3Up" secondAttribute="bottom" id="kzT-ea-LiT"/>
-                            <constraint firstItem="jil-Cf-3Up" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="mD6-OG-DeL"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="pOs-mX-kha" secondAttribute="trailing" id="6Ia-wj-7sz"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="pOs-mX-kha" secondAttribute="bottom" id="CqV-Au-X7n"/>
+                            <constraint firstItem="pOs-mX-kha" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="djf-55-SEA"/>
+                            <constraint firstItem="pOs-mX-kha" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="qCU-Gy-4eW"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="webViewArea" destination="jil-Cf-3Up" id="Tiu-pc-0qx"/>
+                        <outlet property="documentWrapper" destination="pOs-mX-kha" id="Eao-lj-oDg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

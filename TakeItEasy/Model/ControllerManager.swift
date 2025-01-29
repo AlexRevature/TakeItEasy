@@ -12,7 +12,8 @@ class ControllerManager {
     static func mainTransition(navigationController: UINavigationController?) {
 
         let bookSB = UIStoryboard(name: "BookStoryboard", bundle: nil)
-        let booksController = bookSB.instantiateViewController(identifier: "BookListController")
+        let booksController = bookSB.instantiateViewController(identifier: "BookListController") as! BookListController
+        booksController.loadAllCategories()
 
         let quizSB = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
         let quizzesController = quizSB.instantiateViewController(identifier: "QuizListController")
@@ -21,7 +22,8 @@ class ControllerManager {
         let notesController = notesSB.instantiateViewController(identifier: "NotesViewController")
 
         let webSB = UIStoryboard(name: "WebViewStoryboard", bundle: nil)
-        let webController = webSB.instantiateViewController(identifier: "InitialScene")
+        let webController = webSB.instantiateViewController(identifier: "WebViewController") as! WebViewController
+        webController.setUpWebView()
 
         booksController.tabBarItem = UITabBarItem(title: "Books", image: UIImage(systemName: "book"), tag: 0)
         quizzesController.tabBarItem = UITabBarItem(title: "Quizzes", image: UIImage(systemName: "bubble.and.pencil"), tag: 1)
