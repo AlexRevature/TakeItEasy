@@ -9,7 +9,6 @@ import UIKit
 
 class NoteEditorViewController: UIViewController {
 
-    @IBOutlet weak var notificationLabel: UILabel!
     @IBOutlet weak var noteBodyTextView: UITextView!
     
     // Enough to use selectedNote to check edit mode
@@ -17,7 +16,6 @@ class NoteEditorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        notificationLabel.text = ""
         setTextFieldContents()
         setViewTheme()
     }
