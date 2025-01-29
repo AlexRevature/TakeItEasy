@@ -73,7 +73,6 @@ class NoteEditorViewController: UIViewController {
         return true
     }
     
-    //TODO: placeholder text
     // Note: Won't save when closing the app from this screen, may need to be fixed.
     override func viewWillDisappear(_ animated : Bool) {
         let noteName : String? = getNoteTitle()
