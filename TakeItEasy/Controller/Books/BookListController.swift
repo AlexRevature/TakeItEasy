@@ -40,13 +40,22 @@ class BookListController: UIViewController {
         if !isLoadingData {
             isLoadingData = true
             for idx in 0..<onlineCategoryList.count {
-                self.updateCategoryData(categoryIndex: idx, completion: nil)
+                let category = onlineCategoryList[idx]
+                let categoryIndex = IndexPath(row: idx, section: 0)
+                let update = {(bookList: [DBookDetails]) in
+                    self.updateCategory(bookList: bookList, categoryIndex: categoryIndex)
+                }
+                DBookManager.searchBookList(searchString: category.name, update: update, failure: nil)
             }
         }
     }
 
-    func reloadCollection(status: LoadStatus) {
+    func switchStatus(status: LoadStatus) {
         loadStatus = status
+        reloadCategoryTable()
+    }
+
+    func reloadCategoryTable() {
         if categoryTable != nil {
             DispatchQueue.main.async {
                 self.categoryTable.reloadData()
@@ -54,140 +63,62 @@ class BookListController: UIViewController {
         }
     }
 
-    func reloadCollectionItem(categoryPath: IndexPath, itemPath: IndexPath) {
+    func reloadCategory(categoryIndex: IndexPath) {
         if categoryTable != nil {
             DispatchQueue.main.async {
-                let row = self.categoryTable.cellForRow(at: categoryPath) as? CategoryCell
-                if let row {
-                    let cell = row.booksCollection.cellForItem(at: itemPath)
-                    if cell != nil {
-                        row.booksCollection.reloadItems(at: [itemPath])
-                    }
+                let row = self.categoryTable.cellForRow(at: categoryIndex) as? CategoryCell
+                row?.booksCollection.reloadData()
+            }
+        }
+    }
+
+    func reloadCategoryItem(categoryIndex: IndexPath, itemIndex: IndexPath) {
+        if categoryTable != nil {
+            DispatchQueue.main.async {
+                let row = self.categoryTable.cellForRow(at: categoryIndex) as? CategoryCell
+                if row?.booksCollection.cellForItem(at: itemIndex) != nil {
+                    row?.booksCollection.reloadItems(at: [itemIndex])
                 }
             }
         }
     }
 
-    func updateCategoryData(categoryIndex: Int, completion: (() -> Void)?) {
-        let category = onlineCategoryList[categoryIndex]
-        let categoryPath = IndexPath(row: categoryIndex, section: 0)
-        let url = prepareSearchURL(searchString: category.name.lowercased())
-
-        guard let url else {
-            print("Invalid search url")
-            return
-        }
-
-        let completion = { (data: Data) in
-            guard let jsonData = try? JSONDecoder().decode(DBooksSearchResponse.self, from: data) else {
-                print("Unexpected json format")
-                return
-            }
-            let limitedBooks = jsonData.books.prefix(20)
-
-            for (idx, dBook) in limitedBooks.enumerated() {
-                let book = BookInfo(details: dBook)
-                let itemPath = IndexPath(row: idx, section: 0)
-                if dBook.image != nil {
-                    self.fetchBookImage(imageURL: dBook.image!, book: book, categoryPath: categoryPath, itemPath: itemPath)
-                }
-                if dBook.id != nil {
-                    self.fetchBookURL(bookID: dBook.id!, book: book, categoryPath: categoryPath, itemPath: itemPath)
-                }
-                category.bookList.append(book)
-                self.reloadCollection(status: .online)
-            }
-        }
-
-        let failure = { (error: Error?) in
-            print("Image retrieval failure")
-            if error != nil {
-                print(error!)
-            }
-            self.reloadCollection(status: .offline)
-        }
-
-        fetchData(url: url, completion: completion, failure: failure)
+    func updateBookImage(image: UIImage, book: BookInfo, categoryIndex: IndexPath, itemIndex: IndexPath) {
+        book.image = image
+        self.reloadCategoryItem(categoryIndex: categoryIndex, itemIndex: itemIndex)
     }
 
-    func fetchBookImage(imageURL: String, book: BookInfo, categoryPath: IndexPath, itemPath: IndexPath) {
-
-        let url = URL(string: imageURL)
-        guard let url else {
-            print("Invalid image url")
-            return
-        }
-
-        let completion = { (data: Data) in
-            book.image = UIImage(data: data)
-
-            self.reloadCollectionItem(categoryPath: categoryPath, itemPath: itemPath)
-        }
-
-        let failure = { (error: Error?) in
-            print("Image retrieval failure")
-            if error != nil {
-                print(error!)
-            }
-        }
-
-        fetchData(url: url, completion: completion, failure: failure)
+    func updateBookURL(url: URL, book: BookInfo, categoryIndex: IndexPath, itemIndex: IndexPath) {
+        book.url = url
+        self.reloadCategoryItem(categoryIndex: categoryIndex, itemIndex: itemIndex)
     }
 
-    func fetchBookURL(bookID: String, book: BookInfo, categoryPath: IndexPath, itemPath: IndexPath) {
-        let url = prepareBookURL(bookID: bookID)
-        guard let url else {
-            print("Invalid book url")
-            return
-        }
+    func updateCategory(bookList: [DBookDetails], categoryIndex: IndexPath) {
+        let category = onlineCategoryList[categoryIndex.row]
 
-        let completion = { (data: Data) in
-            guard let jsonData = try? JSONDecoder().decode(DBookDetails.self, from: data) else {
-                print("Unexpected json format")
-                return
-            }
-            if jsonData.download != nil {
-                book.url = URL(string: jsonData.download!)
+        for (idx, dBook) in bookList.enumerated() {
+            let book = BookInfo(details: dBook)
+            let itemIndex = IndexPath(row: idx, section: 0)
+
+            let imageUpdate = {(image: UIImage) in
+                self.updateBookImage(image: image, book: book, categoryIndex: categoryIndex, itemIndex: itemIndex)
             }
 
-            self.reloadCollectionItem(categoryPath: categoryPath, itemPath: itemPath)
-        }
-
-        let failure = { (error: Error?) in
-            print("Book url retrieval failure")
-            if error != nil {
-                print(error!)
+            let urlUpdate = {(url: URL) in
+                self.updateBookURL(url: url, book: book, categoryIndex: categoryIndex, itemIndex: itemIndex)
             }
-        }
 
-        fetchData(url: url, completion: completion, failure: failure)
-    }
-
-    func prepareSearchURL(searchString: String) -> URL? {
-        let textUrl = "https://www.dbooks.org/api/search/\(searchString)"
-        return URL(string: textUrl)
-    }
-
-    func prepareBookURL(bookID: String) -> URL? {
-        var textUrl = "https://www.dbooks.org/api/book/\(bookID)"
-        if textUrl.last == "X" {
-            textUrl.removeLast()
-        }
-        return URL(string: textUrl)
-    }
-
-    func fetchData(url: URL, completion: ((Data) -> Void)?, failure: ((Error?) -> Void)?) {
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 5.0
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data, error == nil else {
-                failure?(error)
-                return
+            if dBook.image != nil {
+                DBookManager.fetchImage(imageURL: dBook.image!, update: imageUpdate, failure: nil)
             }
-            completion?(data)
+            if dBook.id != nil {
+                DBookManager.fetchBookURL(bookID: dBook.id!, update: urlUpdate, failure: nil)
+            }
+
+            category.bookList.append(book)
+            self.switchStatus(status: .online)
+            self.reloadCategory(categoryIndex: categoryIndex)
         }
-        task.resume()
     }
 
 }
@@ -323,39 +254,6 @@ extension BookListController: UISearchBarDelegate {
     }
 }
 
-class BookInfo {
-    var title: String
-    var author: String
-    var image: UIImage?
-    var url: URL?
-    var document: PDFDocument?
-
-    init(title: String, author: String, image: UIImage? = nil, url: URL? = nil) {
-        self.title = title
-        self.author = author
-        self.image = image
-        self.url = url
-    }
-
-    init(details: DBookDetails) {
-        self.title = details.title ?? ""
-        self.author = details.authors ?? ""
-    }
-}
-
-
-class CategoryInfo {
-    var name: String
-    var isOnline: Bool
-    var bookList: [BookInfo]
-
-    init(name: String, isOnline: Bool = true, bookList: [BookInfo] = [BookInfo]()) {
-        self.name = name
-        self.isOnline = isOnline
-        self.bookList = bookList
-    }
-}
-
 class CategoryCell: UITableViewCell {
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var categoryLabel: UILabel!
@@ -371,24 +269,4 @@ class BookCell: UICollectionViewCell {
 
 class BooksCollection: UICollectionView {
     var categoryIndex: Int?
-}
-
-class DBooksSearchResponse: Decodable {
-    let status: String
-    let books: [DBookDetails]
-}
-
-class DBookDetails: Decodable {
-    let id: String?
-    let title: String?
-    let subtitle: String?
-    let authors: String?
-    let image: String?
-    var download: String?
-}
-
-enum LoadStatus {
-    case online
-    case offline
-    case empty
 }

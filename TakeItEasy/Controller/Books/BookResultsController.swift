@@ -30,7 +30,6 @@ class BookResultsController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        // Delay slightly to ensure the search bar is ready
         DispatchQueue.main.async {
             self.navigationItem.searchController?.searchBar.becomeFirstResponder()
         }
@@ -42,136 +41,48 @@ class BookResultsController: UIViewController {
         }
     }
 
-    func reloadItem(indexPath: IndexPath) {
-        self.resultCollection.reloadItems(at: [indexPath])
+    func reloadItem(itemIndex: IndexPath) {
+        DispatchQueue.main.async {
+            let cell = self.resultCollection.cellForItem(at: itemIndex)
+            if cell != nil {
+                self.resultCollection.reloadItems(at: [itemIndex])
+            }
+        }
     }
 
-    func searchAndUpdateBooks(searchString: String) {
-        let url = prepareSearchURL(searchString: searchString)
-        guard let url else {
-            print("Invalid search url")
-            return
-        }
-
-        let completion = { (data: Data) in
-            guard let jsonData = try? JSONDecoder().decode(DBooksSearchResponse.self, from: data) else {
-                print("Unexpected json format")
-                return
-            }
-            let limitedBooks = jsonData.books.prefix(20)
-
-            for (idx, dBook) in limitedBooks.enumerated() {
-                let book = BookInfo(details: dBook)
-                let indexPath = IndexPath(row: idx, section: 0)
-                if dBook.image != nil {
-                    self.fetchBookImage(imageURL: dBook.image!, book: book, indexPath: indexPath)
-                }
-                if dBook.id != nil {
-                    self.fetchBookURL(bookID: dBook.id!, book: book, indexPath: indexPath)
-                }
-                self.bookList.append(book)
-                self.reloadData()
-            }
-        }
-
-        let failure = { (error: Error?) in
-            print("Search failure")
-            if error != nil {
-                print(error!)
-            }
-        }
-
-        fetchData(url: url, completion: completion, failure: failure)
+    func updateBookURL(url: URL, book: BookInfo, itemIndex: IndexPath) {
+        book.url = url
+        reloadItem(itemIndex: itemIndex)
     }
 
-    func fetchBookImage(imageURL: String, book: BookInfo, indexPath: IndexPath) {
-        let url = URL(string: imageURL)
-        guard let url else {
-            print("Invalid image url")
-            return
-        }
-
-        let completion = { (data: Data) in
-            book.image = UIImage(data: data)
-
-            DispatchQueue.main.async {
-                let cell = self.resultCollection.cellForItem(at: indexPath)
-                if cell != nil {
-                    self.reloadItem(indexPath: indexPath)
-                }
-            }
-        }
-
-        let failure = { (error: Error?) in
-            print("Image retrieval failure")
-            if error != nil {
-                print(error!)
-            }
-        }
-
-        fetchData(url: url, completion: completion, failure: failure)
+    func updateBookImage(image: UIImage, book: BookInfo, itemIndex: IndexPath) {
+        book.image = image
+        reloadItem(itemIndex: itemIndex)
     }
 
-    func fetchBookURL(bookID: String, book: BookInfo, indexPath: IndexPath) {
-        let url = prepareBookURL(bookID: bookID)
-        guard let url else {
-            print("Invalid book url")
-            return
-        }
+    func updateBooks(bookList: [DBookDetails]) {
+        for (idx, dBook) in bookList.enumerated() {
+            let book = BookInfo(details: dBook)
+            let itemIndex = IndexPath(row: idx, section: 0)
 
-        let completion = { (data: Data) in
-            guard let jsonData = try? JSONDecoder().decode(DBookDetails.self, from: data) else {
-                print("Unexpected json format")
-                return
-            }
-            if jsonData.download != nil {
-                book.url = URL(string: jsonData.download!)
+            let imageUpdate = {(image: UIImage) in
+                self.updateBookImage(image: image, book: book, itemIndex: itemIndex)
             }
 
-            DispatchQueue.main.async {
-                let cell = self.resultCollection.cellForItem(at: indexPath)
-                if cell != nil {
-                    self.reloadItem(indexPath: indexPath)
-                }
+            let urlUpdate = {(url: URL) in
+                self.updateBookURL(url: url, book: book, itemIndex: itemIndex)
             }
-        }
 
-        let failure = { (error: Error?) in
-            print("Book url retrieval failure")
-            if error != nil {
-                print(error!)
+            if dBook.image != nil {
+                DBookManager.fetchImage(imageURL: dBook.image!, update: imageUpdate, failure: nil)
             }
-        }
-
-        fetchData(url: url, completion: completion, failure: failure)
-    }
-
-    func prepareSearchURL(searchString: String) -> URL? {
-        let textUrl = "https://www.dbooks.org/api/search/\(searchString)"
-        print(textUrl)
-        return URL(string: textUrl)
-    }
-
-    func prepareBookURL(bookID: String) -> URL? {
-        var textUrl = "https://www.dbooks.org/api/book/\(bookID)"
-        if textUrl.last == "X" {
-            textUrl.removeLast()
-        }
-        return URL(string: textUrl)
-    }
-
-    func fetchData(url: URL, completion: ((Data) -> Void)?, failure: ((Error?) -> Void)?) {
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 5.0
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data, error == nil else {
-                failure?(error)
-                return
+            if dBook.id != nil {
+                DBookManager.fetchBookURL(bookID: dBook.id!, update: urlUpdate, failure: nil)
             }
-            completion?(data)
+
+            self.bookList.append(book)
+            self.reloadData()
         }
-        task.resume()
     }
 }
 
@@ -180,14 +91,13 @@ extension BookResultsController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         searchTimer?.invalidate()
 
-        if searchController.searchBar.text != nil && searchController.searchBar.text!.count > 0 {
-            searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
-                self.bookList = []
-                self.searchAndUpdateBooks(searchString: searchController.searchBar.text!)
-            }
-        } else {
+        searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
             self.bookList = []
-            reloadData()
+            if searchController.searchBar.text != nil && searchController.searchBar.text!.count > 0 {
+                DBookManager.searchBookList(searchString: searchController.searchBar.text!, update: self.updateBooks, failure: nil)
+            } else {
+                self.reloadData()
+            }
         }
     }
 
