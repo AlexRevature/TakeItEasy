@@ -92,6 +92,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath){
         if editingStyle == .delete {
             NoteManager.shared.removeNoteFromCurrentUser(note : noteData[indexPath.row])
+            CoreManager.saveContext()
             reloadFromCoreData()
         }
     }
