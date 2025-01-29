@@ -76,8 +76,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func setViewTheme() {
-        view.backgroundColor = ThemeManager.lightTheme.backColor
-        tableView.backgroundColor = ThemeManager.lightTheme.backColor
         searchBar.searchBarStyle = .minimal
     }
 
