@@ -21,6 +21,7 @@ class BookListController: UIViewController {
         .init(title: "The Eclogues", author: "Virgil", image: UIImage(named: "bcover0.jpeg"), url: Bundle.main.url(forResource: "bsample0", withExtension: "pdf")),
         .init(title: "The Forerunner", author: "Khalil Gibran", image: UIImage(named: "bcover1.jpeg"), url: Bundle.main.url(forResource: "bsample1", withExtension: "pdf")),
         .init(title: "Songs of a Sourdough", author: "Robert W. Service", image: UIImage(named: "bcover2.jpeg"), url: Bundle.main.url(forResource: "bsample2", withExtension: "pdf")),
+        .init(title: "Sonnets from the Portuguese", author: "Elizabeth Browning", image: UIImage(named: "bcover3.jpeg"), url: Bundle.main.url(forResource: "bsample3", withExtension: "pdf")),
     ])]
 
     func reloadCollection(status: LoadStatus) {
@@ -165,6 +166,9 @@ class BookListController: UIViewController {
         categoryTable.dataSource = self
         categoryTable.allowsSelection = false
 
+        listSearchBar.delegate = self
+        listSearchBar.placeholder = "Search"
+
         for idx in 0..<onlineCategoryList.count {
             self.fetchCategoryData(categoryIndex: idx, completion: nil)
         }
@@ -291,6 +295,16 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
         self.navigationController?.pushViewController(pdfController, animated: true)
     }
 
+}
+
+extension BookListController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+
+        let bookSB = UIStoryboard(name: "BookStoryboard", bundle: nil)
+        let resultController = bookSB.instantiateViewController(identifier: "BookResultsController")
+        self.navigationController?.pushViewController(resultController, animated: true)
+
+    }
 }
 
 class BookInfo {
