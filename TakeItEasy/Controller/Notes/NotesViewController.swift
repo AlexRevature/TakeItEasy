@@ -24,13 +24,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         searchBar.delegate = self
         
         setViewTheme()
-        reloadFromCoreData() //may be an unessesaryy call with the call also happening in viewWIllAppear
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     func reloadFromCoreData() {
