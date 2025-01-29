@@ -21,7 +21,6 @@ class NoteEditorViewController: UIViewController {
     }
     
     func setViewTheme() {
-        view.backgroundColor = ThemeManager.lightTheme.backColor
         noteBodyTextView.layer.borderColor = UIColor.gray.cgColor
         noteBodyTextView.layer.borderWidth = 0.5
         noteBodyTextView.layer.cornerRadius = 2
