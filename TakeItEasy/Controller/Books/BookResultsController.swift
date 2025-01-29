@@ -173,7 +173,6 @@ class BookResultsController: UIViewController {
         }
         task.resume()
     }
-
 }
 
 extension BookResultsController: UISearchResultsUpdating, UISearchBarDelegate {
@@ -209,12 +208,40 @@ extension BookResultsController: UICollectionViewDelegate, UICollectionViewDataS
         guard let resultCell = cell as? BookResultCell else {
             return cell
         }
+
+        resultCell.backView.backgroundColor = ThemeManager.lightTheme.backColor
+        resultCell.backView.layer.borderColor = UIColor.systemBackground.cgColor
+        resultCell.backView.layer.borderWidth = 0.2
+
+        resultCell.backView.layer.cornerRadius = 18.0
+        resultCell.backView.layer.masksToBounds = false
+
+        resultCell.backView.layer.shadowColor = UIColor.black.cgColor
+        resultCell.backView.layer.shadowOpacity = 0.5
+        resultCell.backView.layer.shadowOffset = CGSize(width: 4, height: 4)
+        resultCell.backView.layer.shadowRadius = 4
+
+        resultCell.backView.layer.shadowPath = UIBezierPath(
+            roundedRect: resultCell.backView.bounds,
+            cornerRadius: resultCell.backView.layer.cornerRadius
+        ).cgPath
+
         let book = bookList[indexPath.row]
         resultCell.imageHolder.image = book.image
         resultCell.titleLabel.text = book.title
         resultCell.authorLabel.text = book.author
         return resultCell
     }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        let currentBook = bookList[indexPath.row]
+        let bookSB = UIStoryboard(name: "BookStoryboard", bundle: nil)
+        let pdfController = bookSB.instantiateViewController(identifier: "PDFViewController") as! PDFViewController
+        pdfController.selectedBook = currentBook
+        self.navigationController?.pushViewController(pdfController, animated: true)
+    }
+
 }
 
 class BookResultCell: UICollectionViewCell {
