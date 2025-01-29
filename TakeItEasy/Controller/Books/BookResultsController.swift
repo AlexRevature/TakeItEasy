@@ -183,6 +183,7 @@ extension BookResultsController: UISearchResultsUpdating, UISearchBarDelegate {
 
         if searchController.searchBar.text != nil && searchController.searchBar.text!.count > 0 {
             searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                self.bookList = []
                 self.searchAndUpdateBooks(searchString: searchController.searchBar.text!)
             }
         } else {
