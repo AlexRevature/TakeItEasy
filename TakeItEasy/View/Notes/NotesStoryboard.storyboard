@@ -106,7 +106,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iSw-gl-G7I">
-                                <rect key="frame" x="30" y="89" width="333" height="600"/>
+                                <rect key="frame" x="30" y="89" width="333" height="699"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="600" id="c6k-BQ-jnt"/>
                                     <constraint firstAttribute="width" constant="333" id="piM-jc-7Zw"/>
@@ -115,27 +115,18 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifaction Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gch-CB-Yo4">
-                                <rect key="frame" x="132" y="699" width="129.33333333333337" height="19"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ddb-Rg-ueZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ddb-Rg-ueZ" firstAttribute="bottom" secondItem="gch-CB-Yo4" secondAttribute="bottom" constant="100" id="4rS-MI-kHH"/>
-                            <constraint firstItem="gch-CB-Yo4" firstAttribute="top" secondItem="iSw-gl-G7I" secondAttribute="bottom" constant="10" id="DJH-2x-bH3"/>
                             <constraint firstItem="iSw-gl-G7I" firstAttribute="top" secondItem="ddb-Rg-ueZ" secondAttribute="top" constant="30" id="KWr-30-Ib9"/>
-                            <constraint firstItem="gch-CB-Yo4" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="QEp-By-Reb"/>
                             <constraint firstItem="iSw-gl-G7I" firstAttribute="centerX" secondItem="ddb-Rg-ueZ" secondAttribute="centerX" id="SUF-Jw-I7K"/>
+                            <constraint firstItem="ddb-Rg-ueZ" firstAttribute="bottom" secondItem="iSw-gl-G7I" secondAttribute="bottom" constant="30" id="uB9-hN-VE7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6hR-Qz-qNX"/>
                     <connections>
                         <outlet property="noteBodyTextView" destination="iSw-gl-G7I" id="hYy-yV-dD8"/>
-                        <outlet property="notificationLabel" destination="gch-CB-Yo4" id="sNT-eA-6fc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mka-Xz-OTC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
