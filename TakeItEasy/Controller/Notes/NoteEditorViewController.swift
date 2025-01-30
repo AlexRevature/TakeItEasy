@@ -27,6 +27,7 @@ class NoteEditorViewController: UIViewController {
     }
     
     //this is sloppy but I had to be quick
+    //TODO: remove this added new line when saving?
     func assembleNoteForDisplay() -> String {
         let assembledNote = (selectedNote?.name)! + "\n" + (selectedNote?.text!)!
         return assembledNote
