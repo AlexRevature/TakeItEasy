@@ -19,8 +19,6 @@ struct Theme {
 
 class ThemeManager {
     
-    static var isLightEnabled = true
-    
     static let lightTheme = Theme(
         primaryColor: .init(named: "CustomPrimary") ?? .black,
         secondaryColor: .init(named: "CustomSecondary") ?? .black,
@@ -28,15 +26,6 @@ class ThemeManager {
         normalText: .init(named: "NormalText") ?? .black,
         alternateText: .white,
         boldText: .init(named: "BoldText") ?? .black
-    )
-    
-    static let darkTheme = Theme(
-        primaryColor: customColor(r: 92, g: 98, b: 173),
-        secondaryColor: customColor(r: 116, g: 120, b: 185),
-        backColor: .white,
-        normalText: .black,
-        alternateText: .white,
-        boldText: customColor(r: 56, g: 61, b: 94)
     )
     
     static private func customColor(r: Int, g: Int, b: Int) -> UIColor {

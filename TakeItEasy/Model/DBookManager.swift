@@ -10,6 +10,9 @@ import PDFKit
 
 class DBookManager {
 
+    static let searchPath = "https://www.dbooks.org/api/search/"
+    static let bookPath = "https://www.dbooks.org/api/book/"
+
     static func searchBookList(searchString: String, update: (([DBookDetails]) -> Void)?, failure: ((Error?) -> Void)?) {
         let url = prepareSearchURL(searchString: searchString)
         guard let url else {
@@ -72,12 +75,12 @@ class DBookManager {
     }
 
     static func prepareSearchURL(searchString: String) -> URL? {
-        let textUrl = "https://www.dbooks.org/api/search/\(searchString)"
+        let textUrl = "\(searchPath)\(searchString)"
         return URL(string: textUrl)
     }
 
     static func prepareBookURL(bookID: String) -> URL? {
-        var textUrl = "https://www.dbooks.org/api/book/\(bookID)"
+        var textUrl = "\(bookPath)\(bookID)"
         if textUrl.last == "X" {
             textUrl.removeLast()
         }
