@@ -99,7 +99,7 @@ extension BookResultsController: UISearchResultsUpdating, UISearchBarDelegate {
 
         searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
             self.searchLock.lock()
-            self.bookList = []
+            self.bookList.removeAll()
             if searchController.searchBar.text != nil && searchController.searchBar.text!.count > 0 {
                 DBookManager.searchBookList(searchString: searchController.searchBar.text!, update: self.updateBooks, failure: failure)
             } else {
