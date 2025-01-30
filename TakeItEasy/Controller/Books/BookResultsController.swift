@@ -12,6 +12,7 @@ class BookResultsController: UIViewController {
     var bookList = [BookInfo]()
     @IBOutlet weak var resultCollection: UICollectionView!
     var searchTimer: Timer?
+    var searchLock = NSLock()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +84,7 @@ class BookResultsController: UIViewController {
             self.bookList.append(book)
             self.reloadData()
         }
+        self.searchLock.unlock()
     }
 }
 
@@ -91,12 +93,18 @@ extension BookResultsController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         searchTimer?.invalidate()
 
+        let failure = { (_: Error?) in
+            self.searchLock.unlock()
+        }
+
         searchTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+            self.searchLock.lock()
             self.bookList = []
             if searchController.searchBar.text != nil && searchController.searchBar.text!.count > 0 {
-                DBookManager.searchBookList(searchString: searchController.searchBar.text!, update: self.updateBooks, failure: nil)
+                DBookManager.searchBookList(searchString: searchController.searchBar.text!, update: self.updateBooks, failure: failure)
             } else {
                 self.reloadData()
+                self.searchLock.unlock()
             }
         }
     }
