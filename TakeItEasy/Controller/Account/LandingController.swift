@@ -16,14 +16,14 @@ class LandingController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        logoView.image = .init(named: "ClearIcon.png")
-        logoView.tintColor = ThemeManager.primaryColor
+
+        titleBack.backgroundColor = nil
+
+        logoView.image = .init(systemName: "figure.strengthtraining.functional.circle.fill")
         logoView.tintColor = ThemeManager.primaryColor
         logoView.layer.cornerRadius = 20
         logoView.backgroundColor = UIColor.systemGray5
         logoView.clipsToBounds = true
-
-        titleBack.backgroundColor = nil
 
         backView.backgroundColor = ThemeManager.backColor
         backView.layer.cornerRadius = 30

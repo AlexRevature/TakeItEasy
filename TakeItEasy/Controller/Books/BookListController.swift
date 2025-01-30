@@ -216,7 +216,6 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.authorLabel.text = currentBook.author
         cell.imageHolder.image = currentBook.image
         cell.imageHolder.contentMode = .scaleAspectFit
-//        cell.imageHolder.backgroundColor = UIColor.gray
 
         return cell
     }
