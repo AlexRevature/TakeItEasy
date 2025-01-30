@@ -195,7 +195,7 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
 
         let currentBook = loadStatus == .online ? onlineCategoryList[categoryIndex].bookList[indexPath.row] : offlineCategoryList[categoryIndex].bookList[indexPath.row]
 
-        cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
+        cell.backView.backgroundColor = ThemeManager.backColor
         cell.backView.layer.borderColor = UIColor.systemBackground.cgColor
         cell.backView.layer.borderWidth = 0.2
 

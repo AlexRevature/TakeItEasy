@@ -27,7 +27,7 @@ class LoginController: UIViewController {
         usernameEntry.backgroundColor = .systemGray5
         passwordEntry.backgroundColor = .systemGray5
 
-        backView.backgroundColor = ThemeManager.lightTheme.backColor
+        backView.backgroundColor = ThemeManager.backColor
         backView.layer.cornerRadius = 12
         backView.layer.masksToBounds = false
 

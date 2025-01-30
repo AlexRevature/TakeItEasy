@@ -14,17 +14,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        TitleLabel.appearance().textColor = ThemeManager.lightTheme.boldText
+        TitleLabel.appearance().textColor = ThemeManager.boldText
         ErrorLabel.appearance().textColor = UIColor.red
 
         var actionConfiguration = ActionButton.Configuration.filled()
-        actionConfiguration.baseBackgroundColor = ThemeManager.lightTheme.primaryColor
-        actionConfiguration.baseForegroundColor = ThemeManager.lightTheme.alternateText
+        actionConfiguration.baseBackgroundColor = ThemeManager.primaryColor
+        actionConfiguration.baseForegroundColor = ThemeManager.alternateText
         ActionButton.appearance().configuration = actionConfiguration
 
         var alternateConfiguration = ActionButton.Configuration.filled()
         alternateConfiguration.baseBackgroundColor = UIColor.systemGray2
-        alternateConfiguration.baseForegroundColor = ThemeManager.lightTheme.alternateText
+        alternateConfiguration.baseForegroundColor = ThemeManager.alternateText
         AlternateButton.appearance().configuration = alternateConfiguration
 
         return true

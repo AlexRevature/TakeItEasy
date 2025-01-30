@@ -19,9 +19,9 @@ class NotesTableViewCellController: UITableViewCell {
         noteBody.lineBreakMode = .byWordWrapping
     }
     
-    func setCellTheme() {
+    func setCellThemeManager() {
         noteBody.textColor = .gray
-        noteTitle.textColor = ThemeManager.lightTheme.boldText
+        noteTitle.textColor = ThemeManager.boldText
        
     }
 

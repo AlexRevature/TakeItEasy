@@ -45,7 +45,7 @@ extension QuizListController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewQuizCell", for: indexPath) as! NewQuizCell
         let currentQuiz = quizList![indexPath.row]
 
-        cell.imageHolder.tintColor = ThemeManager.lightTheme.primaryColor
+        cell.imageHolder.tintColor = ThemeManager.primaryColor
         if currentQuiz.imageName != nil {
             cell.imageHolder.image = UIImage(systemName: currentQuiz.imageName!)
         } else {
@@ -58,13 +58,13 @@ extension QuizListController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.titleLabel.text = currentQuiz.name
         cell.dateLabel.text = currentQuiz.date?.formatted(date: .abbreviated, time: .omitted)
 
-        cell.countLabel.textColor = ThemeManager.lightTheme.alternateText
+        cell.countLabel.textColor = ThemeManager.alternateText
         cell.countLabel.text = "\(currentQuiz.questionSet?.count ?? 0) Qs"
 
-        cell.countBack.backgroundColor = ThemeManager.lightTheme.secondaryColor
+        cell.countBack.backgroundColor = ThemeManager.secondaryColor
         cell.countBack.layer.cornerRadius = 5
 
-        cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
+        cell.backView.backgroundColor = ThemeManager.backColor
         cell.backView.layer.borderColor = UIColor.systemBackground.cgColor
         cell.backView.layer.borderWidth = 0.2
 

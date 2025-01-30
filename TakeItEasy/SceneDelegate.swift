@@ -92,7 +92,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = ThemeManager.lightTheme.primaryColor
+        appearance.backgroundColor = ThemeManager.primaryColor
         appearance.shadowColor = nil
         appearance.titleTextAttributes = [
             .foregroundColor: UIColor.white,

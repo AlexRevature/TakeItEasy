@@ -69,9 +69,9 @@ class QuestionController: UIViewController {
         numberButton.menu = menu
         numberButton.showsMenuAsPrimaryAction = true
 
-        scoreImage.tintColor = ThemeManager.lightTheme.primaryColor
+        scoreImage.tintColor = ThemeManager.primaryColor
         
-        questionLabel.textColor = ThemeManager.lightTheme.normalText
+        questionLabel.textColor = ThemeManager.normalText
         questionLabel.contentMode = .bottom
         questionLabel.lineBreakMode = .byWordWrapping
         questionLabel.numberOfLines = 0
@@ -231,19 +231,19 @@ extension QuestionController: UITableViewDelegate, UITableViewDataSource {
         cell.numberWrapper.backgroundColor = UIColor.systemGray4
         
         if answerSelection![currentQuestionIndex!] == indexPath.row {
-            cell.backView.backgroundColor = ThemeManager.lightTheme.secondaryColor
+            cell.backView.backgroundColor = ThemeManager.secondaryColor
             if indexPath.row == currentQuestion!.correctIndex {
                 cell.numberWrapper.backgroundColor = .systemGreen
             } else {
                 cell.numberWrapper.backgroundColor = .systemRed
             }
         } else {
-            cell.backView.backgroundColor = ThemeManager.lightTheme.backColor
+            cell.backView.backgroundColor = ThemeManager.backColor
         }
         
         cell.numberLabel.text = "\(indexPath.row + 1)"
         cell.contentLabel.text = currentOptions?[indexPath.row].text
-        cell.contentLabel.textColor = ThemeManager.lightTheme.normalText
+        cell.contentLabel.textColor = ThemeManager.normalText
         
         cell.layer.shadowRadius = 5
         cell.layer.shadowOpacity = 0.5

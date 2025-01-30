@@ -34,7 +34,7 @@ class ControllerManager {
         tabController.viewControllers = [quizzesController, notesController, booksController, webController]
 
         let tabAppearance = UITabBarAppearance()
-        tabAppearance.backgroundColor = ThemeManager.lightTheme.primaryColor
+        tabAppearance.backgroundColor = ThemeManager.primaryColor
 
         tabAppearance.stackedLayoutAppearance.selected.iconColor = UIColor.white
         tabAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]

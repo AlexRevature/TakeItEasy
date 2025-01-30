@@ -23,7 +23,7 @@ class QuizController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        backView.backgroundColor = ThemeManager.lightTheme.backColor
+        backView.backgroundColor = ThemeManager.backColor
         backView.layer.borderColor = UIColor.black.cgColor
         backView.layer.borderWidth = 0.2
         backView.layer.cornerRadius = 12
@@ -37,15 +37,15 @@ class QuizController: UIViewController {
             cornerRadius: backView.layer.cornerRadius
         ).cgPath
 
-        infoWrapper.backgroundColor = ThemeManager.lightTheme.secondaryColor
+        infoWrapper.backgroundColor = ThemeManager.secondaryColor
         infoWrapper.layer.cornerRadius = 12
         infoWrapper.layer.masksToBounds = false
 
         titleLabel.text = selectedQuiz?.name
-        titleLabel.textColor = ThemeManager.lightTheme.alternateText
+        titleLabel.textColor = ThemeManager.alternateText
 
         authorLabel.text = "By: \(selectedQuiz?.author ?? "N/A")"
-        authorLabel.textColor = ThemeManager.lightTheme.alternateText
+        authorLabel.textColor = ThemeManager.alternateText
 
         scoreWrapper.layer.cornerRadius = 8
 
@@ -54,7 +54,7 @@ class QuizController: UIViewController {
         } else {
             imageHolder.image = UIImage(systemName: "circle")
         }
-        imageHolder.tintColor = ThemeManager.lightTheme.primaryColor
+        imageHolder.tintColor = ThemeManager.primaryColor
         imageHolder.layer.cornerRadius = 20
         imageHolder.backgroundColor = UIColor.systemGray5
         imageHolder.clipsToBounds = true

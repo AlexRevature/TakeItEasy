@@ -18,7 +18,7 @@ class BookResultsController: UIViewController {
 
         let searchController = UISearchController(searchResultsController: nil)
         self.navigationItem.searchController = searchController
-        searchController.searchBar.searchTextField.backgroundColor = ThemeManager.lightTheme.secondaryColor
+        searchController.searchBar.searchTextField.backgroundColor = ThemeManager.secondaryColor
 
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
@@ -119,7 +119,7 @@ extension BookResultsController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
         }
 
-        resultCell.backView.backgroundColor = ThemeManager.lightTheme.backColor
+        resultCell.backView.backgroundColor = ThemeManager.backColor
         resultCell.backView.layer.borderColor = UIColor.systemBackground.cgColor
         resultCell.backView.layer.borderWidth = 0.2
 

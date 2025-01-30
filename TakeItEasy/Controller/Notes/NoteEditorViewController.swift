@@ -17,10 +17,10 @@ class NoteEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTextFieldContents()
-        setViewTheme()
+        setViewThemeManager()
     }
     
-    func setViewTheme() {
+    func setViewThemeManager() {
         noteBodyTextView.layer.borderColor = UIColor.gray.cgColor
         noteBodyTextView.layer.borderWidth = 0.5
         noteBodyTextView.layer.cornerRadius = 2

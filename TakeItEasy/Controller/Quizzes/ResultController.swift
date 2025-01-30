@@ -27,7 +27,7 @@ class ResultController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        backView.backgroundColor = ThemeManager.lightTheme.backColor
+        backView.backgroundColor = ThemeManager.backColor
         backView.layer.borderColor = UIColor.black.cgColor
         backView.layer.borderWidth = 0.2
         backView.layer.cornerRadius = 12
@@ -66,10 +66,10 @@ class ResultController: UIViewController {
         scoreLabel.text = "\(score)/\(maxScore)"
         
         letterGradeLabel.text = charScore
-        backImage.tintColor = ThemeManager.lightTheme.primaryColor
+        backImage.tintColor = ThemeManager.primaryColor
 
         updateBack.layer.cornerRadius = 5
-        updateBack.backgroundColor = ThemeManager.lightTheme.backColor
+        updateBack.backgroundColor = ThemeManager.backColor
 
         if let pointUpdate {
             var updateString = "You gained \(pointUpdate) point"

@@ -23,7 +23,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         tableView.dataSource = self
         searchBar.delegate = self
         
-        setViewTheme()
+        setViewThemeManager()
     }
     
     func reloadFromCoreData() {
@@ -68,7 +68,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         removeAddButtonFromNavBar()
     }
     
-    func setViewTheme() {
+    func setViewThemeManager() {
         searchBar.searchBarStyle = .minimal
     }
 
