@@ -33,28 +33,28 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="Fuz-R1-Pul"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="309" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3aY-Vz-mDK">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="318" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="3aY-Vz-mDK">
                                 <rect key="frame" x="0.0" y="184" width="393" height="634"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CategoryCell" rowHeight="300" id="nSK-cN-Lu4" customClass="CategoryCell" customModule="TakeItEasy" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="300"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CategoryCell" rowHeight="318" id="nSK-cN-Lu4" customClass="CategoryCell" customModule="TakeItEasy" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="318"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nSK-cN-Lu4" id="H62-Bd-1HX">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="300"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="318"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bsw-0h-kKn">
-                                                    <rect key="frame" x="20" y="16" width="353" height="278"/>
+                                                    <rect key="frame" x="20" y="16" width="353" height="296"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dS3-Jd-BLs">
-                                                            <rect key="frame" x="8" y="5" width="71" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <rect key="frame" x="8" y="5" width="85" height="24"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZSw-UT-n0C" customClass="BooksCollection" customModule="TakeItEasy" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="26" width="353" height="247"/>
+                                                            <rect key="frame" x="0.0" y="29" width="353" height="262"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QIw-Bk-CiG">
                                                                 <size key="itemSize" width="155" height="230"/>
@@ -64,7 +64,7 @@
                                                             </collectionViewFlowLayout>
                                                             <cells>
                                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookCell" id="Zjb-gh-vGo" customClass="BookCell" customModule="TakeItEasy" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="8.6666666666666661" width="155" height="230"/>
+                                                                    <rect key="frame" x="0.0" y="16" width="155" height="230"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5Jj-jL-9CG">
                                                                         <rect key="frame" x="0.0" y="0.0" width="155" height="230"/>
@@ -174,7 +174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-14.503816793893129" y="4.9295774647887329"/>
+            <point key="canvasLocation" x="32.824427480916029" y="4.9295774647887329"/>
         </scene>
         <!--Book Results Controller-->
         <scene sceneID="qs4-NS-9re">
