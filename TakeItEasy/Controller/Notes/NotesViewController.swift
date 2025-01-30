@@ -83,7 +83,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "noteCell", for: indexPath) as! NotesTableViewCellController
         cell.noteTitle?.text = noteData[indexPath.row].name
         let noteBodyText = noteData[indexPath.row].text
-        if noteBodyText == "" {
+        if noteBodyText?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             cell.noteBody?.text = "No note text"
         } else {
             cell.noteBody?.text = noteBodyText
