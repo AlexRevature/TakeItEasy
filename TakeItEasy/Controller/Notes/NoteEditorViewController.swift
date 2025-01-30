@@ -59,8 +59,10 @@ class NoteEditorViewController: UIViewController {
         let numberOfLines = segmentedNote?.count
         let lastLineToReadIndex = numberOfLines! - 1
         for i in 1...lastLineToReadIndex {
-            noteBody.append(segmentedNote![i])
-            noteBody.append("\n")
+            if segmentedNote![i] != "" {
+                noteBody.append(segmentedNote![i])
+                noteBody.append("\n")
+            }
         }
         return noteBody
     }
@@ -79,7 +81,7 @@ class NoteEditorViewController: UIViewController {
         let noteName : String? = getNoteTitle()
         let noteText = getNoteBody()
         let modifiedDate = Date()
-
+        
         // Only save note if note isn't empty (without a title text field old gaurd statment wasn't as effective)
         guard noteIsNotEmpty() else {
             return
