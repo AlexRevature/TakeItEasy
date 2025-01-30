@@ -14,7 +14,10 @@ class DBookManager {
     static let bookPath = "https://www.dbooks.org/api/book/"
 
     static func searchBookList(searchString: String, update: (([DBookDetails]) -> Void)?, failure: ((Error?) -> Void)?) {
-        let url = prepareSearchURL(searchString: searchString)
+
+        let fixedSearchString = searchString.replacing(/\s+/, with: "+")
+        let url = prepareSearchURL(searchString: fixedSearchString)
+        
         guard let url else {
             failure?(nil)
             return
