@@ -26,8 +26,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: windowScene)
 
+        let launchStoryboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
+        let launchController = launchStoryboard.instantiateViewController(identifier: "LaunchScreen")
+
         let rootNC = createNavigation()
         self.window?.rootViewController = rootNC
+        self.window?.makeKeyAndVisible()
+        rootNC.setViewControllers([launchController], animated: true)
 
         let username = UserDefaults.standard.string(forKey: "currentUser")
         if username != nil {
@@ -37,11 +42,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             let storyboard = UIStoryboard(name: "AccountStoryboard", bundle: nil)
             let rootVC = storyboard.instantiateViewController(identifier: "LandingController")
-            rootNC.setViewControllers([rootVC], animated: false)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                rootNC.setViewControllers([rootVC], animated: true)
+            }
         }
-
-        self.window?.rootViewController = rootNC
-        self.window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
