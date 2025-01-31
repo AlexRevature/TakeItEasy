@@ -34,6 +34,26 @@ class WebViewController: UIViewController, WKNavigationDelegate {
 
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem (
+            image: UIImage(systemName: "chevron.left"),
+            style: .done,
+            target: self,
+            action: #selector(reverseWebView)
+        )
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.navigationItem.leftBarButtonItem = nil
+    }
+
+    @objc
+    func reverseWebView() {
+        self.webView?.goBack()
+    }
+
     // Can be run before viewDidLoad to speed up loading
     func setUpWebView() {
         if let pageURL {
