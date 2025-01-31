@@ -77,6 +77,9 @@ class ControllerManager {
         tabController.navigationItem.rightBarButtonItem = barButtonItem
         tabController.navigationItem.title = "\(UserManager.currentUser?.username ?? "")"
 
-        navigationController?.setViewControllers([tabController], animated: true)
+        // Delay to make LaunchScreen transition smoother
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            navigationController?.setViewControllers([tabController], animated: true)
+        }
     }
 }
