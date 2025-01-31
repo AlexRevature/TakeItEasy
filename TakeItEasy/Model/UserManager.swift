@@ -58,14 +58,6 @@ class UserManager {
         })
     }
     
-    static func getBookList() -> [StoredBook]? {
-                
-        let bookSet = currentUser!.bookSet as! Set<StoredBook>
-        return bookSet.sorted(by: {a, b in
-            a.name ?? "" < b.name ?? ""
-        })
-    }
-    
     static func getQuestionList(storedQuiz: StoredQuiz) -> [StoredQuestion]? {
         let questionSet = storedQuiz.questionSet as! Set<StoredQuestion>
         return questionSet.sorted(by: {a, b in
