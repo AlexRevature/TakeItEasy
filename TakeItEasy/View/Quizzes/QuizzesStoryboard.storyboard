@@ -392,19 +392,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="izc-0A-aR9">
-                                <rect key="frame" x="132.66666666666666" y="731" width="127.66666666666666" height="20"/>
+                                <rect key="frame" x="127.66666666666667" y="731" width="137.66666666666663" height="20"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Point Value:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LmL-ic-hFb">
-                                        <rect key="frame" x="0.0" y="0.0" width="95.666666666666671" height="20"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cit-oj-XfG">
+                                        <rect key="frame" x="97.666666666666671" y="0.33333333333337123" width="40.000000000000014" height="19.333333333333332"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="cF0-wY-kek"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cit-oj-XfG">
-                                        <rect key="frame" x="97.666666666666686" y="0.33333333333337123" width="30" height="19.333333333333332"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="cF0-wY-kek"/>
-                                        </constraints>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Point Value:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LmL-ic-hFb">
+                                        <rect key="frame" x="0.0" y="-1" width="95.666666666666671" height="20"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
