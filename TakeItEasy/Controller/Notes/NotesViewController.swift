@@ -116,36 +116,44 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.pushViewController(editorController, animated: true)
     }
     
+    func searchNotesByName(resultsArray : inout [StoredNote], searchText: String) {
+        for note in noteData {
+            let noteName = note.name!.lowercased()
+            if noteName.contains(searchText.lowercased()) {
+                print("Note found: ",  noteName)
+                resultsArray.append(note)
+            }
+        }
+    }
+    
+    func searchNotesByBody(resultsArray: inout [StoredNote], searchText: String) {
+        for note in noteData {
+            let noteBody = note.text!.lowercased()
+            if noteBody.contains(searchText.lowercased()) /*&& !(resultsArray.contains(note))*/ {
+                print("Note found (body):")
+                resultsArray.append(note)
+            }
+        }
+    }
+    
     ///search bar
-    ///searches by note name
+    ///searches by note name and then seaches the note body
+    ///if the search bar is empty it displays alll notes
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        var temporaryArray : [StoredNote] = []
+        //TODO: change name
+        var resultsArray : [StoredNote] = []
         
         if (searchText == "") {
             reloadFromCoreData()
             return
         }
         
-        //searches by title
-        for note in noteData {
-            let noteName = note.name!.lowercased()
-            if noteName.contains(searchText.lowercased()) {
-                print("Note found")
-                temporaryArray.append(note)
-            }
-        }
+        print("search text: \"", searchText + "\"")
         
-        //searches by body after the title
-        for note in noteData {
-            let noteBody = note.text!.lowercased()
-            if noteBody.contains(searchText.lowercased()) && !(temporaryArray.contains(note)) {
-                print("Note found (body)")
-                temporaryArray.append(note)
-            }
-                
-        }
+        searchNotesByName(resultsArray: &resultsArray, searchText: searchText)
+        searchNotesByBody(resultsArray: &resultsArray, searchText: searchText)
         
-        noteData = temporaryArray
+        noteData = resultsArray
         tableView.reloadData()
         refreshSearchPool()
     }
