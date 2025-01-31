@@ -54,7 +54,7 @@ class DataManager {
                 "nav.viewTransition(vc)",
                 "addToQueue(vc)"
             ]),
-            .init(text: "Which is not a valid core data entity attribute type?", value: 60, correctIndex: 3, options: [
+            .init(text: "Which is not a valid core data entity attribute type?", value: 60, correctIndex: 1, options: [
                 "String",
                 "Int",
                 "Date",
