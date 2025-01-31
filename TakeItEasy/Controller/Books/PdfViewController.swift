@@ -8,7 +8,7 @@
 import UIKit
 import PDFKit
 
-class PDFViewController: ViewController {
+class PDFViewController: UIViewController {
 
     @IBOutlet weak var documentWrapper: UIView!
 
