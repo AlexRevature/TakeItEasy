@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ResultController: UIViewController {
 
@@ -24,8 +25,23 @@ class ResultController: UIViewController {
     var charScore: String?
     var pointUpdate: Int32?
 
+    // Used internally
+    var audioPlayer: AVAudioPlayer?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+            if let audioURL = Bundle.main.url(forResource: "success", withExtension: "mp3") {
+                audioPlayer = try AVAudioPlayer(contentsOf: audioURL, fileTypeHint: AVFileType.mp3.rawValue)
+                audioPlayer?.numberOfLoops = -1
+                audioPlayer?.prepareToPlay()
+            }
+        } catch {
+            return
+        }
 
         backView.backgroundColor = ThemeManager.backColor
         backView.layer.borderColor = UIColor.black.cgColor
@@ -46,12 +62,18 @@ class ResultController: UIViewController {
 
         switch percentageScore {
             case let p where p == 1.0:
-                charScore = "A"
+                audioPlayer?.play()
+                successEffect()
+                charScore = "S"
             case let p where p >= 0.8:
-                charScore = "B"
+                audioPlayer?.play()
+                successEffect()
+                charScore = "A"
             case let p where p >= 0.6:
-                charScore = "C"
+                charScore = "B"
             case let p where p >= 0.4:
+                charScore = "C"
+            case let p where p >= 0.2:
                 charScore = "D"
             default:
                 charScore = "F"
@@ -80,9 +102,45 @@ class ResultController: UIViewController {
         } else {
             updateLabel.text = "No points gained"
         }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        if let player = audioPlayer, player.isPlaying {
+            player.stop()
+        }
+    }
+
+    func successEffect() {
+        let emitterLayer = CAEmitterLayer()
+
+        emitterLayer.emitterPosition = CGPoint(x: view.bounds.width / 2, y: 0)
+
+        emitterLayer.emitterSize = CGSize(width: view.bounds.width, height: 0)
+        emitterLayer.emitterShape = .line
+
+        let systemImage = UIImage(systemName: "star.fill")?.withTintColor(ThemeManager.primaryColor)
+        let renderer = UIGraphicsImageRenderer(size: systemImage!.size)
+        let particleImage = renderer.image { ctx in
+            systemImage?.draw(at: .zero)
+        }
+
+        let particleCell = CAEmitterCell()
+        particleCell.contents = particleImage.cgImage
+        particleCell.color = ThemeManager.primaryColor.cgColor
+        particleCell.birthRate = 7
+        particleCell.lifetime = 10
+        particleCell.velocity = 150
+        particleCell.velocityRange = 10
+        particleCell.emissionLongitude = .pi
+        particleCell.emissionRange = .pi/7
+        particleCell.scale = 0.3
+        particleCell.scaleRange = 0.05
+
+        emitterLayer.emitterCells = [particleCell]
+        view.layer.addSublayer(emitterLayer)
 
     }
-    
+
     @IBAction func exitAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
