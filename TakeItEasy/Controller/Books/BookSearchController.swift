@@ -37,10 +37,6 @@ class BookSearchController: UIViewController {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.isHidden = true
         statusLabel.alpha = 0.0
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         showStatus()
     }
 
@@ -68,10 +64,10 @@ class BookSearchController: UIViewController {
     }
 
     func showStatus() {
-        self.statusLabel.isHidden = false
         let animations = { self.statusLabel.alpha = 1.0 }
 
         DispatchQueue.main.async {
+            self.statusLabel.isHidden = false
             UIView.animate(withDuration: 0.35, animations: animations)
         }
     }
