@@ -26,13 +26,15 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         webView?.allowsBackForwardNavigationGestures = true
         webView?.translatesAutoresizingMaskIntoConstraints = false
 
+        // WebView constrained to wrapper to allow for background editing
         documentWrapper.addSubview(webView!)
         let viewsDict = ["view": webView]
         documentWrapper.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", metrics: nil, views: viewsDict as [String : Any]))
         documentWrapper.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", metrics: nil, views: viewsDict as [String : Any]))
 
     }
-    
+
+    // Can be run before viewDidLoad to speed up loading
     func setUpWebView() {
         if let pageURL {
             webView = WKWebView()

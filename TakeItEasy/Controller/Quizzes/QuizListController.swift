@@ -11,7 +11,8 @@ class QuizListController: UIViewController {
     
     @IBOutlet weak var quizTable: UITableView!
     @IBOutlet weak var quizCollection: UICollectionView!
-    
+
+    // Retrieved from Core Data
     var quizList: [StoredQuiz]?
 
     override func viewDidLoad() {

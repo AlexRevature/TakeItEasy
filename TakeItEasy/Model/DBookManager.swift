@@ -84,12 +84,14 @@ class DBookManager {
 
     static func prepareBookURL(bookID: String) -> URL? {
         var textUrl = "\(bookPath)\(bookID)"
+        // Some book ids have this extra (unexplained) X at the end
         if textUrl.last == "X" {
             textUrl.removeLast()
         }
         return URL(string: textUrl)
     }
 
+    // Handle URL data tasks by running a separate error callback
     static func fetchData(url: URL, completion: ((Data) -> Void)?, failure: ((Error?) -> Void)?) {
         var request = URLRequest(url: url)
         request.timeoutInterval = 5.0

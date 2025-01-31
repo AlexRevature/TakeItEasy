@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let keepCredentials = UserDefaults.standard.bool(forKey: "keepCredentials")
         if !keepCredentials {
-            let status: CredentialStatus = AuthManager.deleteCredentials()
+            let status: CredentialStatus = KeychainManager.deleteCredentials()
             if (status == .failure) {
                 return
             }

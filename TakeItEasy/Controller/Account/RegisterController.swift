@@ -137,7 +137,7 @@ class RegisterController: UIViewController {
             return
         }
         
-        let credentialStatus = AuthManager.saveCredentials(username: username, password: password)
+        let credentialStatus = KeychainManager.saveCredentials(username: username, password: password)
         
         guard credentialStatus != .collision else {
             statusLabel.text = "Unhandled id collision"

@@ -57,7 +57,7 @@ class LoginController: UIViewController {
             return
         }
         
-        let (status, storedPassword) = AuthManager.retrievePassword(username: username)
+        let (status, storedPassword) = KeychainManager.retrievePassword(username: username)
         
         guard status != .invalidKey else {
             statusLabel.text = "User not found"

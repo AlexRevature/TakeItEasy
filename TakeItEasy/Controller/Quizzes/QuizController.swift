@@ -17,7 +17,8 @@ class QuizController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var scoreWrapper: UIView!
     @IBOutlet weak var backView: UIView!
-    
+
+    // Initialized by sender
     var selectedQuiz: StoredQuiz?
     
     override func viewDidLoad() {

@@ -36,6 +36,12 @@ class BookListController: UIViewController {
         loadAllCategories()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        listSearchBar.isUserInteractionEnabled = true
+    }
+
+    // Attempt to fetch categories from API asynchronously
     func loadAllCategories() {
         if !isLoadingData {
             isLoadingData = true
@@ -50,6 +56,7 @@ class BookListController: UIViewController {
         }
     }
 
+    // Switch status: online loads from API, offline loads books in Bundle
     func switchStatus(status: LoadStatus) {
         loadStatus = status
         reloadCategoryTable()
@@ -82,6 +89,9 @@ class BookListController: UIViewController {
             }
         }
     }
+
+    // MARK: API retrieval callbakcs
+    // These functions receive results from succesful API calls, and update view accordingly
 
     func updateBookImage(image: UIImage, book: BookInfo, categoryIndex: IndexPath, itemIndex: IndexPath) {
         book.image = image
@@ -143,9 +153,9 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
         }
 
         let currentCategory = loadStatus == .online ? onlineCategoryList[indexPath.row] : offlineCategoryList[indexPath.row]
-
         cell.categoryLabel.text = currentCategory.name
 
+        // Each table row represents a category, sets up associated collection of books
         cell.booksCollection.delegate = self
         cell.booksCollection.dataSource = self
         cell.booksCollection.categoryIndex = indexPath.row
@@ -235,6 +245,7 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
 
         let currentBook = loadStatus == .online ? onlineCategoryList[categoryIndex].bookList[indexPath.row] : offlineCategoryList[categoryIndex].bookList[indexPath.row]
 
+        // Transition to PDF reader in separate screen
         let bookSB = UIStoryboard(name: "BookStoryboard", bundle: nil)
         let pdfController = bookSB.instantiateViewController(identifier: "PDFViewController") as! PDFViewController
         pdfController.selectedBook = currentBook
@@ -244,7 +255,11 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 extension BookListController: UISearchBarDelegate {
+
+    // On user interaction with search bar, move to separate search/result screen
+    // Note: May trigger text entry on current search bar, still needs to be disabled somehow.
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.isUserInteractionEnabled = false
 
         let bookSB = UIStoryboard(name: "BookStoryboard", bundle: nil)
         let resultController = bookSB.instantiateViewController(identifier: "BookResultsController")

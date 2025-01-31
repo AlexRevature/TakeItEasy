@@ -21,6 +21,7 @@ class PDFViewController: UIViewController {
         documentView = PDFView()
         documentView!.translatesAutoresizingMaskIntoConstraints = false
 
+        // Constrain PDF viewer within a wrapper view, allows for background customization if needed.
         documentWrapper.addSubview(documentView!)
         let viewsDict = ["view": documentView]
         documentWrapper.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", metrics: nil, views: viewsDict as [String : Any]))
@@ -32,14 +33,18 @@ class PDFViewController: UIViewController {
             return
         }
 
+        // Show loading screen while pdf is cached
         if selectedBook?.url != nil {
             let spinner = SpinnerViewController()
             spinner.view.frame = view.frame
             self.view.addSubview(spinner.view)
 
+            // Load PDF document in a background context
             DispatchQueue.global().async {
                 let document = PDFDocument(url: self.selectedBook!.url!)
                 self.selectedBook?.document = document
+
+                // Signal PDF is ready, remove loading screen
                 DispatchQueue.main.async {
                     spinner.view.removeFromSuperview()
                     self.documentView?.document = document

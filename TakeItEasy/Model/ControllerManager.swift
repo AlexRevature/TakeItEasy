@@ -33,6 +33,7 @@ class ControllerManager {
         return webController
     }()
 
+    // Makes a tabBar the root of the navBar, with all relevant screens connected.
     static func mainTransition(navigationController: UINavigationController?) {
 
         booksController.tabBarItem = UITabBarItem(title: "Books", image: UIImage(systemName: "book"), tag: 0)
@@ -70,6 +71,8 @@ class ControllerManager {
             )
         }()
 
+        // Note: Shared for all direct children views of the tabBar, since only the tabBar
+        // is really directly connected to the navigation controller.
         tabController.navigationItem.backButtonTitle = "Back"
         tabController.navigationItem.rightBarButtonItem = barButtonItem
         tabController.navigationItem.title = "\(UserManager.currentUser?.username ?? "")"
