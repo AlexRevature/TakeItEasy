@@ -36,7 +36,7 @@ class DataManager {
                 "John Swift",
                 "Graydon Hoare",
                 "John Closure",
-                "Christ Lattner"
+                "Chris Lattner"
             ]),
             .init(text: "Which of these is not a feature of the language?", value: 120, correctIndex: 0, options: [
                 "Garbage Collection",
