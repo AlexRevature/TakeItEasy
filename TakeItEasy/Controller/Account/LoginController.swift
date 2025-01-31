@@ -17,6 +17,7 @@ class LoginController: UIViewController {
     
     @IBOutlet weak var userBack: UIView!
     @IBOutlet weak var passwordBack: UIView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,8 @@ class LoginController: UIViewController {
         backView.backgroundColor = ThemeManager.backColor
         backView.layer.cornerRadius = 12
         backView.layer.masksToBounds = false
+
+        spinner.isHidden = true
 
     }
     
@@ -87,7 +90,10 @@ class LoginController: UIViewController {
         if persistenceToggle.isOn {
             UserDefaults.standard.set(username as Any?, forKey: "currentUser")
         }
-                
+
+        spinner.isHidden = false
+        spinner.startAnimating()
+
         ControllerManager.mainTransition(navigationController: self.navigationController)
     }
 

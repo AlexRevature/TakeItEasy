@@ -24,7 +24,7 @@ class RegisterController: UIViewController {
     @IBOutlet weak var userBack: UIView!
     @IBOutlet weak var passwordBack: UIView!
     @IBOutlet weak var checkBack: UIView!
-    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
 
     static private func checkEmail(email: String) -> Bool {
         let regex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,10}"
@@ -51,6 +51,8 @@ class RegisterController: UIViewController {
         backView.backgroundColor = ThemeManager.backColor
         backView.layer.cornerRadius = 12
         backView.layer.masksToBounds = false
+
+        spinner.isHidden = true
 
     }
     
@@ -150,7 +152,10 @@ class RegisterController: UIViewController {
             statusLabel.isHidden = false
             return
         }
-        
+
+        spinner.isHidden = false
+        spinner.startAnimating()
+
         let currentUser = UserManager.createUser(name: name, age: age, email: email, username: username)
         UserManager.currentUser = currentUser
         UserDefaults.standard.set(username as Any?, forKey: "currentUser")
