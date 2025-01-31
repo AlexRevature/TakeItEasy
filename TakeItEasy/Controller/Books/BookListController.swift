@@ -247,7 +247,7 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
 
         // Transition to PDF reader in separate screen
         let bookSB = UIStoryboard(name: "BookStoryboard", bundle: nil)
-        let pdfController = bookSB.instantiateViewController(identifier: "PDFViewController") as! PDFViewController
+        let pdfController = bookSB.instantiateViewController(identifier: "BookReaderController") as! BookReaderController
         pdfController.selectedBook = currentBook
         self.navigationController?.pushViewController(pdfController, animated: true)
     }
@@ -262,7 +262,7 @@ extension BookListController: UISearchBarDelegate {
         searchBar.isUserInteractionEnabled = false
 
         let bookSB = UIStoryboard(name: "BookStoryboard", bundle: nil)
-        let resultController = bookSB.instantiateViewController(identifier: "BookResultsController")
+        let resultController = bookSB.instantiateViewController(identifier: "BookSearchController")
         self.navigationController?.pushViewController(resultController, animated: true)
 
     }

@@ -86,8 +86,8 @@ extension QuizListController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
-        let quizController = storyboard.instantiateViewController(identifier: "QuizController") as! QuizController
+        let storyboard = UIStoryboard(name: "QuizStoryboard", bundle: nil)
+        let quizController = storyboard.instantiateViewController(identifier: "QuizOverviewController") as! QuizOverviewController
         quizController.selectedQuiz = quizList![indexPath.row]
         self.navigationController?.pushViewController(quizController, animated: true)
     }

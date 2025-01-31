@@ -1,5 +1,5 @@
 //
-//  ResultController.swift
+//  QuizResultController.swift
 //  TakeItEasy
 //
 //  Created by Alex Cabrera on 1/15/25.
@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class ResultController: UIViewController {
+class QuizResultController: UIViewController {
 
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var letterGradeLabel: UILabel!

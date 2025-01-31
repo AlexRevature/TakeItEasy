@@ -1,5 +1,5 @@
 //
-//  QuestionController.swift
+//  QuizQuestionController.swift
 //  TakeItEasy
 //
 //  Created by Alex Cabrera on 1/13/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class QuestionController: UIViewController {
+class QuizQuestionController: UIViewController {
     
     @IBOutlet weak var optionTable: UITableView!
     @IBOutlet weak var questionLabel: QuestionLabel!
@@ -103,8 +103,8 @@ class QuestionController: UIViewController {
     }
 
     func finishQuiz(delay: Double) {
-        let storyboard = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
-        let resultController = storyboard.instantiateViewController(identifier: "ResultController") as! ResultController
+        let storyboard = UIStoryboard(name: "QuizStoryboard", bundle: nil)
+        let resultController = storyboard.instantiateViewController(identifier: "QuizResultController") as! QuizResultController
 
         resultController.currentQuiz = currentQuiz
         resultController.score = score
@@ -203,7 +203,7 @@ class QuestionController: UIViewController {
 
 }
 
-extension QuestionController: UITableViewDelegate, UITableViewDataSource {
+extension QuizQuestionController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         currentOptions?.count ?? 0

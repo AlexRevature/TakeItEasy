@@ -17,7 +17,7 @@ class ControllerManager {
     }()
 
     static let quizzesController = {
-        let quizSB = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
+        let quizSB = UIStoryboard(name: "QuizStoryboard", bundle: nil)
         return quizSB.instantiateViewController(identifier: "QuizListController")
     }()
 

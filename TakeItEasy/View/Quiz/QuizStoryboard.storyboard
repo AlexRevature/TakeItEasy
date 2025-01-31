@@ -148,10 +148,10 @@
             </objects>
             <point key="canvasLocation" x="-615" y="-2"/>
         </scene>
-        <!--Quiz Controller-->
+        <!--Quiz Overview Controller-->
         <scene sceneID="Wi4-PB-HtR">
             <objects>
-                <viewController storyboardIdentifier="QuizController" id="AcM-Cc-KeC" customClass="QuizController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QuizOverviewController" id="AcM-Cc-KeC" customClass="QuizOverviewController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="avP-Bi-nun">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -267,10 +267,10 @@
             </objects>
             <point key="canvasLocation" x="162.59541984732823" y="-2.1126760563380285"/>
         </scene>
-        <!--Question Controller-->
+        <!--Quiz Question Controller-->
         <scene sceneID="uEF-Wk-Jea">
             <objects>
-                <viewController storyboardIdentifier="QuestionController" id="ee0-Ai-nHO" customClass="QuestionController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QuizQuestionController" id="ee0-Ai-nHO" customClass="QuizQuestionController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5BQ-RO-jJZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -466,10 +466,10 @@
             </objects>
             <point key="canvasLocation" x="893.89312977099235" y="-2.1126760563380285"/>
         </scene>
-        <!--Result Controller-->
+        <!--Quiz Result Controller-->
         <scene sceneID="oUh-FO-YrH">
             <objects>
-                <viewController storyboardIdentifier="ResultController" id="SVO-TN-Dwf" customClass="ResultController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QuizResultController" id="SVO-TN-Dwf" customClass="QuizResultController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g5h-pG-r0s">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

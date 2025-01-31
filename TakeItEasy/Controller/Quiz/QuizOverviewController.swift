@@ -1,5 +1,5 @@
 //
-//  QuizController.swift
+//  QuizOverviewController.swift
 //  TakeItEasy
 //
 //  Created by Alex Cabrera on 1/15/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class QuizController: UIViewController {
+class QuizOverviewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
@@ -69,8 +69,8 @@ class QuizController: UIViewController {
 
     // Start quiz, segue to QuestionController
     @IBAction func startAction(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "QuizzesStoryboard", bundle: nil)
-        let questionController = storyboard.instantiateViewController(identifier: "QuestionController") as! QuestionController
+        let storyboard = UIStoryboard(name: "QuizStoryboard", bundle: nil)
+        let questionController = storyboard.instantiateViewController(identifier: "QuizQuestionController") as! QuizQuestionController
         questionController.currentQuiz = selectedQuiz
         self.navigationController?.pushViewController(questionController, animated: true)
     }

@@ -1,5 +1,5 @@
 //
-//  PdfViewController.swift
+//  BookReaderController.swift
 //  TakeItEasy
 //
 //  Created by admin on 1/24/25.
@@ -8,7 +8,7 @@
 import UIKit
 import PDFKit
 
-class PDFViewController: UIViewController {
+class BookReaderController: UIViewController {
 
     @IBOutlet weak var documentWrapper: UIView!
 

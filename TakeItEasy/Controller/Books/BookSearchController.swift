@@ -1,5 +1,5 @@
 //
-//  BookResultsController.swift
+//  BookSearchController.swift
 //  TakeItEasy
 //
 //  Created by Alex Cabrera on 1/27/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BookResultsController: UIViewController {
+class BookSearchController: UIViewController {
 
     var bookList = [BookInfo]()
     @IBOutlet weak var resultCollection: UICollectionView!
@@ -88,7 +88,7 @@ class BookResultsController: UIViewController {
     }
 }
 
-extension BookResultsController: UISearchResultsUpdating, UISearchBarDelegate {
+extension BookSearchController: UISearchResultsUpdating, UISearchBarDelegate {
 
     func updateSearchResults(for searchController: UISearchController) {
         searchTimer?.invalidate()
@@ -117,7 +117,7 @@ extension BookResultsController: UISearchResultsUpdating, UISearchBarDelegate {
 
 }
 
-extension BookResultsController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension BookSearchController: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return bookList.count
@@ -157,7 +157,7 @@ extension BookResultsController: UICollectionViewDelegate, UICollectionViewDataS
 
         let currentBook = bookList[indexPath.row]
         let bookSB = UIStoryboard(name: "BookStoryboard", bundle: nil)
-        let pdfController = bookSB.instantiateViewController(identifier: "PDFViewController") as! PDFViewController
+        let pdfController = bookSB.instantiateViewController(identifier: "BookReaderController") as! BookReaderController
         pdfController.selectedBook = currentBook
         self.navigationController?.pushViewController(pdfController, animated: true)
     }

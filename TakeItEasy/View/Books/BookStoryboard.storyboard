@@ -176,10 +176,10 @@
             </objects>
             <point key="canvasLocation" x="32.824427480916029" y="4.9295774647887329"/>
         </scene>
-        <!--Book Results Controller-->
+        <!--Book Search Controller-->
         <scene sceneID="qs4-NS-9re">
             <objects>
-                <viewController storyboardIdentifier="BookResultsController" id="vVh-F5-jRb" customClass="BookResultsController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookSearchController" id="vVh-F5-jRb" customClass="BookSearchController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Tt2-ex-Yaw">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -275,10 +275,10 @@
             </objects>
             <point key="canvasLocation" x="848" y="5"/>
         </scene>
-        <!--View Controller-->
+        <!--Book Reader Controller-->
         <scene sceneID="qRE-ie-5WU">
             <objects>
-                <viewController storyboardIdentifier="PDFViewController" id="9bG-wS-9l4" customClass="PDFViewController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookReaderController" id="9bG-wS-9l4" customClass="BookReaderController" customModule="TakeItEasy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vcs-2Y-GyC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
