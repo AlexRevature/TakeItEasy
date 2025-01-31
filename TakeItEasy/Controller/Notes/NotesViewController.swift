@@ -120,7 +120,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         for note in noteData {
             let noteName = note.name!.lowercased()
             if noteName.contains(searchText.lowercased()) {
-                print("Note found: ",  noteName)
                 resultsArray.append(note)
             }
         }
@@ -130,7 +129,6 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         for note in noteData {
             let noteBody = note.text!.lowercased()
             if noteBody.contains(searchText.lowercased()) /*&& !(resultsArray.contains(note))*/ {
-                print("Note found (body):")
                 resultsArray.append(note)
             }
         }
@@ -140,15 +138,12 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     ///searches by note name and then seaches the note body
     ///if the search bar is empty it displays alll notes
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //TODO: change name
         var resultsArray : [StoredNote] = []
         
         if (searchText == "") {
             reloadFromCoreData()
             return
         }
-        
-        print("search text: \"", searchText + "\"")
         
         searchNotesByName(resultsArray: &resultsArray, searchText: searchText)
         searchNotesByBody(resultsArray: &resultsArray, searchText: searchText)
