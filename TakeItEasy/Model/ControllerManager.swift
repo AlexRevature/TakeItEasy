@@ -9,32 +9,22 @@ import UIKit
 
 class ControllerManager {
 
-    static let booksController = {
+    // Makes a tabBar the root of the navBar, with all relevant screens connected.
+    static func mainTransition(navigationController: UINavigationController?) {
+
         let bookSB = UIStoryboard(name: "BookStoryboard", bundle: nil)
         let booksController = bookSB.instantiateViewController(identifier: "BookListController") as! BookListController
         booksController.loadAllCategories()
-        return booksController
-    }()
 
-    static let quizzesController = {
         let quizSB = UIStoryboard(name: "QuizStoryboard", bundle: nil)
-        return quizSB.instantiateViewController(identifier: "QuizListController")
-    }()
+        let quizzesController = quizSB.instantiateViewController(identifier: "QuizListController")
 
-    static let notesController = {
         let notesSB = UIStoryboard(name: "NotesStoryboard", bundle: nil)
-        return notesSB.instantiateViewController(identifier: "NotesViewController")
-    }()
+        let notesController = notesSB.instantiateViewController(identifier: "NotesViewController")
 
-    static let webController = {
         let webSB = UIStoryboard(name: "WebViewStoryboard", bundle: nil)
         let webController = webSB.instantiateViewController(identifier: "WebViewController") as! WebViewController
         webController.setUpWebView()
-        return webController
-    }()
-
-    // Makes a tabBar the root of the navBar, with all relevant screens connected.
-    static func mainTransition(navigationController: UINavigationController?) {
 
         booksController.tabBarItem = UITabBarItem(title: "Books", image: UIImage(systemName: "book"), tag: 0)
         quizzesController.tabBarItem = UITabBarItem(title: "Quizzes", image: UIImage(systemName: "bubble.and.pencil"), tag: 1)
