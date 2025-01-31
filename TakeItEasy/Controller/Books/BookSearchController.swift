@@ -9,8 +9,10 @@ import UIKit
 
 class BookSearchController: UIViewController {
 
-    var bookList = [BookInfo]()
     @IBOutlet weak var resultCollection: UICollectionView!
+
+    var statusLabel = UILabel()
+    var bookList = [BookInfo]()
     var searchTimer: Timer?
     var searchLock = NSLock()
 
@@ -26,6 +28,20 @@ class BookSearchController: UIViewController {
         resultCollection.delegate = self
         resultCollection.dataSource = self
 
+        statusLabel.text = "No Results"
+        view.addSubview(statusLabel)
+        NSLayoutConstraint.activate([
+            statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            statusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.isHidden = true
+        statusLabel.alpha = 0.0
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        showStatus()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -50,6 +66,26 @@ class BookSearchController: UIViewController {
             }
         }
     }
+
+    func showStatus() {
+        self.statusLabel.isHidden = false
+        let animations = { self.statusLabel.alpha = 1.0 }
+
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.35, animations: animations)
+        }
+    }
+
+    func hideStatus() {
+        let animations = { self.statusLabel.alpha = 0.0 }
+        let completion = { (_: Bool) in self.statusLabel.isHidden = true }
+
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.35, animations: animations, completion: completion)
+        }
+    }
+
+    // MARK: These are callback functions that receive data from API when succesful
 
     func updateBookURL(url: URL, book: BookInfo, itemIndex: IndexPath) {
         book.url = url
@@ -96,6 +132,7 @@ extension BookSearchController: UISearchResultsUpdating, UISearchBarDelegate {
         let failure = { (_: Error?) in
             self.bookList.removeAll()
             self.reloadData()
+            self.showStatus()
             self.searchLock.unlock()
         }
 
@@ -103,9 +140,11 @@ extension BookSearchController: UISearchResultsUpdating, UISearchBarDelegate {
             self.searchLock.lock()
             self.bookList.removeAll()
             if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+                self.hideStatus()
                 DBookManager.searchBookList(searchString: searchController.searchBar.text!, update: self.updateBooks, failure: failure)
             } else {
                 self.reloadData()
+                self.showStatus()
                 self.searchLock.unlock()
             }
         }

@@ -36,11 +36,6 @@ class BookListController: UIViewController {
         loadAllCategories()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        listSearchBar.isUserInteractionEnabled = true
-    }
-
     // Attempt to fetch categories from API asynchronously
     func loadAllCategories() {
         if !isLoadingData {
@@ -259,7 +254,6 @@ extension BookListController: UISearchBarDelegate {
     // On user interaction with search bar, move to separate search/result screen
     // Note: May trigger text entry on current search bar, still needs to be disabled somehow.
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.isUserInteractionEnabled = false
 
         let bookSB = UIStoryboard(name: "BookStoryboard", bundle: nil)
         let resultController = bookSB.instantiateViewController(identifier: "BookSearchController")
