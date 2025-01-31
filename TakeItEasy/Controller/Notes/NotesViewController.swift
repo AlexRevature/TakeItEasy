@@ -14,9 +14,9 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     
     let userDefault = UserDefaults.standard
-    
     private var noteToPass : StoredNote? = nil
-    
+    var addButton: UIBarButtonItem?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -24,6 +24,12 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         searchBar.delegate = self
         
         setViewThemeManager()
+        addButton = UIBarButtonItem (
+            image: UIImage(systemName: "plus"),
+            style: .done,
+            target: self,
+            action: #selector(self.addButtonPressed)
+        )
     }
     
     func reloadFromCoreData() {
@@ -41,13 +47,14 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func addAddButtonToNavBar(){
-        let plusImage = UIImage(systemName: "plus")
         // Because of the way navBar is set up, the navItem being used is the one from the tabBar here
-        self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: plusImage, style: .done, target: self, action: #selector(self.addButtonPressed))
+        self.tabBarController?.navigationItem.leftBarButtonItem = addButton
     }
 
-    func removeAddButtonFromNavBar(){
-        self.tabBarController?.navigationItem.leftBarButtonItem = nil
+    func removeAddButtonFromNavBar() {
+        if self.tabBarController?.navigationItem.leftBarButtonItem == addButton {
+            self.tabBarController?.navigationItem.leftBarButtonItem = nil
+        }
     }
 
     @objc func addButtonPressed() {

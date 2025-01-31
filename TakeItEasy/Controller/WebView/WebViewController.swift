@@ -15,6 +15,8 @@ class WebViewController: UIViewController, WKNavigationDelegate {
 
     @IBOutlet weak var documentWrapper: UIView!
 
+    var backButton: UIBarButtonItem?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,21 +34,25 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         documentWrapper.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", metrics: nil, views: viewsDict as [String : Any]))
         documentWrapper.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", metrics: nil, views: viewsDict as [String : Any]))
 
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem (
+        backButton = UIBarButtonItem (
             image: UIImage(systemName: "chevron.left"),
             style: .done,
             target: self,
             action: #selector(reverseWebView)
         )
+
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.leftBarButtonItem = backButton
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.tabBarController?.navigationItem.leftBarButtonItem = nil
+        if self.tabBarController?.navigationItem.leftBarButtonItem == backButton {
+            self.tabBarController?.navigationItem.leftBarButtonItem = nil
+        }
     }
 
     @objc
