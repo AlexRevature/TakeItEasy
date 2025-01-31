@@ -46,12 +46,12 @@ class ControllerManager {
         tabController.tabBar.standardAppearance = tabAppearance
         tabController.tabBar.scrollEdgeAppearance = tabAppearance
 
-        let barButtonItem: UIBarButtonItem? = {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let sceneDelegate = scene.delegate as? SceneDelegate else {
+            return
+        }
 
-            guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let sceneDelegate = scene.delegate as? SceneDelegate else {
-                return nil
-            }
+        let rightBarButtonItem: UIBarButtonItem? = {
 
             return UIBarButtonItem (
                 title: "Log Out",
@@ -61,15 +61,27 @@ class ControllerManager {
             )
         }()
 
+        let middleButton = UIButton(type: .system)
+        middleButton.setTitle(UserManager.currentUser?.username?.capitalized, for: .normal)
+        middleButton.addTarget(sceneDelegate, action: #selector(sceneDelegate.showUser), for: .touchUpInside)
+        middleButton.titleLabel?.font = UIFont(name: "Courier New Bold", size: 18) ?? UIFont.italicSystemFont(ofSize: 18)
+
         // Note: Shared for all direct children views of the tabBar, since only the tabBar
         // is really directly connected to the navigation controller.
         tabController.navigationItem.backButtonTitle = "Back"
-        tabController.navigationItem.rightBarButtonItem = barButtonItem
-        tabController.navigationItem.title = "\(UserManager.currentUser?.username ?? "")"
+        tabController.navigationItem.rightBarButtonItem = rightBarButtonItem
+        tabController.navigationItem.titleView = middleButton
+//        tabController.navigationItem.title = UserManager.currentUser?.username ?? ""
 
         // Delay to make LaunchScreen transition smoother
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             navigationController?.setViewControllers([tabController], animated: true)
         }
+    }
+
+    static func userTransition(navigationController: UINavigationController?) {
+        let storyboard = UIStoryboard(name: "UserStoryboard", bundle: nil)
+        let controller = storyboard.instantiateViewController(identifier: "UserController")
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

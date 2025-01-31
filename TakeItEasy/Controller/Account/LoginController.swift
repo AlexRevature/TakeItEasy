@@ -38,7 +38,7 @@ class LoginController: UIViewController {
     
     @IBAction func loginAction(_ sender: Any) {
         
-        guard let username = usernameEntry.text else {
+        guard let username = usernameEntry.text?.lowercased() else {
             statusLabel.text = "Missing Username"
             statusLabel.isHidden = false
             return

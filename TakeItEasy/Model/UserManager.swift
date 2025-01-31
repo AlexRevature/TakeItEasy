@@ -28,7 +28,7 @@ class UserManager {
 
     static func findUser(username: String) -> StoredUser? {
         let fetchRequest = StoredUser.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "username == %@", username)
+        fetchRequest.predicate = NSPredicate(format: "username == %@", username.lowercased())
         
         do {
             let request = try CoreManager.managedContext.fetch(fetchRequest)

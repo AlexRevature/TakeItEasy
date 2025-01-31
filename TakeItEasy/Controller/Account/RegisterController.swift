@@ -63,7 +63,7 @@ class RegisterController: UIViewController {
             statusLabel.isHidden = false
             return
         }
-        if name.count == 0 {
+        if name.isEmpty {
             statusLabel.text = "Missing name"
             statusLabel.isHidden = false
             return
@@ -74,7 +74,7 @@ class RegisterController: UIViewController {
             statusLabel.isHidden = false
             return
         }
-        if ageText.count == 0 {
+        if ageText.isEmpty {
             statusLabel.text = "Missing age"
             statusLabel.isHidden = false
             return
@@ -90,7 +90,7 @@ class RegisterController: UIViewController {
             statusLabel.isHidden = false
             return
         }
-        if email.count == 0 {
+        if email.isEmpty {
             statusLabel.text = "Missing email"
             statusLabel.isHidden = false
             return
@@ -101,12 +101,12 @@ class RegisterController: UIViewController {
             return
         }
         
-        guard let username = usernameEntry.text else {
+        guard let username = usernameEntry.text?.lowercased() else {
             statusLabel.text = "Missing username"
             statusLabel.isHidden = false
             return
         }
-        if username.count == 0 {
+        if username.isEmpty {
             statusLabel.text = "Missing username"
             statusLabel.isHidden = false
             return
@@ -122,12 +122,17 @@ class RegisterController: UIViewController {
             statusLabel.isHidden = false
             return
         }
-        if password.count == 0 {
+        if password.isEmpty {
             statusLabel.text = "Missing password"
             statusLabel.isHidden = false
             return
         }
-        
+        if password.count < 8 {
+            statusLabel.text = "Password must be longer than 8 characters"
+            statusLabel.isHidden = false
+            return
+        }
+
         guard let passwordCheck = pwdCheckEntry.text else {
             statusLabel.text = "Missing password verification"
             statusLabel.isHidden = false

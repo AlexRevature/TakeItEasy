@@ -91,6 +91,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.rootViewController = rootNC
     }
 
+    @objc
+    func showUser() {
+        if let navController = self.window?.rootViewController as? UINavigationController {
+            ControllerManager.userTransition(navigationController: navController)
+        }
+    }
+
     func createNavigation() -> UINavigationController {
         let rootNC = UINavigationController()
 
@@ -98,10 +105,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = ThemeManager.primaryColor
         appearance.shadowColor = nil
-        appearance.titleTextAttributes = [
-            .foregroundColor: UIColor.white,
-           .font: UIFont(name: "Courier New Bold", size: 18) ?? UIFont.italicSystemFont(ofSize: 18)
-        ]
 
         rootNC.navigationBar.standardAppearance = appearance
         rootNC.navigationBar.scrollEdgeAppearance = appearance

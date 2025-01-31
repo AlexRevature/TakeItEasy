@@ -15,7 +15,7 @@ class KeychainManager {
         
         let attributes: [String : Any] = [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: username,
+            kSecAttrAccount as String: username.lowercased(),
             kSecValueData as String: password.data(using: .utf8)!
         ]
         
@@ -36,7 +36,7 @@ class KeychainManager {
     static func retrievePassword(username: String) -> (CredentialStatus, String?) {
         let request: [String : Any] = [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: username,
+            kSecAttrAccount as String: username.lowercased(),
             kSecReturnAttributes as String: true,
             kSecReturnData as String: true
         ]
