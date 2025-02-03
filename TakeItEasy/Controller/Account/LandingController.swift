@@ -27,8 +27,8 @@ class LandingController: UIViewController {
 
         backView.backgroundColor = ThemeManager.backColor
         backView.layer.cornerRadius = 30
-        backView.layer.borderColor = UIColor.black.cgColor
-        backView.layer.borderWidth = 0.2
+        backView.layer.borderColor = UIColor.customPrimary.cgColor
+        backView.layer.borderWidth = 4
         backView.layer.cornerRadius = 12
         backView.layer.masksToBounds = false
         backView.layer.shadowColor = UIColor.black.cgColor
