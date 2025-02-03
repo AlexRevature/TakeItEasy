@@ -21,11 +21,11 @@ class UserController: UIViewController {
         let currentUser = UserManager.currentUser
 
         backView.backgroundColor = ThemeManager.backColor
-        backView.layer.borderColor = UIColor.black.cgColor
+        backView.layer.borderColor = UIColor.customPrimary.cgColor
         backView.layer.borderWidth = 4
         backView.layer.cornerRadius = 12
         backView.layer.masksToBounds = false
-        backView.layer.shadowColor = UIColor.customPrimary.cgColor
+        backView.layer.shadowColor = UIColor.black.cgColor
         backView.layer.shadowOpacity = 0.2
         backView.layer.shadowOffset = CGSize(width: 4, height: 4)
         backView.layer.shadowRadius = 3
