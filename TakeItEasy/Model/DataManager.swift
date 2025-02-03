@@ -8,8 +8,15 @@
 import Foundation
 
 class DataManager {
+
+    static var formatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        return formatter
+    }()
+
     static let quizList: [QuizInfo] = [
-        .init(name: "Swift Language", author: "John Apple", date: Date(), imageName: "swift", questionList: [
+        .init(name: "Swift Language", author: "John Apple", date: formatter.date(from: "2025/1/10")!, imageName: "swift", questionList: [
             .init(text: "How would you force unwrap the optional variable 'tmp'?", value: 50, correctIndex: 0, options: [
                 "tmp!",
                 "tmp?",
@@ -46,7 +53,7 @@ class DataManager {
                 "Protocols"
             ])
         ]),
-        .init(name: "UIKit Features", author: "Johnathan Apple", date: Date(), imageName: "square", questionList: [
+        .init(name: "UIKit Features", author: "Johnathan Apple", date: formatter.date(from: "2025/1/15")!, imageName: "wand.and.sparkles", questionList: [
             .init(text: "How do you navigate to a new viewController when using a Navigation Controller?", value: 50, correctIndex: 0, options: [
                 "nav.pushViewController(vc)",
                 "nav.present(vc)",
@@ -83,7 +90,7 @@ class DataManager {
                 "N/A"
             ])
         ]),
-        .init(name: "Design Patterns", author: "Joe Apple", date: Date(), imageName: "pencil", questionList: [
+        .init(name: "Design Patterns", author: "Joe Apple", date: formatter.date(from: "2025/1/16")!, imageName: "pencil", questionList: [
             .init(text: "Which of these is not a SOLID principle?", value: 80, correctIndex: 4, options: [
                 "Dependency Inversion",
                 "Lizkov Substitution",
@@ -120,7 +127,7 @@ class DataManager {
                 "UICollectionViewDelegate"
             ])
         ]),
-        .init(name: "Potpourri", author: "George Apple", date: Date(), imageName: "carrot", questionList: [
+        .init(name: "Potpourri", author: "George Apple", date: formatter.date(from: "2025/1/17")!, imageName: "carrot", questionList: [
             .init(text: "What is the key difference between MVC and MVVM?", value: 50, correctIndex: 0, options: [
                 "Data binding",
                 "Location services",
@@ -157,7 +164,7 @@ class DataManager {
                 "protocol"
             ])
         ]),
-        .init(name: "Trivia", author: "Gregory Apple", date: Date(), imageName: "newspaper", questionList: [
+        .init(name: "Trivia", author: "Gregory Apple", date: formatter.date(from: "2025/1/20")!, imageName: "newspaper", questionList: [
             .init(text: "What is the world population as of January 2025", value: 50, correctIndex: 0, options: [
                 "8.2 billion",
                 "7.9 billion",

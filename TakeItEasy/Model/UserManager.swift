@@ -21,6 +21,20 @@ class UserManager {
         storedUser.email = email
         storedUser.username = username
 
+        let noteA = StoredNote(context: CoreManager.managedContext)
+        let noteB = StoredNote(context: CoreManager.managedContext)
+
+        noteB.name = "New List"
+        noteB.text = "- Bacon\n- Eggs\n- Ham"
+        noteB.modifiedDate = Date()
+
+        noteA.name = "New Note"
+        noteA.text = "This is how your notes look\nUse notes to express yourself!"
+        noteA.modifiedDate = Date()
+
+        storedUser.addToNoteSet(noteA)
+        storedUser.addToNoteSet(noteB)
+
         populateQuizzes(storedUser: storedUser, quizzes: DataManager.quizList)
         CoreManager.saveContext()
         return storedUser

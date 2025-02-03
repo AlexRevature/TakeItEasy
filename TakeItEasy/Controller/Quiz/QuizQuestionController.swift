@@ -78,7 +78,7 @@ class QuizQuestionController: UIViewController {
         
         optionTable.delegate = self
         optionTable.dataSource = self
-        
+
         prevButton.setTitle("Previous", for: .normal)
         nextButton.setTitle("Next", for: .normal)
         
