@@ -118,7 +118,7 @@ class QuizResultController: UIViewController {
         emitterLayer.emitterSize = CGSize(width: view.bounds.width, height: 0)
         emitterLayer.emitterShape = .line
 
-        let systemImage = UIImage(systemName: "star.fill")?.withTintColor(ThemeManager.primaryColor)
+        let systemImage = UIImage(systemName: "star.fill")?.withTintColor(ThemeManager.customColor(r: 255, g: 175, b: 55))
         let renderer = UIGraphicsImageRenderer(size: systemImage!.size)
         let particleImage = renderer.image { ctx in
             systemImage?.draw(at: .zero)
@@ -126,7 +126,6 @@ class QuizResultController: UIViewController {
 
         let particleCell = CAEmitterCell()
         particleCell.contents = particleImage.cgImage
-        particleCell.color = ThemeManager.primaryColor.cgColor
         particleCell.birthRate = 7
         particleCell.lifetime = 10
         particleCell.velocity = 150

@@ -16,7 +16,7 @@ class ThemeManager {
     static let boldText: UIColor = .init(named: "BoldText") ?? .black
 
     // Currently unused, but meant to transform single byte RGB values into cgColors
-    static private func customColor(r: Int, g: Int, b: Int) -> UIColor {
+    static func customColor(r: Int, g: Int, b: Int) -> UIColor {
         return UIColor(cgColor: CGColor(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: 1.0))
     }
 
