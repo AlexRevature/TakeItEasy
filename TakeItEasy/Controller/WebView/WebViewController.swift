@@ -41,6 +41,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
             action: #selector(reverseWebView)
         )
 
+        backButton?.isHidden = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +59,10 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     @objc
     func reverseWebView() {
         self.webView?.goBack()
+
+        if let backList = webView?.backForwardList.backList, backList.count == 1 {
+            backButton?.isHidden = true
+        }
     }
 
     // Can be run before viewDidLoad to speed up loading
@@ -65,6 +70,12 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         if let pageURL {
             webView = WKWebView()
             webView?.load(URLRequest(url: pageURL))
+        }
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if !webView.backForwardList.backList.isEmpty {
+            backButton?.isHidden = false
         }
     }
 
