@@ -118,27 +118,12 @@ class QuizResultController: UIViewController {
         emitterLayer.emitterSize = CGSize(width: view.bounds.width, height: 0)
         emitterLayer.emitterShape = .line
 
-        /*let systemImage = UIImage(systemName: "star.fill")?.withTintColor(ThemeManager.customColor(r: 255, g: 175, b: 55))
-        let renderer = UIGraphicsImageRenderer(size: systemImage!.size)
-        let particleImage = renderer.image { ctx in
-            systemImage?.draw(at: .zero)
-        }
-
-        let particleCell = CAEmitterCell()
-        particleCell.contents = particleImage.cgImage
-        particleCell.birthRate = 7
-        particleCell.lifetime = 10
-        particleCell.velocity = 150
-        particleCell.velocityRange = 10
-        particleCell.emissionLongitude = .pi
-        particleCell.emissionRange = .pi/7
-        particleCell.scale = 0.3
-        particleCell.scaleRange = 0.05
-        //particleCell.color = CGColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1)*/
         let redCell = makeEmitterCell(color: .red)
         let blueCell = makeEmitterCell(color: .blue)
+        let greenCell = makeEmitterCell(color: .green)
+        let yellowCell = makeEmitterCell(color: .yellow)
         
-        emitterLayer.emitterCells = [redCell, blueCell]
+        emitterLayer.emitterCells = [redCell, blueCell, greenCell, yellowCell]
         view.layer.addSublayer(emitterLayer)
 
     }
