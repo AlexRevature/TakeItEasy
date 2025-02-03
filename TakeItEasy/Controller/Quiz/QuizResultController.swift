@@ -118,7 +118,7 @@ class QuizResultController: UIViewController {
         emitterLayer.emitterSize = CGSize(width: view.bounds.width, height: 0)
         emitterLayer.emitterShape = .line
 
-        let systemImage = UIImage(systemName: "star.fill")?.withTintColor(ThemeManager.customColor(r: 255, g: 175, b: 55))
+        /*let systemImage = UIImage(systemName: "star.fill")?.withTintColor(ThemeManager.customColor(r: 255, g: 175, b: 55))
         let renderer = UIGraphicsImageRenderer(size: systemImage!.size)
         let particleImage = renderer.image { ctx in
             systemImage?.draw(at: .zero)
@@ -134,10 +134,34 @@ class QuizResultController: UIViewController {
         particleCell.emissionRange = .pi/7
         particleCell.scale = 0.3
         particleCell.scaleRange = 0.05
-
-        emitterLayer.emitterCells = [particleCell]
+        //particleCell.color = CGColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1)*/
+        let redCell = makeEmitterCell(color: .red)
+        let blueCell = makeEmitterCell(color: .blue)
+        
+        emitterLayer.emitterCells = [redCell, blueCell]
         view.layer.addSublayer(emitterLayer)
 
+    }
+    
+    func makeEmitterCell(color: UIColor) -> CAEmitterCell {
+        let systemImage = UIImage(systemName: "star.fill")?.withTintColor(ThemeManager.customColor(r: 255, g: 175, b: 55))
+        let renderer = UIGraphicsImageRenderer(size: systemImage!.size)
+        let particleImage = renderer.image { ctx in
+            systemImage?.draw(at: .zero)
+        }
+        
+        let particleCell = CAEmitterCell()
+        particleCell.contents = particleImage.cgImage
+        particleCell.birthRate = 7
+        particleCell.lifetime = 10
+        particleCell.velocity = 150
+        particleCell.velocityRange = 10
+        particleCell.emissionLongitude = .pi
+        particleCell.emissionRange = .pi/7
+        particleCell.scale = 0.3
+        particleCell.scaleRange = 0.05
+        particleCell.color = color.cgColor
+        return particleCell
     }
 
     @IBAction func exitAction(_ sender: Any) {
