@@ -11,7 +11,8 @@ import PDFKit
 class BookReaderController: UIViewController {
 
     @IBOutlet weak var documentWrapper: UIView!
-
+    @IBOutlet weak var pageButton: UIButton!
+    
     var selectedBook: BookInfo?
     var documentView: PDFView?
 
@@ -32,6 +33,11 @@ class BookReaderController: UIViewController {
             self.documentView?.document = selectedBook?.document
             return
         }
+
+        pageButton.isHidden = true
+        pageButton.backgroundColor = .lightGray
+        pageButton.layer.cornerRadius = 8
+        pageButton.clipsToBounds = true
 
         // Show loading screen while pdf is cached
         if selectedBook?.url != nil {
@@ -63,8 +69,33 @@ class BookReaderController: UIViewController {
                         loadController.view.removeFromSuperview()
                     }
                     self.documentView?.document = document
+                    self.addMenu(button: self.pageButton)
                 }
             }
+        }
+    }
+
+    func addMenu(button: UIButton) {
+        guard let outline = selectedBook?.document?.outlineRoot else {
+            return
+        }
+        var childrenList: [UIAction] = []
+
+        for i in 0..<outline.numberOfChildren {
+            if let bookmark = outline.child(at: i), let destination = bookmark.destination {
+                let child = UIAction(title: bookmark.label ?? "a") { _ in
+                    self.documentView?.go(to: destination)
+                }
+                childrenList.append(child)
+            }
+        }
+        if !childrenList.isEmpty {
+            let menu = UIMenu(title: "Bookmarks", options: .displayInline, children: childrenList.reversed())
+            button.menu = menu
+            button.showsMenuAsPrimaryAction = true
+            button.isHidden = false
+        } else {
+            button.isHidden = true
         }
     }
 
