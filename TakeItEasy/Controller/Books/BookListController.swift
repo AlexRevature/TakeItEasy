@@ -26,6 +26,8 @@ class BookListController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        onlineCategoryList.append(offlineCategoryList[0])
+
         categoryTable.delegate = self
         categoryTable.dataSource = self
         categoryTable.allowsSelection = false
@@ -40,6 +42,9 @@ class BookListController: UIViewController {
             isLoadingData = true
             for idx in 0..<onlineCategoryList.count {
                 let category = onlineCategoryList[idx]
+                guard category.isOnline else {
+                    continue
+                }
                 let categoryIndex = IndexPath(row: idx, section: 0)
                 let update = {(bookList: [DBookDetails]) in
                     self.updateCategory(bookList: bookList, categoryIndex: categoryIndex)
@@ -145,7 +150,12 @@ extension BookListController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
 
-        let currentCategory = loadStatus == .online ? onlineCategoryList[indexPath.row] : offlineCategoryList[indexPath.row]
+        let currentCategory = if loadStatus == .online {
+            onlineCategoryList[indexPath.row]
+        } else {
+            offlineCategoryList[indexPath.row]
+        }
+
         cell.categoryLabel.text = currentCategory.name
 
         // Each table row represents a category, sets up associated collection of books
@@ -196,7 +206,11 @@ extension BookListController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         }
 
-        let currentBook = loadStatus == .online ? onlineCategoryList[categoryIndex].bookList[indexPath.row] : offlineCategoryList[categoryIndex].bookList[indexPath.row]
+        let currentBook = if loadStatus == .online {
+            onlineCategoryList[categoryIndex].bookList[indexPath.row]
+        } else {
+            offlineCategoryList[categoryIndex].bookList[indexPath.row]
+        }
 
         cell.backView.backgroundColor = ThemeManager.backColor
         cell.backView.layer.borderColor = UIColor.systemBackground.cgColor
