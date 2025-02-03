@@ -32,8 +32,6 @@ class BookListController: UIViewController {
 
         listSearchBar.delegate = self
         listSearchBar.placeholder = "Search"
-
-        loadAllCategories()
     }
 
     // Attempt to fetch categories from API asynchronously

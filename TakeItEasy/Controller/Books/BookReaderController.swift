@@ -35,9 +35,20 @@ class BookReaderController: UIViewController {
 
         // Show loading screen while pdf is cached
         if selectedBook?.url != nil {
-            let spinner = SpinnerViewController()
-            spinner.view.frame = view.frame
-            self.view.addSubview(spinner.view)
+
+            let bookStoryboard = UIStoryboard(name: "BookStoryboard", bundle: nil)
+            guard let loadController = bookStoryboard.instantiateViewController(identifier: "BookLoadController") as? BookLoadController else {
+                return
+            }
+
+            loadController.selectedBook = selectedBook
+            loadController.view.frame = view.frame
+            loadController.view.alpha = 0
+            self.view.addSubview(loadController.view)
+
+            UIView.animate(withDuration: 1.2) {
+                loadController.view.alpha = 1
+            }
 
             // Load PDF document in a background context
             DispatchQueue.global().async {
@@ -46,7 +57,11 @@ class BookReaderController: UIViewController {
 
                 // Signal PDF is ready, remove loading screen
                 DispatchQueue.main.async {
-                    spinner.view.removeFromSuperview()
+                    UIView.animate(withDuration: 0.8, animations: {
+                        loadController.view.alpha = 0
+                    }) { _ in
+                        loadController.view.removeFromSuperview()
+                    }
                     self.documentView?.document = document
                 }
             }
