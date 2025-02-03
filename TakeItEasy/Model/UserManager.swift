@@ -25,7 +25,7 @@ class UserManager {
         let noteB = StoredNote(context: CoreManager.managedContext)
 
         noteB.name = "New List"
-        noteB.text = "- Bacon\n- Eggs\n- Ham"
+        noteB.text = "- Bacon\n- Eggs"
         noteB.modifiedDate = Date()
 
         noteA.name = "New Note"
