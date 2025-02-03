@@ -32,6 +32,16 @@ class RegisterController: UIViewController {
         return predicate.evaluate(with: email)
     }
 
+    static private func checkNumPassword(password: String) -> Bool {
+        let numberMatch = /[0-9]/
+        return !(password.matches(of: numberMatch).isEmpty)
+    }
+
+    static private func checkSymbolPassword(password: String) -> Bool {
+        let symbolMatch = /[^(A-Za-z0-9)]/
+        return !(password.matches(of: symbolMatch).isEmpty)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -55,64 +65,87 @@ class RegisterController: UIViewController {
         spinner.isHidden = true
 
     }
-    
+
+    func resetEntry() {
+        nameEntry.backgroundColor = .systemGray5
+        ageEntry.backgroundColor = .systemGray5
+        emailEntry.backgroundColor = .systemGray5
+        usernameEntry.backgroundColor = .systemGray5
+        passwordEntry.backgroundColor = .systemGray5
+        pwdCheckEntry.backgroundColor = .systemGray5
+
+    }
+
     @IBAction func registerAction(_ sender: Any) {
-        
+
+        resetEntry()
+
         guard let name = nameEntry.text else {
             statusLabel.text = "Missing name"
             statusLabel.isHidden = false
+            nameEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         if name.isEmpty {
             statusLabel.text = "Missing name"
             statusLabel.isHidden = false
+            nameEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         
         guard let ageText = ageEntry.text else {
             statusLabel.text = "Missing age"
             statusLabel.isHidden = false
+            ageEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         if ageText.isEmpty {
             statusLabel.text = "Missing age"
             statusLabel.isHidden = false
+            ageEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         guard let age = Int(ageText) else {
             statusLabel.text = "Invalid age entry"
             statusLabel.isHidden = false
+            ageEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         
         guard let email = emailEntry.text else {
             statusLabel.text = "Missing email"
             statusLabel.isHidden = false
+            emailEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         if email.isEmpty {
             statusLabel.text = "Missing email"
             statusLabel.isHidden = false
+            emailEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         if !RegisterController.checkEmail(email: email) {
             statusLabel.text = "Invalid email"
             statusLabel.isHidden = false
+            emailEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         
         guard let username = usernameEntry.text?.lowercased() else {
             statusLabel.text = "Missing username"
             statusLabel.isHidden = false
+            usernameEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         if username.isEmpty {
             statusLabel.text = "Missing username"
             statusLabel.isHidden = false
+            usernameEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         if UserManager.findUser(username: username) != nil {
             statusLabel.text = "Chosen username already in use"
+            usernameEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             statusLabel.isHidden = false
             return
         }
@@ -120,27 +153,44 @@ class RegisterController: UIViewController {
         guard let password = passwordEntry.text else {
             statusLabel.text = "Missing password"
             statusLabel.isHidden = false
+            passwordEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         if password.isEmpty {
             statusLabel.text = "Missing password"
             statusLabel.isHidden = false
+            passwordEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         if password.count < 8 {
             statusLabel.text = "Password must be longer than 8 characters"
             statusLabel.isHidden = false
+            passwordEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
+            return
+        }
+        if !RegisterController.checkNumPassword(password: password) {
+            statusLabel.text = "Password must have numeric characters"
+            statusLabel.isHidden = false
+            passwordEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
+            return
+        }
+        if !RegisterController.checkSymbolPassword(password: password) {
+            statusLabel.text = "Password must have non-alphanumeric characters"
+            statusLabel.isHidden = false
+            passwordEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
 
         guard let passwordCheck = pwdCheckEntry.text else {
             statusLabel.text = "Missing password verification"
             statusLabel.isHidden = false
+            pwdCheckEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         if passwordCheck != password {
             statusLabel.text = "Passwords do not match"
             statusLabel.isHidden = false
+            pwdCheckEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         

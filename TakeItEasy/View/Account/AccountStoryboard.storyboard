@@ -128,8 +128,8 @@
                                     <action selector="registerAction:" destination="BVq-ko-IPp" eventType="touchUpInside" id="vu2-yv-dMa"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2aH-Fi-Olx" customClass="ErrorLabel" customModule="TakeItEasy" customModuleProvider="target">
-                                <rect key="frame" x="170.66666666666666" y="686.66666666666663" width="51.666666666666657" height="19.333333333333371"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2aH-Fi-Olx" customClass="ErrorLabel" customModule="TakeItEasy" customModuleProvider="target">
+                                <rect key="frame" x="20" y="686.66666666666663" width="353" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -301,16 +301,18 @@
                                 </constraints>
                             </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="BQF-y2-Ms4">
-                                <rect key="frame" x="186.66666666666666" y="726" width="20" height="20"/>
+                                <rect key="frame" x="186.66666666666666" y="727" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dNm-Ua-alr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2aH-Fi-Olx" firstAttribute="top" secondItem="rYN-Df-ARq" secondAttribute="bottom" constant="30" id="3T9-d5-gyq"/>
+                            <constraint firstItem="2aH-Fi-Olx" firstAttribute="leading" secondItem="dNm-Ua-alr" secondAttribute="leading" constant="20" id="AnC-Xi-f0i"/>
                             <constraint firstItem="2Y9-FL-WM2" firstAttribute="centerX" secondItem="da3-bo-hoc" secondAttribute="centerX" id="ER3-T0-uYy"/>
                             <constraint firstItem="2aH-Fi-Olx" firstAttribute="centerX" secondItem="2Y9-FL-WM2" secondAttribute="centerX" id="Mqb-eS-Y4X"/>
                             <constraint firstItem="9uN-FM-PW6" firstAttribute="top" secondItem="2Y9-FL-WM2" secondAttribute="bottom" constant="25" id="PZt-Fz-tkV"/>
+                            <constraint firstItem="dNm-Ua-alr" firstAttribute="trailing" secondItem="2aH-Fi-Olx" secondAttribute="trailing" constant="20" id="Xm0-1c-ZbT"/>
                             <constraint firstItem="rYN-Df-ARq" firstAttribute="top" secondItem="9uN-FM-PW6" secondAttribute="bottom" constant="40" id="Ybi-VY-qsp"/>
                             <constraint firstItem="9uN-FM-PW6" firstAttribute="centerX" secondItem="da3-bo-hoc" secondAttribute="centerX" id="cnG-3y-vJW"/>
                             <constraint firstItem="rYN-Df-ARq" firstAttribute="centerX" secondItem="2Y9-FL-WM2" secondAttribute="centerX" id="d7S-Dg-wbb"/>
@@ -394,8 +396,8 @@
                                     <constraint firstItem="eaJ-tw-xdb" firstAttribute="centerY" secondItem="ecI-VY-KCF" secondAttribute="centerY" id="rcd-nE-wSB"/>
                                 </constraints>
                             </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-wQ-Omz" customClass="ErrorLabel" customModule="TakeItEasy" customModuleProvider="target">
-                                <rect key="frame" x="170.66666666666666" y="517" width="51.666666666666657" height="19.333333333333371"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-wQ-Omz" customClass="ErrorLabel" customModule="TakeItEasy" customModuleProvider="target">
+                                <rect key="frame" x="20" y="517" width="353" height="19.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -472,6 +474,7 @@
                         <viewLayoutGuide key="safeArea" id="yga-fe-mBl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Lzc-wQ-Omz" firstAttribute="leading" secondItem="yga-fe-mBl" secondAttribute="leading" constant="20" id="0PT-Xc-TNv"/>
                             <constraint firstItem="zuj-FQ-zfa" firstAttribute="top" secondItem="Gze-Tr-V2j" secondAttribute="bottom" constant="25" id="1Yx-h1-wjD"/>
                             <constraint firstItem="Gze-Tr-V2j" firstAttribute="top" secondItem="kam-hR-Loq" secondAttribute="bottom" constant="40" id="7fz-IU-4Wq"/>
                             <constraint firstItem="IQI-Vo-NYB" firstAttribute="centerX" secondItem="Dxb-0j-bL4" secondAttribute="centerX" id="8lj-V5-AdS"/>
@@ -482,6 +485,7 @@
                             <constraint firstItem="zuj-FQ-zfa" firstAttribute="centerX" secondItem="Dxb-0j-bL4" secondAttribute="centerX" id="SBF-mU-sNd"/>
                             <constraint firstItem="Lzc-wQ-Omz" firstAttribute="top" secondItem="zuj-FQ-zfa" secondAttribute="bottom" constant="30" id="ZXk-Xj-Z9h"/>
                             <constraint firstItem="IQI-Vo-NYB" firstAttribute="top" secondItem="yga-fe-mBl" secondAttribute="top" constant="40" id="adP-NY-ZYK"/>
+                            <constraint firstItem="yga-fe-mBl" firstAttribute="trailing" secondItem="Lzc-wQ-Omz" secondAttribute="trailing" constant="20" id="anN-tZ-fkr"/>
                             <constraint firstItem="kam-hR-Loq" firstAttribute="leading" secondItem="yga-fe-mBl" secondAttribute="leading" constant="35" id="dhr-ny-f2n"/>
                             <constraint firstItem="kam-hR-Loq" firstAttribute="centerX" secondItem="Dxb-0j-bL4" secondAttribute="centerX" id="qqA-4c-Isg"/>
                             <constraint firstItem="gMG-mw-yJy" firstAttribute="centerX" secondItem="Dxb-0j-bL4" secondAttribute="centerX" id="t6M-dy-B6c"/>
