@@ -89,7 +89,7 @@ class BookListController: UIViewController {
     }
 
     // MARK: API retrieval callbakcs
-    // These functions receive results from succesful API calls, and update view accordingly
+    // These functions receive results from succesful API calls, and update views accordingly
 
     func updateBookImage(image: UIImage, book: BookInfo, categoryIndex: IndexPath, itemIndex: IndexPath) {
         book.image = image

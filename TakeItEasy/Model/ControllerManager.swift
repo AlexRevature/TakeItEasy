@@ -76,10 +76,11 @@ class ControllerManager {
         tabController.navigationItem.backButtonTitle = "Back"
         tabController.navigationItem.rightBarButtonItem = rightBarButtonItem
         tabController.navigationItem.titleView = middleButton
-
+        
         // Delay to make LaunchScreen transition smoother
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             navigationController?.setViewControllers([tabController], animated: true)
+            navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
 

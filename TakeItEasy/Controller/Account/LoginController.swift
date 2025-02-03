@@ -18,7 +18,9 @@ class LoginController: UIViewController {
     @IBOutlet weak var userBack: UIView!
     @IBOutlet weak var passwordBack: UIView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
+
+    let errorColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,26 +43,26 @@ class LoginController: UIViewController {
         guard let username = usernameEntry.text?.lowercased() else {
             statusLabel.text = "Missing Username"
             statusLabel.isHidden = false
-            usernameEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
+            usernameEntry.backgroundColor = errorColor
             return
         }
         if username.count == 0 {
             statusLabel.text = "Missing Username"
             statusLabel.isHidden = false
-            usernameEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
+            usernameEntry.backgroundColor = errorColor
             return
         }
 
         guard let password = passwordEntry.text else {
             statusLabel.text = "Missing Password"
             statusLabel.isHidden = false
-            passwordEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
+            passwordEntry.backgroundColor = errorColor
             return
         }
         if password.count == 0 {
             statusLabel.text = "Missing Password"
             statusLabel.isHidden = false
-            passwordEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
+            passwordEntry.backgroundColor = errorColor
             return
         }
 
@@ -69,7 +71,7 @@ class LoginController: UIViewController {
         guard status != .invalidKey else {
             statusLabel.text = "User not found"
             statusLabel.isHidden = false
-            usernameEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
+            usernameEntry.backgroundColor = errorColor
             return
         }
         
@@ -82,7 +84,7 @@ class LoginController: UIViewController {
         guard storedPassword == password else {
             statusLabel.text = "Incorrect password"
             statusLabel.isHidden = false
-            passwordEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
+            passwordEntry.backgroundColor = errorColor
             return
         }
         

@@ -40,38 +40,42 @@ class BookReaderController: UIViewController {
         pageButton.clipsToBounds = true
         pageButton.setTitle("  Bookmarks  ", for: .normal)
 
-        // Show loading screen while pdf is cached
-        if selectedBook?.url != nil {
+        loadInBook()
+    }
 
-            let bookStoryboard = UIStoryboard(name: "BookStoryboard", bundle: nil)
-            guard let loadController = bookStoryboard.instantiateViewController(identifier: "BookLoadController") as? BookLoadController else {
-                return
-            }
+    func loadInBook() {
+        guard let bookUrl = selectedBook?.url else {
+            return
+        }
 
-            loadController.selectedBook = selectedBook
-            loadController.view.frame = view.frame
-            loadController.view.alpha = 0
-            self.view.addSubview(loadController.view)
+        let bookStoryboard = UIStoryboard(name: "BookStoryboard", bundle: nil)
+        guard let loadController = bookStoryboard.instantiateViewController(identifier: "BookLoadController") as? BookLoadController else {
+            return
+        }
 
-            UIView.animate(withDuration: 1.2) {
-                loadController.view.alpha = 1
-            }
+        loadController.selectedBook = selectedBook
+        loadController.view.frame = view.frame
+        loadController.view.alpha = 0
+        self.view.addSubview(loadController.view)
 
-            // Load PDF document in a background context
-            DispatchQueue.global().async {
-                let document = PDFDocument(url: self.selectedBook!.url!)
-                self.selectedBook?.document = document
+        UIView.animate(withDuration: 1.2) {
+            loadController.view.alpha = 1
+        }
 
-                // Signal PDF is ready, remove loading screen
-                DispatchQueue.main.async {
-                    UIView.animate(withDuration: 0.8, animations: {
-                        loadController.view.alpha = 0
-                    }) { _ in
-                        loadController.view.removeFromSuperview()
-                    }
-                    self.documentView?.document = document
-                    self.addMenu(button: self.pageButton)
+        // Load PDF document in a background context
+        DispatchQueue.global().async {
+            let document = PDFDocument(url: bookUrl)
+            self.selectedBook?.document = document
+
+            // Signal PDF is ready, remove loading screen
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.8, animations: {
+                    loadController.view.alpha = 0
+                }) { _ in
+                    loadController.view.removeFromSuperview()
                 }
+                self.documentView?.document = document
+                self.addMenu(button: self.pageButton)
             }
         }
     }
