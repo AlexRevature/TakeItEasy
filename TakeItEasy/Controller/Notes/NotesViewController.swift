@@ -16,6 +16,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
     let userDefault = UserDefaults.standard
     private var noteToPass : StoredNote? = nil
     var addButton: UIBarButtonItem?
+    var statusLabel = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +25,47 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         searchBar.delegate = self
         
         setViewThemeManager()
+        setStatusLabel()
         addButton = UIBarButtonItem (
             image: UIImage(systemName: "plus"),
             style: .done,
             target: self,
             action: #selector(self.addButtonPressed)
         )
+    }
+    
+    //Credit to Alex Cabrera for the orignial code
+    func setStatusLabel() {
+        statusLabel.text = "No Results"
+        view.addSubview(statusLabel)
+        NSLayoutConstraint.activate([
+            statusLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            statusLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.isHidden = true
+        statusLabel.alpha = 0.0
+        //showStatus()
+    }
+    
+    //Credit to Alex Cabrera for the orignial code
+    func showStatus() {
+        let animations = { self.statusLabel.alpha = 1.0 }
+
+        DispatchQueue.main.async {
+            self.statusLabel.isHidden = false
+            UIView.animate(withDuration: 0.35, animations: animations)
+        }
+    }
+    
+    //Credit to Alex Cabrera for the orignial code
+    func hideStatus() {
+        let animations = { self.statusLabel.alpha = 0.0 }
+        let completion = { (_: Bool) in self.statusLabel.isHidden = true }
+
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.35, animations: animations, completion: completion)
+        }
     }
     
     func reloadFromCoreData() {
@@ -39,6 +75,7 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         }
         sortNotesByRecentcy()
         tableView.reloadData()
+        hideStatus()
     }
     
     func sortNotesByRecentcy() {
@@ -157,8 +194,13 @@ class NotesViewController:  UIViewController, UITableViewDelegate, UITableViewDa
         searchNotesByBody(resultsArray: &resultsArray, searchText: searchText)
         
         noteData = resultsArray
+        if noteData.count == 0 {
+            showStatus()
+        } else {
+            hideStatus()
+        }
+ 
         tableView.reloadData()
-        //refreshSearchPool()
     }
     
     func refreshSearchPool() {
