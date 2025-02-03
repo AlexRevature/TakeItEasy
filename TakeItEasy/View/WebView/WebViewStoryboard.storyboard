@@ -20,18 +20,75 @@
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hNf-az-hF7">
+                                <rect key="frame" x="109" y="763" width="175" height="35"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bK9-qc-wV2">
+                                        <rect key="frame" x="70" y="0.0" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="WHF-LV-Ma3"/>
+                                            <constraint firstAttribute="width" secondItem="bK9-qc-wV2" secondAttribute="height" multiplier="1:1" id="XwI-pJ-zZl"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="arrow.counterclockwise" catalog="system"/>
+                                        <connections>
+                                            <action selector="reloadAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="XUD-Oq-POD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Nf-hW-qri">
+                                        <rect key="frame" x="20" y="0.0" width="35" height="35"/>
+                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="chevron.backward" catalog="system"/>
+                                        <connections>
+                                            <action selector="backwardAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="BNV-hk-hcX"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfu-lq-ihK">
+                                        <rect key="frame" x="120" y="0.0" width="35" height="35"/>
+                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="chevron.forward" catalog="system"/>
+                                        <connections>
+                                            <action selector="forwardAction:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="oOr-CA-Cws"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="bK9-qc-wV2" firstAttribute="leading" secondItem="4Nf-hW-qri" secondAttribute="trailing" constant="15" id="1Ef-C3-AsQ"/>
+                                    <constraint firstItem="4Nf-hW-qri" firstAttribute="leading" secondItem="hNf-az-hF7" secondAttribute="leading" constant="20" id="3OQ-NC-dD9"/>
+                                    <constraint firstItem="bK9-qc-wV2" firstAttribute="centerX" secondItem="hNf-az-hF7" secondAttribute="centerX" id="CEc-Dv-78f"/>
+                                    <constraint firstAttribute="bottom" secondItem="bK9-qc-wV2" secondAttribute="bottom" id="Dqr-nN-LGb"/>
+                                    <constraint firstItem="jfu-lq-ihK" firstAttribute="leading" secondItem="bK9-qc-wV2" secondAttribute="trailing" constant="15" id="H3Q-vT-xZ5"/>
+                                    <constraint firstItem="4Nf-hW-qri" firstAttribute="top" secondItem="hNf-az-hF7" secondAttribute="top" id="LPB-sy-7iT"/>
+                                    <constraint firstItem="jfu-lq-ihK" firstAttribute="width" secondItem="bK9-qc-wV2" secondAttribute="width" id="WD9-D2-SCt"/>
+                                    <constraint firstItem="bK9-qc-wV2" firstAttribute="top" secondItem="hNf-az-hF7" secondAttribute="top" id="cbN-jt-prU"/>
+                                    <constraint firstAttribute="bottom" secondItem="jfu-lq-ihK" secondAttribute="bottom" id="cdv-i5-z8E"/>
+                                    <constraint firstItem="jfu-lq-ihK" firstAttribute="top" secondItem="hNf-az-hF7" secondAttribute="top" id="dam-gp-vcZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="jfu-lq-ihK" secondAttribute="trailing" constant="20" id="jV4-vh-2dY"/>
+                                    <constraint firstItem="bK9-qc-wV2" firstAttribute="width" secondItem="4Nf-hW-qri" secondAttribute="width" id="okU-RN-N2R"/>
+                                    <constraint firstAttribute="bottom" secondItem="4Nf-hW-qri" secondAttribute="bottom" id="s4p-dq-Z5X"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="hNf-az-hF7" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="3I4-0S-j1r"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="pOs-mX-kha" secondAttribute="trailing" id="6Ia-wj-7sz"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="pOs-mX-kha" secondAttribute="bottom" id="CqV-Au-X7n"/>
                             <constraint firstItem="pOs-mX-kha" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="djf-55-SEA"/>
                             <constraint firstItem="pOs-mX-kha" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="qCU-Gy-4eW"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="hNf-az-hF7" secondAttribute="bottom" constant="20" id="vP4-5Z-rL7"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="4Nf-hW-qri" id="Qn1-vW-kTS"/>
+                        <outlet property="buttonBackground" destination="hNf-az-hF7" id="2kf-aA-haK"/>
                         <outlet property="documentWrapper" destination="pOs-mX-kha" id="Eao-lj-oDg"/>
+                        <outlet property="forwardButton" destination="jfu-lq-ihK" id="Jwv-v9-hJd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -40,6 +97,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.counterclockwise" catalog="system" width="110" height="128"/>
+        <image name="chevron.backward" catalog="system" width="97" height="128"/>
+        <image name="chevron.forward" catalog="system" width="97" height="128"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

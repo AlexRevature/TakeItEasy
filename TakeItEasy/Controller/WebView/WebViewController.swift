@@ -14,8 +14,9 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     var webView: WKWebView?
 
     @IBOutlet weak var documentWrapper: UIView!
-
-    var backButton: UIBarButtonItem?
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var forwardButton: UIButton!
+    @IBOutlet weak var buttonBackground: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,35 +35,40 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         documentWrapper.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", metrics: nil, views: viewsDict as [String : Any]))
         documentWrapper.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", metrics: nil, views: viewsDict as [String : Any]))
 
-        backButton = UIBarButtonItem (
-            image: UIImage(systemName: "chevron.left"),
-            style: .done,
-            target: self,
-            action: #selector(reverseWebView)
-        )
+        backButton.isEnabled = false
+        forwardButton.isEnabled = false
 
-        backButton?.isHidden = true
+        buttonBackground.backgroundColor = .systemGray5
+        buttonBackground.layer.cornerRadius = 10
+        buttonBackground.clipsToBounds = true
+
+
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController?.navigationItem.leftBarButtonItem = backButton
+    @IBAction func reloadAction(_ sender: Any) {
+        self.webView?.reload()
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if self.tabBarController?.navigationItem.leftBarButtonItem == backButton {
-            self.tabBarController?.navigationItem.leftBarButtonItem = nil
-        }
-    }
-
-    @objc
-    func reverseWebView() {
+    
+    @IBAction func backwardAction(_ sender: Any) {
         self.webView?.goBack()
 
         if let backList = webView?.backForwardList.backList, backList.count == 1 {
-            backButton?.isHidden = true
+            backButton?.isEnabled = false
+        } else {
+            backButton?.isEnabled = true
         }
+        forwardButton?.isEnabled = true
+    }
+
+    @IBAction func forwardAction(_ sender: Any) {
+        self.webView?.goForward()
+
+        if let forwardList = webView?.backForwardList.forwardList, forwardList.count == 1 {
+            forwardButton?.isEnabled = false
+        } else {
+            forwardButton?.isEnabled = true
+        }
+        backButton?.isEnabled = true
     }
 
     // Can be run before viewDidLoad to speed up loading
@@ -74,9 +80,13 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        if !webView.backForwardList.backList.isEmpty {
-            backButton?.isHidden = false
+
+        if webView.backForwardList.backList.count == 0 {
+            backButton?.isEnabled = false
+        } else {
+            backButton?.isEnabled = true
         }
+        forwardButton?.isEnabled = false
     }
 
 }
