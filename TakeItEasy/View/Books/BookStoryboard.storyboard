@@ -291,7 +291,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0jy-r1-2ev">
-                                <rect key="frame" x="181.66666666666666" y="778" width="30" height="30"/>
+                                <rect key="frame" x="181.66666666666666" y="768" width="30" height="30"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="N"/>
@@ -302,7 +302,7 @@
                         <constraints>
                             <constraint firstItem="AD5-5f-yd9" firstAttribute="trailing" secondItem="Dyo-SV-zUH" secondAttribute="trailing" id="0aO-rJ-Ow4"/>
                             <constraint firstItem="0jy-r1-2ev" firstAttribute="centerX" secondItem="Vcs-2Y-GyC" secondAttribute="centerX" id="6Ne-gI-7XW"/>
-                            <constraint firstItem="AD5-5f-yd9" firstAttribute="bottom" secondItem="0jy-r1-2ev" secondAttribute="bottom" constant="10" id="DiF-3f-ky3"/>
+                            <constraint firstItem="AD5-5f-yd9" firstAttribute="bottom" secondItem="0jy-r1-2ev" secondAttribute="bottom" constant="20" id="DiF-3f-ky3"/>
                             <constraint firstItem="Dyo-SV-zUH" firstAttribute="leading" secondItem="AD5-5f-yd9" secondAttribute="leading" id="TPX-O1-mKM"/>
                             <constraint firstItem="AD5-5f-yd9" firstAttribute="bottom" secondItem="Dyo-SV-zUH" secondAttribute="bottom" id="WnQ-gv-Ge3"/>
                             <constraint firstItem="Dyo-SV-zUH" firstAttribute="top" secondItem="AD5-5f-yd9" secondAttribute="top" id="tL7-vw-UfP"/>
