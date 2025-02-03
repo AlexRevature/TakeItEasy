@@ -41,30 +41,35 @@ class LoginController: UIViewController {
         guard let username = usernameEntry.text?.lowercased() else {
             statusLabel.text = "Missing Username"
             statusLabel.isHidden = false
+            usernameEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         if username.count == 0 {
             statusLabel.text = "Missing Username"
             statusLabel.isHidden = false
+            usernameEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
-        
+
         guard let password = passwordEntry.text else {
             statusLabel.text = "Missing Password"
             statusLabel.isHidden = false
+            passwordEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         if password.count == 0 {
             statusLabel.text = "Missing Password"
             statusLabel.isHidden = false
+            passwordEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
-        
+
         let (status, storedPassword) = KeychainManager.retrievePassword(username: username)
         
         guard status != .invalidKey else {
             statusLabel.text = "User not found"
             statusLabel.isHidden = false
+            usernameEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         
@@ -73,10 +78,11 @@ class LoginController: UIViewController {
             statusLabel.isHidden = false
             return
         }
-        
+
         guard storedPassword == password else {
             statusLabel.text = "Incorrect password"
             statusLabel.isHidden = false
+            passwordEntry.backgroundColor = ThemeManager.customColor(r: 229, g: 162, b: 174)
             return
         }
         

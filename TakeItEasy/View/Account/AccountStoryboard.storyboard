@@ -396,8 +396,8 @@
                                     <constraint firstItem="eaJ-tw-xdb" firstAttribute="centerY" secondItem="ecI-VY-KCF" secondAttribute="centerY" id="rcd-nE-wSB"/>
                                 </constraints>
                             </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-wQ-Omz" customClass="ErrorLabel" customModule="TakeItEasy" customModuleProvider="target">
-                                <rect key="frame" x="20" y="517" width="353" height="19.333333333333371"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-wQ-Omz" customClass="ErrorLabel" customModule="TakeItEasy" customModuleProvider="target">
+                                <rect key="frame" x="20" y="517" width="353" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -468,7 +468,7 @@
                                 </constraints>
                             </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="gMG-mw-yJy">
-                                <rect key="frame" x="186.66666666666666" y="556.33333333333337" width="20" height="20"/>
+                                <rect key="frame" x="186.66666666666666" y="557.33333333333337" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yga-fe-mBl"/>
