@@ -41,7 +41,17 @@ class LandingController: UIViewController {
         ).cgPath
 
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
     @IBAction func loginAction(_ sender: Any) {
         let storyboard = UIStoryboard(name: "AccountStoryboard", bundle: nil)
         let loginController = storyboard.instantiateViewController(identifier: "LoginController")
