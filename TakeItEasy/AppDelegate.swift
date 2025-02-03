@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         actionConfiguration.baseForegroundColor = ThemeManager.alternateText
         ActionButton.appearance().configuration = actionConfiguration
 
-        var alternateConfiguration = ActionButton.Configuration.filled()
-        alternateConfiguration.baseBackgroundColor = UIColor.systemGray2
+        var alternateConfiguration = AlternateButton.Configuration.filled()
+        alternateConfiguration.baseBackgroundColor = ThemeManager.tertiaryColor
         alternateConfiguration.baseForegroundColor = ThemeManager.alternateText
         AlternateButton.appearance().configuration = alternateConfiguration
 

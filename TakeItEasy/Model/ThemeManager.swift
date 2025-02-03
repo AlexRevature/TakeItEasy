@@ -10,6 +10,7 @@ import UIKit
 class ThemeManager {
     static let primaryColor: UIColor = .init(named: "CustomPrimary") ?? .black
     static let secondaryColor: UIColor = .init(named: "CustomSecondary") ?? .black
+    static let tertiaryColor: UIColor = .init(named: "CustomTertiary") ?? .black
     static let backColor: UIColor = .init(named: "BackColor") ?? .black
     static let normalText: UIColor = .init(named: "NormalText") ?? .black
     static let alternateText: UIColor = .white
