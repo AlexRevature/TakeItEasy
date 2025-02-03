@@ -16,7 +16,8 @@ class LaunchController: UIViewController {
         super.viewDidLoad()
 
         iconHolder.clipsToBounds = true
-        iconHolder.layer.cornerRadius = 20
+        iconHolder.layer.cornerRadius = 25
+        iconHolder.backgroundColor = .systemGray5
 
         spinner.startAnimating()
     }

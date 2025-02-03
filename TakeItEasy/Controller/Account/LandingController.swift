@@ -19,9 +19,9 @@ class LandingController: UIViewController {
 
         titleBack.backgroundColor = nil
 
-        logoView.image = .init(systemName: "figure.strengthtraining.functional.circle.fill")
+        logoView.image = .init(named: "icon")
         logoView.tintColor = ThemeManager.primaryColor
-        logoView.layer.cornerRadius = 20
+        logoView.layer.cornerRadius = 25
         logoView.backgroundColor = UIColor.systemGray5
         logoView.clipsToBounds = true
 
