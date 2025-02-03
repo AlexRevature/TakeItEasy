@@ -35,9 +35,10 @@ class BookReaderController: UIViewController {
         }
 
         pageButton.isHidden = true
-        pageButton.backgroundColor = .lightGray
+        pageButton.backgroundColor = .systemGray5
         pageButton.layer.cornerRadius = 8
         pageButton.clipsToBounds = true
+        pageButton.setTitle("  Bookmarks  ", for: .normal)
 
         // Show loading screen while pdf is cached
         if selectedBook?.url != nil {
@@ -83,7 +84,7 @@ class BookReaderController: UIViewController {
 
         for i in 0..<outline.numberOfChildren {
             if let bookmark = outline.child(at: i), let destination = bookmark.destination {
-                let child = UIAction(title: bookmark.label ?? "a") { _ in
+                let child = UIAction(title: bookmark.label ?? "") { _ in
                     self.documentView?.go(to: destination)
                 }
                 childrenList.append(child)
