@@ -38,7 +38,7 @@ class BookReaderController: UIViewController {
         pageButton.backgroundColor = .systemGray5
         pageButton.layer.cornerRadius = 8
         pageButton.clipsToBounds = true
-        pageButton.setTitle("  Bookmarks  ", for: .normal)
+        pageButton.setTitle("  Table of Contents  ", for: .normal)
 
         loadInBook()
     }
